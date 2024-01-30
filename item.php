@@ -14,7 +14,8 @@ $maintenanceParameters = ['action' => 'maintenanceLog', 'id'=> $id];
 $images = $apiClient->get('', $imageParameters);
 // Make the API request and get the JSON response
 if ($id !='' ) { $items = $apiClient->get('', $parameters);
-$maintenance = $apiClient->get('', $maintenanceParameters); }
+$maintenance = $apiClient->get('', $maintenanceParameters); 
+}
 if ($action == 'add' || $action == 'edit') { ?>
 
 		<h2>Add/Edit Item</h2>
@@ -154,10 +155,10 @@ if ($action == 'add' || $action == 'edit') { ?>
 				<?php 
 				if ($id != '' && $maintenance) {
 					echo "<table id='maintenanceLog'>	<thead>
-<tr><th>Date</th><th>Service</th><th>Notes</th><th>Cost</th></tr></thead>";
-				foreach ($maintenance as $service){
+					<tr><th>Date</th><th>Service</th><th>Notes</th><th>Cost</th></tr></thead>";
+				foreach ($maintenance as $service) {
 					echo "<tr><td>".$service['date']."</td><td>".$service['service']."</td><td>".$service['notes']."</td><td>".$service['cost']."</td></tr>";
-				}
+			}
 				echo "</table>";
 			}
 					?>

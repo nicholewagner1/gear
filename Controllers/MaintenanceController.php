@@ -103,7 +103,7 @@ if (!$stmtMaintenance->execute()) {
 			header('Content-Type: application/json');
 			echo $jsonResult;
 				} else {
-			echo json_encode(array("message" => "No outfits found."));
+			//echo json_encode(array("message" => "No outfits found."));
 		}
 	
 		$stmt->close();
