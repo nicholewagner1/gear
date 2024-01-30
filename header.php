@@ -31,22 +31,22 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	}
 	else {
 		$apiBaseUrl = 'https://gearcheck.nicholewagner.com/api/index.php?';
-		require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
-			$session = $auth0->getCredentials();
-		$userInfo = $auth0->getUser();
-		$userId = $userInfo['sub'];
-		
-		if (!getUserRole($userId)) {
-			echo 'unauthorized';
-			die;
-		}
-	
-		if ($session === null) {
-			// The user isn't logged in.
-			echo '<p>Please <a href="/login.php">log in</a>.</p>';
-			header("Location: https://gearcheck.nicholewagner.com/login.php");
-			die;
-		  }
+	// 	require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
+	// 	$session = $auth0->getCredentials();
+	// 	$userInfo = $auth0->getUser();
+	// 	$userId = $userInfo['sub'];
+	// 	
+	// 	if (!getUserRole($userId)) {
+	// 		echo 'unauthorized';
+	// 		die;
+	// 	}
+	// 
+	// 	if ($session === null) {
+	// 		// The user isn't logged in.
+	// 		echo '<p>Please <a href="/login.php">log in</a>.</p>';
+	// 		header("Location: https://gearcheck.nicholewagner.com/login.php");
+	// 		die;
+	// 	  }
 		
 	}
 		
