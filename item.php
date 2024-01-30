@@ -10,9 +10,11 @@ $apiClient = new Client\ApiClient($apiBaseUrl);
 
 $parameters = ['action' => 'list', 'id'=> $id];
 $imageParameters = ['action' => 'images', 'id'=> $id];
+$maintenanceParameters = ['action' => 'maintenanceLog', 'id'=> $id];
 $images = $apiClient->get('', $imageParameters);
 // Make the API request and get the JSON response
-if ($id !='' ) { $items = $apiClient->get('', $parameters); }
+if ($id !='' ) { $items = $apiClient->get('', $parameters);
+$maintenance = $apiClient->get('', $maintenanceParameters); }
 if ($action == 'add' || $action == 'edit') { ?>
 
 		<h2>Add/Edit Item</h2>
@@ -121,7 +123,7 @@ if ($action == 'add' || $action == 'edit') { ?>
 				<input type="file" id ="documentUpload" class="form-control-file" name="documentUpload" multiple="multiple" accept="image/*,application/pdf">
 				
 				<?php 
-				if ($id != '' && $image) {
+				if ($id != '' && $images) {
 					echo "<div class='row'>";
 					$documentURLs = '';
 					foreach ($images as $document) {
@@ -135,9 +137,9 @@ if ($action == 'add' || $action == 'edit') { ?>
 				}
 				
 				echo '</div>';
-			}
-			echo '<input type="text" id="document" hidden class="custom-file-input" name="document" value="'.$documentURLs.'">';
-			?></div>
+			}?>
+			<input type="text" id="document" hidden class="custom-file-input" name="document" value="<?php echo $documentURLs ?? ''; ?>">
+			</div>
 			
 		
 			<div class="row">
@@ -148,8 +150,19 @@ if ($action == 'add' || $action == 'edit') { ?>
 			</div>
 			<div class="form-group">
 			<div class="row">
-				
+				<div class="col">
+				<?php 
+				if ($id != '' && $maintenance) {
+					echo "<table id='maintenanceLog'>	<thead>
+<tr><th>Date</th><th>Service</th><th>Notes</th><th>Cost</th></tr></thead>";
+				foreach ($maintenance as $service){
+					echo "<tr><td>".$service['date']."</td><td>".$service['service']."</td><td>".$service['notes']."</td><td>".$service['cost']."</td></tr>";
+				}
+				echo "</table>";
+			}
+					?>
 				</div>
+			</div>
 			</div>
 			</form>
 			<button type="button" value="Add Item" id="addEditItemFormButton" class="btn btn-primary">Submit</button>
@@ -158,7 +171,13 @@ if ($action == 'add' || $action == 'edit') { ?>
 	$(document).ready(function () {
 	
 	getValues();
-		
+		$('#maintenanceLog').DataTable({
+			"pageLength": 10,  		
+			"searching": false,
+			"order": [[1, "desc"]],  
+			fixedHeader: true,
+			responsive: true,
+		});
 		
 	$("#addEditItemFormButton").click(function (event) {
 			event.preventDefault();

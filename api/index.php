@@ -21,7 +21,7 @@ if ($method == 'POST') {
 	$data = json_decode(file_get_contents('php://input'), true);
 }
 $itemController = new Controllers\ItemController($db, $data);
-$outfitController = new Controllers\OutfitController($db, $data);
+$maintenanceController = new Controllers\MaintenanceController($db, $data);
 
 switch ($method) {
 case 'GET':
@@ -32,18 +32,14 @@ case 'GET':
 	if ($_GET['action'] === 'images') {
 		$itemController->returnItemImages($data);
 	}
-	if ($_GET['action'] === 'outfitList') {
-		$outfitController->returnAllOutfits();
-	}
-	if ($_GET['action'] === 'updateLastWorn'){
-		$outfitController->updateItemLastWorn($data);
-
+	if ($_GET['action'] === 'maintenanceLog') {
+		$maintenanceController->returnAllMaintenance();
 	}
 	if ($_GET['action'] === 'autocomplete') {
 		$itemController->autocomplete($data);
 	}
-	if ($_GET['action'] === 'autocompleteVibe') {
-		$outfitController->autocompleteVibe($data);
+	if ($_GET['action'] === 'addMaintenanceLog') {
+		$maintenanceController->maintenanceLog($data);
 	}
 	if ($_GET['action'] === 'delete') {
 		$itemController->deleteItem($data);
@@ -67,19 +63,15 @@ case 'GET':
 			$imageType = $_POST['imageType'] ?? '';
 			$imagesArray = $_FILES['images'] ?? [];
 			$images = [];
-		
 			foreach ($imagesArray as $key => $value) {
 				foreach ($value as $index => $fileData) {
 					$images[$index][$key] = $fileData;
 				}
 			}
-		
 			$itemController->uploadPhoto($images, $imageType);
 		}
-
-	
 	if ($_GET['action'] === 'addEditOutfit') {
-		$outfitController->addEditOutfit($data);
+		$maintenanceController->addEditOutfit($data);
 		}
  break;
 		

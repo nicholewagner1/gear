@@ -11,7 +11,7 @@ use Client\ApiClient;
 $apiClient = new Client\ApiClient($apiBaseUrl);
 
 if ($id != '' && $action == 'edit' || $action == 'view') {
-	$parameters = ['action' => 'outfitList'];
+	$parameters = ['action' => 'maintenanceLog'];
 	$parameters['id'] = $id;
 	}
 //	var_dump($parameters);
@@ -21,27 +21,34 @@ $items = $apiClient->get('', $parameters);
 ?>
 
 <?php if ($action == 'add' || $action == 'edit') { ?>
-<h2>Create Outfit</h2>
+<h2>Log Maintenance</h2>
 
-<form id="createOutfitForm">
+<form id="logMaintenaceForm">
 	<input type="text" name="id" hidden value="<?php echo $items[0]['id']; ?>"><br>
 
-	<label for="date">Date Worn:</label>
+	<label for="date">Date:</label>
 	<input type="date" name="date" required value="<?php echo $items[0]['date'] ; ?>"><br>
-	<label for="date">Vibe:</label>
-	<select id="vibe" class="js-multiple-select items autocomplete form-control" type="text" name="vibe" value="<?php echo $items[0]['vibe'] ; ?>"></select><br>
+	<label for="date">Service:</label>
+	<select id="service" class="js-multiple-select service autocomplete form-control" type="text" name="service" value="<?php echo $items[0]['service'] ; ?>"></select><br>
 
 	<div class="row">
 		 <div class="col">
-			 <label for="items">Items Choice</label>
-			<select id="items" class="js-multiple-select items form-control" multiple="multiple" name="items" value="<?php echo $items[0]['items']; ?>">
+			 <label for="item">Item</label>
+			<select id="item" class="js-multiple-select item form-control" multiple="multiple" name="item" value="<?php echo $items[0]['item']; ?>">
 			</select>
 	<div id="itemImages"></div>
 
+
 		</div>
+		<div class="row">
+			<div class="col">
+			<label for="notes">Notes</label>	<input type="text" id="notes" class="form-control notes" name="notes">
+			
+			<label for="cost">Cost</label>	<input type="text" id="cost" class="form-control cost" name="cost">
+			</div>
 	  </div>
 
-	<input type="submit" value="Create Outfit">
+	<input type="submit" value="Log Maintenance">
 </form>
 
 <!-- Include script for processing form with jQuery -->
@@ -51,32 +58,7 @@ $items = $apiClient->get('', $parameters);
 
 		getVibesValues();
 		
-function getItems() {
-	const previousItems = $("#items").attr('value');
 
-		const itemSelector = $("#items");
-	
-		// Check if data is already cached in localStorage
-		const cachedData = localStorage.getItem('cachedItems');
-		if (cachedData) {
-			const data = JSON.parse(cachedData);
-			populateDropdown(data);
-		} else {
-			// If not cached, make the Ajax call
-			$.getJSON("/api/?action=list", function (data) {
-				// Cache the data in localStorage
-				localStorage.setItem('cachedItems', JSON.stringify(data));
-	
-				// Populate the dropdown
-				populateDropdown(data);
-			}).fail(function (error) {
-				console.error("Error:", error);
-			});
-		}
-		preFillSelector("items", previousItems);
-
-	}
-	
 	function populateDropdown(data) {
 		const itemSelector = $("#items");
 		itemSelector.empty();
@@ -97,7 +79,6 @@ function getItems() {
 		});
 	}
 	
-	getItems();
 		
 		function preFillSelector(selectorId, selectedIds) {
 
@@ -166,7 +147,7 @@ function getItems() {
 			// Send data using AJAX
 			$.ajax({
 				type: "POST",
-				url: "/api/index.php?action=addEditOutfit", // replace with your actual API endpoint
+				url: "/api/index.php?action=addMaintenanceLog", // replace with your actual API endpoint
 				contentType: "application/json", // Set content type to JSON
 				data: JSON.stringify(jsonData),
 				success: function (data) {
@@ -192,8 +173,11 @@ else {
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Vibe</th>
-				<th>Items</th>
+				<th>Service</th>
+				<th>Item</th>
+				<th>Notes</th>
+				<th>Cost</th>
+
 			</tr>
 		</thead>
 		<tbody>
@@ -207,19 +191,19 @@ else {
 					<td class="center"><?php $date = strtotime($item['date']);
 					echo date('Y-m-d <br> D', $date);
 					 ?>
-				 <br> <a href="/outfit.php?action=edit&id=<?php echo $item['id']; ?>"><i class="fa-solid fa-pencil"></i></a></td>
+				 <br> <a href="/maintenance.php?action=edit&id=<?php echo $item['id']; ?>"><i class="fa-solid fa-pencil"></i></a></td>
 				
 
-					<td class="center"><?php echo $item['vibe']; ?></td>
- <td>
-					<?php foreach ($item['itemImages'] as $items) {
-						echo '<div class="outfitImage"><a href="/item.php?action=edit&id='.$items['item_id'].'"><img src="/images/items/' . trim($items['image_url']) . '" width=100 height=100 alt="'.$items['item_name'].'"></a><br><span class="text-smaller">'.$items['item_name'].'</div>';
-					}
-					 ?><br>
-				<?php echo $itemNames; ?>
-</td>
-				</tr>
-				
+					<td class="center"><?php echo $item['service']; ?></td>
+ 				   <td>
+										<?php echo $item['item']; ?>
+					</td>
+					 <td>
+										<?php echo $item['notes']; ?>
+					</td>
+					 <td>
+										<?php echo $item['cost']; ?>
+					</td>
 			<?php endforeach; ?>
 		</tbody>
 	</table>

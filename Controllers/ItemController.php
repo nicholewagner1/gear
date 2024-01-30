@@ -244,8 +244,8 @@ public function hardDeleteItem($data) {
 		if ($this->status != '') {
 			$sql .= " AND status  = '" .$this->status ."'";
 		}
-		if ($this->status == '' && $this->filter =='') {
-			$sql .= " WHERE status  = 'Current'";
+		if ($this->status == '' && $this->filter =='' && $this->id == '') {
+			$sql .= " WHERE status  = 'Current' ";
 		}
 		$sql .= " GROUP BY  i.id";
 		if ($this->sort != '') {
