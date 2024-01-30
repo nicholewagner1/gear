@@ -38,6 +38,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 		
 		if (!getUserRole($userId)) {
 			echo 'unauthorized';
+			echo '<p>Please <a href="/login.php">log in</a>.</p>';
 			die;
 		}
 	
