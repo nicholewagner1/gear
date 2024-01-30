@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['HTTP_HOST'] !== 'wardrobe.localhost' || $_SERVER['HTTP_HOST'] !== '127.0.0.1') {
+if ($_SERVER['HTTP_HOST'] !== 'gear.localhost' || $_SERVER['HTTP_HOST'] !== '127.0.0.1') {
 	require('../vendor/autoload.php');
 }
 else {
