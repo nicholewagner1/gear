@@ -30,7 +30,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 		$apiBaseUrl = 'http://127.0.0.1/gear/api/index.php?';
 	}
 	else {
-		$apiBaseUrl = 'https://gearcheck.nicholewagner.com/api/index.php?';
+		$apiBaseUrl = 'https://gear.nicholewagner.com/api/index.php?';
 		require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
 		$session = $auth0->getCredentials();
 		$userInfo = $auth0->getUser();
@@ -45,7 +45,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 		if ($session === null) {
 			// The user isn't logged in.
 			echo '<p>Please <a href="/login.php">log in</a>.</p>';
-			header("Location: https://gearcheck.nicholewagner.com/login.php");
+			header("Location: https://gear.nicholewagner.com/login.php");
 			die;
 		  }
 		
