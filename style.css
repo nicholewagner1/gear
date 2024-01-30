@@ -1,0 +1,17 @@
+.selected-item-image {width:100px;}
+tr.even {
+	background-color: #f4f4f5 !important;
+}
+.text-smaller {font-size: .7rem;}
+.center{text-align: center;}
+.editable-select {
+	min-height:50px;
+	min-width: 30px;
+}
+.outfitImage {
+width: 100px;
+float: left;
+line-height: .8;
+text-align: center;
+margin:20px;
+}
