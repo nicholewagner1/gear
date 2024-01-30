@@ -129,7 +129,7 @@ $status = $_GET['status'] ?? '' ;
 					<span class="" data-field="checked_in" data-itemid="<?php echo $id; ?>">
 						<?php echo $checked_in; ?>
 					</span>
-					 <a href='item?action=edit&id=<?php echo $id ?>' class="" id=<?php echo $id ?>><i class='fa-regular fa-pencil'></i></a>
+					 <a href='item.php?action=edit&id=<?php echo $id ?>' class="" id=<?php echo $id ?>><i class='fa-regular fa-pencil'></i></a>
 			</td>
 			
 			</tr>
