@@ -71,14 +71,17 @@ if ($status != '') {
 if ($filter != '' && $value != '') {
     $parameters['filter'] = $filter;
     $parameters['value'] = $value;
-	if ($filter == "checked_in"){
-		$cache = '';
+	if ($filter == "checked_in") {
+		$cache = null;
 	}
+	else {
 	$cache = "listAll".$filter."-".$value;
+}
 }
 else {
 	$cache = "allItems";
 }
+echo $cache;
 $items = $apiClient->get('', $parameters, $cache);
 
 foreach ($items as $item):

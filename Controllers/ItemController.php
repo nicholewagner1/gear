@@ -50,14 +50,12 @@ class ItemController
             $this->location = $data['location'] ?? '';
             $this->model = $data['model'] ?? '';
             $this->year = $data['year'] ?? '';
-
             $this->serial_number = $data['serial_number'] ?? '';
             $this->date_acquired = $data['date_acquired'] ?? '';
             $this->status = $data['status'] ?? '';
             $this->purchase_price = $data['purchase_price'] ?? '';
             $this->replacement_value = $data['replacement_value'] ?? '';
             $this->purchase_location = $data['purchase_location'] ?? '';
-
             $this->notes = $data['notes'] ?? '';
             $this->asset_tag = $data['asset_tag'] ?? '';
             $this->checked_in = $data['checked_in'] ?? '';
@@ -273,8 +271,7 @@ class ItemController
         if ($this->missing != '' && $this->missing != 'info') {
             $sql .= " AND ".$this->missing. " = ' ' OR " .$this->missing. " IS NULL ";
         }
-
-        if ($this->filter && $this->value) {
+        if ($this->filter !='' && $this->value !='') {
             $sql .= " AND ".$this->filter. " = '". $this->value."'";
         }
      
@@ -287,7 +284,7 @@ class ItemController
 
             $sql .= " ORDER BY category DESC";
         }
-        //echo $sql;
+     //   echo $sql;
         $stmt = $this->db->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
