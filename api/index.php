@@ -53,7 +53,7 @@ switch ($method) {
         if ($_GET['action'] === 'setImageType') {
             $itemController->setImageType($data);
         }
-        if ($_GET['action'] === 'updateItemCheckinStatus') {
+        if ($_GET['action'] === 'checkIn') {
             $assetController->updateItemCheckinStatus($data);
         }
         if ($_GET['action'] === 'returnPackingLists') {

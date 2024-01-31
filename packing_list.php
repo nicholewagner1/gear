@@ -9,7 +9,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 $id = $_GET['id'] ?? '';
 use Client\ApiClient;
 
-$apiClient = new Client\ApiClient($apiBaseUrl);
+$apiClient = new Client\ApiClient($apiBaseUrl, $apiCache);
 
 if ($id != '' && $action == 'edit' || $action == 'list') {
     $parameters = ['action' => 'returnPackingLists'];
@@ -23,6 +23,8 @@ $lists = $apiClient->get('', $parameters);
 ?>
 
 <?php if ($action == 'add' || $action == 'edit') { ?>
+	<div class="row">
+		<div class="col">
 <h2>Create/Edit Packing List</h2>
 
 <form id="packingList">
@@ -32,7 +34,6 @@ $lists = $apiClient->get('', $parameters);
 	<input type="text" id="name" class="form-control" name="name" required value="<?php echo $lists[$id]['name'] ; ?>">
 	<div class="row">
 		 <div class="col">
-			 <label for="item">Item</label>
 			 
 			 
 		<table id="itemList">
@@ -58,12 +59,18 @@ $lists = $apiClient->get('', $parameters);
     } ?>
 	</tbody>
 		 </table>
-		 <div class="btn" id="itemNew">New Item</div>
-		
-
-	<input type="submit" value="Update List">
+		 </div>
+	</div>
+	<div class="row">
+		<div class="col">
+		 <div class="btn btn-secondary" id="itemNew"><i class="fa-regular fa-square-plus"></i> New Item</div>
+		</div></div>
+	<div class="row">
+		<div class="col">
+	<input class="btn btn-primary" type="submit" value="Update List">
+		</div></div>
 </form>
-
+		</div></div>
 <!-- Include script for processing form with jQuery -->
 <script>
 	$(document).ready(function () {
@@ -245,6 +252,8 @@ function getItems() {
 }
 if ($action == 'view') {
     ?>
+	<div class="row">
+	<div class="col">
 <h3>Packed <?php echo $lists[0]['name']; ?></h3>
 <table>
 <?php
@@ -263,10 +272,12 @@ foreach ($lists[0]['packed'] as $packed) {
                     echo "<tr class='missing'><td>".$name."</td><td>".$count."/".$countNeeded."</td></tr>";
 
                 }
-
-    echo "</table>";
-
-    echo "<h3>All Packed Items</h3>";
+?>
+</table>
+	</div>
+<div class="col">
+  <h3>All Packed Items</h3>
+  <?php
     $parametersList = ['action' => 'getCheckedOutItems'];
     $listsAll = $apiClient->get('', $parametersList);
     echo "<table>";
@@ -274,8 +285,10 @@ foreach ($lists[0]['packed'] as $packed) {
         echo "<tr><td>".$itemsPacked['name']."</tr></td>";
     }
     echo "</table>";
-
 }
+?>
+</div></div>
+<?php
 if ($action == '' or $action == 'list') {
     ?> <h2>Packing Lists</h2>
 	

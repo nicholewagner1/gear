@@ -9,6 +9,9 @@ tr.even {
 	min-width: 30px;
 }
 .missing {color:red;}
+.float-left {float:left;}
+.checkedOut {	background-color: rgba(221, 85, 59, .4); }
+.tiny {font-size:.7rem;}
 .outfitImage {
 width: 100px;
 float: left;

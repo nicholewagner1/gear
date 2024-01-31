@@ -252,4 +252,5 @@ $( '#pageBody' ).on( 'click', '.editable-image', function () {
 		});
 	});
 });
+
 });

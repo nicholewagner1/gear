@@ -9,33 +9,30 @@ include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 $id = $_GET['id'] ?? '';
 use Client\ApiClient;
 
-$apiClient = new Client\ApiClient($apiBaseUrl);
+$apiClient = new Client\ApiClient($apiBaseUrl, $apiCache);
 
-if ($id != '' && $action == 'edit' || $action == 'view') {
+
     $parameters = ['action' => 'maintenanceLog'];
-    $parameters['id'] = $id;
-}
-//	var_dump($parameters);
-//echo $id;
+  
 $items = $apiClient->get('', $parameters);
-//var_dump($items);
-?>
 
-<?php if ($action == 'add' || $action == 'edit') { ?>
+?>
+<div class="row">
+	<div class="col">
 <h2>Log Maintenance</h2>
 
 <form id="logMaintenaceForm">
-	<input type="text" name="id" hidden value="<?php echo $items[0]['id']; ?>"><br>
+	<input type="text" name="id" hidden value=""><br>
 
 	<label for="date">Date:</label>
-	<input type="date" name="date" required value="<?php echo $items[0]['date'] ; ?>"><br>
+	<input type="date" name="date" required value=""><br>
 	<label for="date">Service:</label>
-	<select id="service" class="js-multiple-select service autocompleteMaintenance form-control" type="text" name="service" value="<?php echo $items[0]['service'] ; ?>"></select><br>
+	<select id="service" class="js-multiple-select service autocompleteMaintenance form-control" type="text" name="service" value=""></select><br>
 
 	<div class="row">
 		 <div class="col">
 			 <label for="item">Item</label>
-			<select id="items" class="js-multiple-select autocomplete item form-control" multiple="multiple" name="name" value="<?php echo $items[0]['item']; ?>">
+			<select id="items" class="js-multiple-select autocomplete item form-control" multiple="multiple" name="name" value="">
 			</select>
 	<div id="itemImages"></div>
 
@@ -49,9 +46,9 @@ $items = $apiClient->get('', $parameters);
 			</div>
 	  </div>
 
-	<input type="submit" value="Log Maintenance">
+	<input class="btn btn-primary "  type="submit" value="Log Maintenance">
 </form>
-
+	</div></div>
 <!-- Include script for processing form with jQuery -->
 <script>
 	$(document).ready(function () {
@@ -154,9 +151,9 @@ getItems();
 		});
 
 
-		$("#createOutfitForm").submit(function (event) {
+		$("#logMaintenaceForm").submit(function (event) {
 			event.preventDefault();
-			const form = $('#createOutfitForm')[0]; // Correct the selector
+			const form = $('#logMaintenaceForm')[0]; // Correct the selector
 		
 			const formData = new FormData(form);
 			// Serialize form data
@@ -175,21 +172,21 @@ getItems();
 				data: JSON.stringify(jsonData),
 				success: function (data) {
 					// Handle the response from the server
-					window.location = "/outfit.php";
+					window.location = "/maintenance.php";
 
 					//alert(data.message);
 				},
 				error: function () {
-					alert("Error creating outfit.");
+					alert("Error logging maintenance");
 				}
 			});
 		});
 		});
 
 </script>
-<?php
-} else {
-    ?> <h2>Outfits</h2>
+<div class="row mt-5">
+	<div class="col">
+ <h2>Maintenance Log</h2>
 	
 	<table id="itemTable">
 		<thead>
@@ -212,8 +209,7 @@ getItems();
 				<tr>
 					<td class="center"><?php $date = strtotime($item['date']);
                  echo date('Y-m-d <br> D', $date);
-                 ?>
-				 <br> <a href="/maintenance.php?action=edit&id=<?php echo $item['id']; ?>"><i class="fa-solid fa-pencil"></i></a></td>
+                 ?></td>
 				
 
 					<td class="center"><?php echo $item['service']; ?></td>
@@ -229,7 +225,7 @@ getItems();
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	
+	</div></div>
 	<!-- Initialize DataTable -->
 	<script>
 		$(document).ready(function () {
@@ -240,6 +236,6 @@ getItems();
 	</script>
 
 	
-<?php }
+<?php
 include($_SERVER['DOCUMENT_ROOT'].'/footer.php');
 ?>

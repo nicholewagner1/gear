@@ -10,77 +10,37 @@ class AssetController
 {
     private $db;
     public $id;
-    public $photos;
     public $items;
     public $name;
-    public $category;
-    public $subcategory;
-    public $model;
-    public $status;
-    public $serial_number;
-    public $date_acquired;
-    public $purchase_location;
-    public $dateToday;
-    public $year;
-    public $purchase_price;
-    public $replacement_value;
-    public $notes;
     public $asset_tag;
     public $checked_in;
-    public $location;
-    public $photoURLs;
-    public $documentURLs;
-    public $missing;
-    public $filter;
-    public $value;
-    public $sort;
+
     public function __construct($db, $data = '')
     {
         $this->db = $db;
-        $this->dateToday = date("Y-m-d H:i:s");
         if ($data) {
             $this->id = $data['id'] ?? '';
-            $this->photos = $data['photos[]'] ?? '';
-            $this->photoURLs = $data['photo'] ?? '';
-            $this->documentURLs = $data['document'] ?? '';
             $this->items = $data['items'] ?? '';
             $this->name = $data['name'] ?? '';
-            $this->category = $data['category'] ?? '';
-            $this->subcategory = $data['subcategory'] ?? '';
-            $this->location = $data['location'] ?? '';
-            $this->model = $data['model'] ?? '';
-            $this->year = $data['year'] ?? '';
-
-            $this->serial_number = $data['serial_number'] ?? '';
-            $this->date_acquired = $data['date_acquired'] ?? '';
-            $this->status = $data['status'] ?? '';
-            $this->purchase_price = $data['purchase_price'] ?? '';
-            $this->replacement_value = $data['replacement_value'] ?? '';
-            $this->purchase_location = $data['purchase_location'] ?? '';
-
-            $this->notes = $data['notes'] ?? '';
             $this->asset_tag = $data['asset_tag'] ?? '';
             $this->checked_in = $data['checked_in'] ?? '';
-            $this->missing = $data['asset_tag'] ?? '';
-            $this->filter = $data['filter'] ?? '';
-            $this->value = $data['value'] ?? '';
-            $this->sort = $data['sort'] ?? '';
+
         }
     }
 
     public function updateItemCheckinStatus($data)
     {
-
-        $sql = "UPDATE item SET checked_in = '".$this->checked_in."'  WHERE id = " . $this->id;
+        $sql = "UPDATE item SET checked_in = '".$this->checked_in."'  WHERE asset_tag = '" . $this->asset_tag."'";
+      //  echo $sql;
         $stmt = $this->db->conn->prepare($sql);
         if (!$stmt->execute()) {
             // Handle SQL error
-            echo json_encode(array("message" => "Item insertion failed: " . $stmt->error));
+            echo json_encode(array("message" => "Item check in out failed: " . $stmt->error));
             $stmt->close();
             return;
         } else {
             $itemId = $stmt->insert_id;
-            echo json_encode(array("message" => "Item update success"));
+            echo json_encode(array("message" => "Item checked in out success"));
         }
     }
 
@@ -203,7 +163,7 @@ class AssetController
         if ($this->id == '') {
             $sql = "INSERT INTO list (name) VALUES (?)";
         } else {
-            $sql = "UPDATE list SET name = ?";
+            $sql = "UPDATE list SET name = ? WHERE id = ".$this->id;
         }
         $stmt = $this->db->conn->prepare($sql);
         $stmt->bind_param("s", $this->name);

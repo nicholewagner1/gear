@@ -54,23 +54,30 @@ $status = $_GET['status'] ?? '' ;
 		<?php
         use Client\ApiClient;
 
-$apiClient = new Client\ApiClient($apiBaseUrl);
+$apiClient = new Client\ApiClient($apiBaseUrl, $apiCache);
 $parameters = ['action' => 'list'];
 
 if ($missing != '') {
     $parameters['missing'] = $missing;
+	$cache = "listAll".$missing;
+
 }
 
 if ($status != '') {
     $parameters['status'] = $status;
+	$cache = "listAll".$status;
 }
 
 if ($filter != '' && $value != '') {
     $parameters['filter'] = $filter;
     $parameters['value'] = $value;
+	$cache = "listAll".$filter."-".$value;
 }
+else {
+	$cache = "allItems";
+}
+$items = $apiClient->get('', $parameters, $cache);
 
-$items = $apiClient->get('', $parameters);
 foreach ($items as $item):
     $id = $item['id'] ?? 'edit';
     $name = $item['name'] !== '' ? $item['name'] : 'edit';
@@ -79,14 +86,14 @@ foreach ($items as $item):
     $subcategory = $item['subcategory']  !== '' ? $item['subcategory'] : 'edit';
     $model = $item['model']  !== '' ? $item['model'] : 'edit';
     $cost = $item['purchase_price'] !== '' ? $item['purchase_price'] : 'edit';
-    $checked_in = $item['checked_in']  !== '' ? $item['checked_in'] : 'edit';
+    $checked_in = $item['checked_in']  == '1' ? 'checkedIn': 'checkedOut';
     $imageParameters = ['action' => 'images'];
     $imageParameters['id'] = $id;
     // print_r($imageParameters);
     $images = $apiClient->get('', $imageParameters);
     // 	var_dump($images);
     ?>
-			<tr id="item_<?php echo $id; ?>">
+			<tr id="item_<?php echo $id; ?>" class="<?php echo $checked_in; ?>">
 				<td id="<?php echo 'cell_photo_'.$id ;?>">
 					<?php if($images) {
 					    foreach ($images as $image) {

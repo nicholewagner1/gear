@@ -61,7 +61,7 @@ class ItemController
             $this->notes = $data['notes'] ?? '';
             $this->asset_tag = $data['asset_tag'] ?? '';
             $this->checked_in = $data['checked_in'] ?? '';
-            $this->missing = $data['asset_tag'] ?? '';
+            $this->missing = $data['missing'] ?? '';
             $this->filter = $data['filter'] ?? '';
             $this->value = $data['value'] ?? '';
             $this->sort = $data['sort'] ?? '';
@@ -264,19 +264,21 @@ class ItemController
         if ($this->missing == 'info') {
             $sql .= " WHERE (brand = ' ' OR brand IS NULL) OR (model = ' ' OR model IS NULL) OR (status = ' ' OR status IS NULL) OR (category = ' ' OR category IS NULL) OR (subcategory = ' ' OR subcategory IS NULL)";
         }
+        if ($this->status == '' && $this->id == '') {
+            $sql .= " WHERE status  = 'Current' ";
+        }
+        if ($this->status != '' && $this->id == '') {
+            $sql .= " WHERE status  = ".$this->status ;
+        }
         if ($this->missing != '' && $this->missing != 'info') {
-            $sql .= " WHERE ".$this->missing. " = ' ' OR " .$this->missing. " IS NULL ";
+            $sql .= " AND ".$this->missing. " = ' ' OR " .$this->missing. " IS NULL ";
         }
 
         if ($this->filter && $this->value) {
-            $sql .= " WHERE ".$this->filter. " = '". $this->value."'";
+            $sql .= " AND ".$this->filter. " = '". $this->value."'";
         }
-        if ($this->status != '') {
-            $sql .= " AND status  = '" .$this->status ."'";
-        }
-        if ($this->status == '' && $this->filter != '') {
-            $sql .= " WHERE status  = 'Current' ";
-        }
+     
+      
         $sql .= " GROUP BY  i.id";
         if ($this->sort != '') {
             $sql .= " ORDER BY " .$this->sort." DESC";

@@ -16,7 +16,9 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	<link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" >
 
 	<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 	<script src="/common.js"></script>
+
 
 	<link rel="stylesheet" href="/utils/multiselect-11/css/select2.min.css">
 	<link rel="stylesheet" href="/utils/multiselect-11/css/select2.min.css">
@@ -28,8 +30,13 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 <body>
 	<?php if ($_SERVER['HTTP_HOST'] === 'gearcheck.localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
 	    $apiBaseUrl = 'http://127.0.0.1/gearcheck/api/index.php?';
+		$apiCache = '/Applications/XAMPP/xamppfiles/htdocs/gearcheck/cache';
+		$imagePath = '/Applications/XAMPP/xamppfiles/htdocs/gearcheck/images/items';
 	} else {
 	    $apiBaseUrl = 'https://gear.nicholewagner.com/api/index.php?';
+		$apiCache = '/cache';
+		$imagePath = '/images/items';
+
 	    require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
 	    $session = $auth0->getCredentials();
 	    $userInfo = $auth0->getUser();
@@ -58,8 +65,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">
-	  Gear Tracker
-	  <!-- <img class="navbar-brand" style="height:60px;" src="/images/logo.png" alt=" Logo"> -->
+	   <img class="navbar-brand" style="height:60px;" src="/images/logo.png" alt="Gear Tracker Logo">
   </a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	   <span class="navbar-toggler-icon"></span>
@@ -78,17 +84,16 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 		  <a class="dropdown-item" href="/item.php?action=add"><i class="fa-solid fa-circle-plus"></i> Add</a>
 
 		  <div class="dropdown-divider"></div>
+		  <a class="dropdown-item" href="/?filter=checked_in&value=0">Currently Out</a>
 
+  <a class="dropdown-item" href="/?filter=category&value=Instrument">Instruments</a>
 		  <a class="dropdown-item" href="/?filter=category&value=Live%Sound"><i class="fa-solid fa-volume-high"></i> Live Sound</a>
-		  <a class="dropdown-item" href="/?filter=category&value=Instrument"><i class="fa-regular fa-microphone-lines"></i> Microphones</a>
+		  <a class="dropdown-item" href="/?filter=category&value=Microphone"><i class="fa-regular fa-microphone-lines"></i> Microphones</a>
 
 		  <a class="dropdown-item" href="/?filter=category&value=Case"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Cases</a>
 	
 		  <div class="dropdown-divider"></div>
-
-
-		  <a class="dropdown-item" href="/?missing=info">Missing Info</a>
-		  <a class="dropdown-item" href="/?missing=photo"><i class="fa-solid fa-camera-retro"></i> Missing Photo</a>
+		  <a class="dropdown-item" href="/?missing=asset_tag"><i class="fa-solid fa-barcode"></i></i> Missing Asset Tag</a>
 		  <div class="dropdown-divider"></div>
 		</div>
 	  </li>
@@ -100,10 +105,25 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 <li class="nav-item">
 	<a class="nav-link" href="/packing_list.php"><i class="fa-solid fa-cart-flatbed-suitcase"></i></a>
 </li>
+ <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="itemnNav" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		</a>
+<div class="dropdown-menu" aria-labelledby="itemnNav">
+
+  <div class="dropdown-divider"></div>
+
+  <a class="dropdown-item" href="/packing_list.php?action=view&id=2"><i class="fa-solid fa-volume-high"></i> Solo Acoustic</a>
+  <a class="dropdown-item" href="/packing_list.php?action=view&id=1"><i class="fa-regular fa-microphone-lines"></i> Solo Acoustic - Need PA</a>
+
+  <a class="dropdown-item" href="/packing_list.php?action=view&id=3"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig</a>
+  <a class="dropdown-item" href="/packing_list.php?action=view&id=4"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig - Need PA</a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="/packing_list.php?action=add"><i class="fa-solid fa-circle-plus"></i> Add</a>
+
+</div>
 	</ul> 
   </div>
 </nav>
-<div class="row">
+<div class="row mt-3">
 	<div class="col">
 			
 			

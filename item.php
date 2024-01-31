@@ -6,7 +6,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 
 $id = $_GET['id'] ?? '';
 use Client\ApiClient;
-$apiClient = new Client\ApiClient($apiBaseUrl);
+$apiClient = new Client\ApiClient($apiBaseUrl, $apiCache);
 
 $parameters = ['action' => 'list', 'id'=> $id];
 $imageParameters = ['action' => 'images', 'id'=> $id];
@@ -27,44 +27,48 @@ if ($action == 'add' || $action == 'edit') { ?>
 			<input type="text" hidden id="id" class="" name="id" value="<?php echo $items[0]['id'] ?? ''; ?>">
 
 			<label for="date">Date Acquired:</label>
-			<input type="date" name="date_acquired" value="<?php echo $items[0]['date_acquired'] ?? date('Y-m-d'); ?>" >
+			<input type="date" class="form-control" name="date_acquired" value="<?php echo $items[0]['date_acquired'] ?? date('Y-m-d'); ?>" >
 			</div>
 </div>
 </div>
 			<div class="form-group">
-<div class="row">
+<div class="row mt-3">
 	<div class="col">
-		<label for="photoUpload">Photos:</label>
-
-			<input type="file" id ="photoUpload" class="form-control-file" name="photoUpload" multiple="multiple" accept="image/*">
+	
 		
-<div class="row">
+<div class="row mb-4">
 				<?php 
 				$imageURLs = '';
-
+echo '<div class="col">';
 				if ($id != '' && $images) {
 					foreach ($images as $image){
-						echo '<div class="col">';
 						if ($image['type'] == 'photo') {
-					echo "<img src='/images/items/".$image['url']."' width=250>";
+							echo "<div class='card w-25 float-left'> <div class='card-body'>";
+
+					echo "<a href='/images/items/".$image['url']."' data-toggle='lightbox'> <img src='/images/items/".$image['url']."' width=250></a>";
+					echo "  <div class='card-footer'><div class='row'>";
 					if ($image['thumbnail'] == '1') {
-						echo "<div class='thumbnail' data-url='".$image['url']."' data-set='".$image['thumbnail']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-thumbtack text-primary'></i></div>";
+						echo "<div class='col thumbnail' id='thumb_".$image['item_id']."' data-url='".$image['url']."' data-set='".$image['thumbnail']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-thumbtack text-primary'></i></div>";
 					}
 					elseif ($image['serial'] == '1') {
-						echo "<div class='serial' data-url='".$image['url']."' data-set='".$image['serial']."' data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-primary'></i></div>";
+						echo "<div class='col serial' id='serial_".$image['item_id']."' data-url='".$image['url']."' data-set='".$image['serial']."' data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-primary'></i></div>";
 					}
 					else {	
-						echo "<div class='thumbnail' data-url='".$image['url']."' data-item-id='".$image['item_id']."' data-set=".$image['thumbnail']." ><i class='fa-solid fa-thumbtack text-secondary'></i></div>";
-						echo "<div class='serial' data-url='".$image['url']."' data-set='".$image['serial']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-secondary'></i></div>";
+						echo "<div class='col thumbnail' id='thumb_".$image['item_id']."' data-url='".$image['url']."' data-item-id='".$image['item_id']."' data-set=".$image['thumbnail']." ><i class='fa-solid fa-thumbtack text-secondary'></i></div>";
+						echo "<div class='serial col' id='serial_".$image['item_id']."' data-url='".$image['url']."' data-set='".$image['serial']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-secondary'></i></div>";
 					}
 					$imageURLs .= $image['url']. ',';
-					echo '</div>';
+					
+echo "</div></div></div></div>"; //end card
 }
 						}
 					}
 					echo '<input type="text" id="photo" hidden class="custom-file-input" name="photo" value="'.$imageURLs.'">';
+					echo '</div>';
 				?>
-</div>
+	<label for="photoUpload">Photos:</label>
+				
+				<input type="file" id ="photoUpload" class="form-control-file" name="photoUpload" multiple="multiple" accept="image/*">
 			</div>
 </div></div>
 <div class="row">
@@ -137,10 +141,12 @@ if ($action == 'add' || $action == 'edit') { ?>
 					$documentURLs = '';
 					foreach ($images as $document) {
 						if ($document['type'] == 'document'){
-						echo "<div class='col'>";
-					echo "<a href='/images/items/".$document['url']."' width=50>".$document['url']."</a>";
-					echo "</div>";
+					echo "<div class='col'>";
+
+					echo "<a href='/images/items/".$document['url']."' class='tiny'>".$document['url']."</a>";
 					} 
+					echo "</div>";
+
 					$documentURLs .= $document['url']. ',';
 				
 				}
@@ -174,7 +180,7 @@ if ($action == 'add' || $action == 'edit') { ?>
 			</div>
 			</div>
 			</form>
-			<button type="button" value="Add Item" id="addEditItemFormButton" class="btn btn-primary">Submit</button>
+			<button type="button" value="Add Item" id="addEditItemFormButton" class="btn btn-primary mt-3">Submit</button>
 		
 <script>
 	$(document).ready(function () {
@@ -220,7 +226,7 @@ if ($action == 'add' || $action == 'edit') { ?>
 $(".thumbnail").click(function (event) {
 		var id = $(this).attr('data-item-id');
 		var url = $(this).attr('data-url');
-var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
+		var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
 		var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
 		console.log('setValue', setValue);
 			$.ajax({
@@ -229,6 +235,8 @@ var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
 				success: function (response) {
 					// Handle the response from the server
 					console.log (response.message);
+					$("#thumb_"+id).children().toggleClass('text-primary');
+					$("#thumb_"+id).children().toggleClass('text-secondary');
 				},
 				error: function () {
 					alert("Error processing the form.");
@@ -241,13 +249,16 @@ var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
 	var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
 	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
 	console.log('setValue', setValue);
-
+console.log($(this));
 		$.ajax({
 			type: "GET",
 			url: "/api/index.php?action=setImageType&id="+id+"&url="+url+"&set="+setValue+"&type=serial",
 			success: function (response) {
 				// Handle the response from the server
 				console.log (response.message);
+			$("#serial_"+id).children().toggleClass('text-primary');
+			$("#serial_"+id).children().toggleClass('text-secondary');
+
 			},
 			error: function () {
 				alert("Error processing the form.");
@@ -330,7 +341,6 @@ var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
 				// Set the value of the photo input field
 				$("#photo").val(photoPaths.join(', '));
 				$('#photoUpload').after('<i class="fa-solid fa-upload"></i>');
-
 			},
 			error: function () {
 				alert("Error processing the form.");
