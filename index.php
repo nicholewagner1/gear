@@ -39,8 +39,11 @@ $status = $_GET['status'] ?? '' ;
 			<th data-priority="2">Name</th>
 			<th>Category</th>
 			<th>Sub category</th>
+			<th data-priority="">Brand</th>
 			<th data-priority="">Model</th>
+			<th>Cost</th>
 			<th data-priority="3">Checked In</th>
+
 		<th>Action</th>
 
 
@@ -49,54 +52,55 @@ $status = $_GET['status'] ?? '' ;
 	<tbody>
 		
 		<?php
-		use Client\ApiClient;
-		$apiClient = new Client\ApiClient($apiBaseUrl);
-		$parameters = ['action' => 'list'];
-		
-		if ($missing != '') {
-			$parameters['missing'] = $missing;
-		}
-		
-		if ($status != '') {
-			$parameters['status'] = $status;
-		}
-		
-		if ($filter != '' && $value != '') {
-			$parameters['filter'] = $filter;
-			$parameters['value'] = $value;
-		}
-		
-		$items = $apiClient->get('', $parameters);
-		
-		 foreach ($items as $item): 
-			 $id = $item['id'] ?? 'edit';
-			 $name = $item['name'] !== '' ? $item['name'] : 'edit';
-			 $brand = $item['brand'] !== '' ? $item['brand'] : 'edit';
-			 $category = $item['category'] !== '' ? $item['category'] : 'edit';
-			 $subcategory = $item['subcategory']  !== '' ? $item['subcategory'] : 'edit';
-			 $color=$item['model']  !== '' ? $item['model'] : 'edit';
-			 $checked_in=$item['checked_in']  !== '' ? $item['checked_in'] : 'edit';
-			 $imageParameters = ['action' => 'images'];
-			 $imageParameters['id'] = $id;
-			// print_r($imageParameters);
-				 $images = $apiClient->get('', $imageParameters);
-			// 	var_dump($images);
-			 ?>
+        use Client\ApiClient;
+
+$apiClient = new Client\ApiClient($apiBaseUrl);
+$parameters = ['action' => 'list'];
+
+if ($missing != '') {
+    $parameters['missing'] = $missing;
+}
+
+if ($status != '') {
+    $parameters['status'] = $status;
+}
+
+if ($filter != '' && $value != '') {
+    $parameters['filter'] = $filter;
+    $parameters['value'] = $value;
+}
+
+$items = $apiClient->get('', $parameters);
+foreach ($items as $item):
+    $id = $item['id'] ?? 'edit';
+    $name = $item['name'] !== '' ? $item['name'] : 'edit';
+    $brand = $item['brand'] !== '' ? $item['brand'] : 'edit';
+    $category = $item['category'] !== '' ? $item['category'] : 'edit';
+    $subcategory = $item['subcategory']  !== '' ? $item['subcategory'] : 'edit';
+    $model = $item['model']  !== '' ? $item['model'] : 'edit';
+    $cost = $item['purchase_price'] !== '' ? $item['purchase_price'] : 'edit';
+    $checked_in = $item['checked_in']  !== '' ? $item['checked_in'] : 'edit';
+    $imageParameters = ['action' => 'images'];
+    $imageParameters['id'] = $id;
+    // print_r($imageParameters);
+    $images = $apiClient->get('', $imageParameters);
+    // 	var_dump($images);
+    ?>
 			<tr id="item_<?php echo $id; ?>">
 				<td id="<?php echo 'cell_photo_'.$id ;?>">
-					<?php if($images){
-						foreach ($images as $image){
-							if ($image['thumbnail'] == 1) {
-						 $imageURL = $image['url']; 
-					//	 echo $imageURL;
-						 ?>
+					<?php if($images) {
+					    foreach ($images as $image) {
+					        if ($image['thumbnail'] == 1) {
+					            $imageURL = $image['url'];
+					            //	 echo $imageURL;
+					            ?>
 						
 						 <span class="editable-image" data-field="photo" data-itemid="<?php echo $id; ?>"><?php echo '<img src="/images/items/'.$imageURL.'" width=100 height=100>'; ?></span>
-					<?php 
-				}
-				 } //end image loop
-			 }
-					 ?>
+					<?php
+					        }
+					    } //end image loop
+					}
+    ?>
 </td>
 				<td id="<?php echo 'cell_name_'.$id ;?>">
 					<span class="editable-text" data-field="name" data-itemid="<?php echo $id; ?>">
@@ -120,17 +124,24 @@ $status = $_GET['status'] ?? '' ;
 						<?php echo $brand;?>
 					</span>
 				</td>
-				<td id="<?php echo "cell_color_".$id ;?>">
+				<td id="<?php echo "cell_model_".$id ;?>">
 					<span class="editable-select" data-field="model" data-itemid="<?php echo $id; ?>">
 						<?php echo $model; ?>
 					</span>
 				</td>
-				<td id="<?php echo "cell_status_".$id ;?>">
+				<td id="<?php echo "cell_cost_".$id ;?>">
+					<span class="editable-select" data-field="cost" data-itemid="<?php echo $id; ?>">
+						<?php echo $cost; ?>
+					</span>
+				</td>
+				<td id="<?php echo "cell_checked_in_".$id ;?>">
 					<span class="" data-field="checked_in" data-itemid="<?php echo $id; ?>">
 						<?php echo $checked_in; ?>
 					</span>
+				</td>
+				<td id="<?php echo "cell_action_".$id ;?>">
 					 <a href='item.php?action=edit&id=<?php echo $id ?>' class="" id=<?php echo $id ?>><i class='fa-regular fa-pencil'></i></a>
-			</td>
+					 </td>
 			
 			</tr>
 		<?php endforeach; ?>
@@ -167,179 +178,6 @@ $status = $_GET['status'] ?? '' ;
 			});
 		});
 
-	$( '#pageBody' ).on( 'click', '.editable-text', function () {
-		// Get the current field value
-		var dataId = $(this).data('itemid');
-		var dataField = $(this).data('field');
-		var fieldValue = $(this).text().trim();
-		// Create an input field for editing
-		var inputField = $('<input>')
-			.attr('type', 'text')
-			.val(fieldValue);
-	
-		inputField.attr({
-			'data-itemid': dataId,
-			'data-field': dataField
-			});
-		// Replace the span with the input
-		$(this).replaceWith(inputField);
-	
-		// Focus on the input field
-		inputField.focus();
-	
-		// Handle saving the new data
-		inputField.blur(function () {
-			var newItemValue = inputField.val().trim();
-			var itemId = $(this).data('itemid');
-			var field = $(this).data('field');
-	
-		var jsonData = {
-			id: itemId,
-			filter: field,
-			value: newItemValue
-			};
-	
-			// AJAX request to update the item
-			$.ajax({
-				type: 'POST',
-				url: '/api/index.php?action=updateItem', // Adjust the endpoint
-				data: JSON.stringify(jsonData),
-				success: function (response) {
-					// Update the UI with the new value
-					inputField.replaceWith('<span class="editable-text" data-field="' + field + '" data-itemid="' + itemId + '">' + newItemValue + '</span>');
-				},
-				error: function () {
-					console.error('Error updating item.');
-				}
-			});
-		});
-	});
-	
-	$( '#pageBody' ).on( 'click', '.editable-select', function () {
-		var fieldValue = $(this).text().trim();
-		var dataId = $(this).data('itemid');
-		var dataField = $(this).data('field');
-		var currentValues = $(this).attr('value');
-		// Create an input field for editing
-		var inputField = $('<select multiple>')
-			.val(fieldValue);
-		$(this).parent().addClass('active');
-		inputField.attr({
-			'data-itemid': dataId,
-			'data-field': dataField,
-			'name': dataField,
-			'id': dataField +'_'+dataId,
-			'class': 'autocomplete form-control js-multiple-select',
-			'value':fieldValue,
-			});
-			console.log('fieldValue',fieldValue);
-		$(this).replaceWith(inputField);
-		
-		inputField.focus();
-	getValues(1);
-		inputField.change(function () {
-			var field = dataField +'_'+dataId;
-			var newItemValue = $('#'+dataField +'_'+dataId).val().join(', ');
-
-			var itemId = dataId;
-	
-
-		var jsonData = {
-			id: itemId,
-			filter: dataField,
-			value: newItemValue
-			};
-	if (newItemValue !== '' && newItemValue !== 'edit') {
-			// AJAX request to update the item
-			$.ajax({
-				type: 'POST',
-				url: '/api/index.php?action=updateItem', // Adjust the endpoint
-				data: JSON.stringify(jsonData),
-				success: function (response) {
-					// Update the UI with the new value
-					//$('#'+field).select2('remove');
-					//$('td#'+field).empty();
-					$('#cell_'+field).html('<span class="editable-select" data-field="' + dataField + '" data-itemid="' + itemId + '">' + newItemValue + '</span>');
-					$('#cell_'+field).parent().removeAttr('data-select2-id');
-					$('#cell_'+field).parent().removeClass('active');
-					newItemValue = '';
-
-				},
-				error: function () {
-					console.error('Error updating item.');
-				}
-			});
-		}
-		});
-	});
-	
-	$( '#pageBody' ).on( 'click', '.editable-image', function () {
-		// Get the current field value
-		var dataId = $(this).data('itemid');
-		var dataField = $(this).data('field');
-		// Create an input field for editing
-		var inputField = $('<input>')
-			.attr('type', 'file');
-
-		inputField.attr({
-			'data-itemid': dataId,
-			'data-field': dataField,
-			'class': 'form-control-file',
-			'accept':'image/*'
-			});
-		// Replace the span with the input
-		$(this).replaceWith(inputField);
-	
-		// Focus on the input field
-		inputField.focus();
-
-		// Handle saving the new data
-		inputField.change(function () {
-			var newItemValue = inputField.val().trim();
-			var itemId = $(this).data('itemid');
-			var field = $(this).data('field');
-	
-		var formData = new FormData();
-		
-			// Append the file to FormData
-			var fileInput = $(inputField)[0];
-			var file = fileInput.files[0];
-			formData.append('photo', file);
-		
-			$.ajax({
-				type: "POST",
-				url: "/api/index.php?action=uploadPhoto",
-				contentType: false,
-				processData: false,
-				data: formData,
-				success: function (response) {
-			
-					$('#cell_'+field+'_'+itemId).html('<span class="editable-image" data-field="' + dataField + '" data-itemid="' + itemId + '"><img src="/images/items/'+ response.photo +'" width=100 height=100></span>');
-					console.log ('photo changed'+response.photo);
-
-					var jsonData = {
-					id: itemId,
-					filter: dataField,
-					value: response.photo
-					};
-					$.ajax({
-						type: 'POST',
-						url: '/api/index.php?action=updateItem', // Adjust the endpoint
-						data: JSON.stringify(jsonData),
-						success: function (response) {
-											
-						},
-						error: function () {
-							console.error('Error updating item.');
-						}
-					});
-				},
-				error: function () {
-					alert("Error processing the form.");
-				}
-			});
-		});
-	});
 	
 	
    $('#itemTable').DataTable({

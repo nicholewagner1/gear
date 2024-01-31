@@ -1,4 +1,4 @@
-<?		
+<?php
 require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 
 ?>
@@ -27,31 +27,30 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 </head>
 <body>
 	<?php if ($_SERVER['HTTP_HOST'] === 'gearcheck.localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
-		$apiBaseUrl = 'http://127.0.0.1/gear/api/index.php?';
+	    $apiBaseUrl = 'http://127.0.0.1/gearcheck/api/index.php?';
+	} else {
+	    $apiBaseUrl = 'https://gear.nicholewagner.com/api/index.php?';
+	    require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
+	    $session = $auth0->getCredentials();
+	    $userInfo = $auth0->getUser();
+	    $userId = $userInfo['sub'];
+
+	    if (!getUserRole($userId)) {
+	        echo 'unauthorized';
+	        echo '<p>Please <a href="/login.php">log in</a>.</p>';
+	        die;
+	    }
+
+	    if ($session === null) {
+	        // The user isn't logged in.
+	        echo '<p>Please <a href="/login.php">log in</a>.</p>';
+	        header("Location: https://gear.nicholewagner.com/login.php");
+	        die;
+	    }
+
 	}
-	else {
-		$apiBaseUrl = 'https://gear.nicholewagner.com/api/index.php?';
-		require($_SERVER['DOCUMENT_ROOT'].'/api/auth_api.php');
-		$session = $auth0->getCredentials();
-		$userInfo = $auth0->getUser();
-		$userId = $userInfo['sub'];
-		
-		if (!getUserRole($userId)) {
-			echo 'unauthorized';
-			echo '<p>Please <a href="/login.php">log in</a>.</p>';
-			die;
-		}
-	
-		if ($session === null) {
-			// The user isn't logged in.
-			echo '<p>Please <a href="/login.php">log in</a>.</p>';
-			header("Location: https://gear.nicholewagner.com/login.php");
-			die;
-		  }
-		
-	}
-		
-	?>
+
+?>
 
 
 <main>
@@ -98,7 +97,9 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	  <li class="nav-item">
 	  <a class="nav-link" href="/maintenance.php?action=add"><i class="fa-solid fa-screwdriver-wrench"></i>
 </a></li>
-
+<li class="nav-item">
+	<a class="nav-link" href="/packing_list.php"><i class="fa-solid fa-cart-flatbed-suitcase"></i></a>
+</li>
 	</ul> 
   </div>
 </nav>

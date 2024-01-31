@@ -7,19 +7,19 @@ include_once('config.php');
 
 class Database
 {
-	public $conn;
+    public $conn;
 
-	public function __construct()
-	{
-		$this->conn = new \mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    public function __construct()
+    {
+        $this->conn = new \mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-		if ($this->conn->connect_error) {
-			die("Connection failed: " . $this->conn->connect_error);
-		}
-	}
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
 
-	public function closeConnection()
-	{
-		$this->conn->close();
-	}
+    public function closeConnection()
+    {
+        $this->conn->close();
+    }
 }

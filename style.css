@@ -8,6 +8,7 @@ tr.even {
 	min-height:50px;
 	min-width: 30px;
 }
+.missing {color:red;}
 .outfitImage {
 width: 100px;
 float: left;

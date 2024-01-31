@@ -1,4 +1,4 @@
-<?php	
+<?php
 $id = $_GET['id'] ?? '';
 $action = $_GET['action'] ?? 'view';
 $title = '- Outfit - '.$action ;
@@ -8,14 +8,15 @@ include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 
 $id = $_GET['id'] ?? '';
 use Client\ApiClient;
+
 $apiClient = new Client\ApiClient($apiBaseUrl);
 
 if ($id != '' && $action == 'edit' || $action == 'view') {
-	$parameters = ['action' => 'maintenanceLog'];
-	$parameters['id'] = $id;
-	}
+    $parameters = ['action' => 'maintenanceLog'];
+    $parameters['id'] = $id;
+}
 //	var_dump($parameters);
-	//echo $id;
+//echo $id;
 $items = $apiClient->get('', $parameters);
 //var_dump($items);
 ?>
@@ -29,12 +30,12 @@ $items = $apiClient->get('', $parameters);
 	<label for="date">Date:</label>
 	<input type="date" name="date" required value="<?php echo $items[0]['date'] ; ?>"><br>
 	<label for="date">Service:</label>
-	<select id="service" class="js-multiple-select service autocomplete form-control" type="text" name="service" value="<?php echo $items[0]['service'] ; ?>"></select><br>
+	<select id="service" class="js-multiple-select service autocompleteMaintenance form-control" type="text" name="service" value="<?php echo $items[0]['service'] ; ?>"></select><br>
 
 	<div class="row">
 		 <div class="col">
 			 <label for="item">Item</label>
-			<select id="item" class="js-multiple-select item form-control" multiple="multiple" name="item" value="<?php echo $items[0]['item']; ?>">
+			<select id="items" class="js-multiple-select autocomplete item form-control" multiple="multiple" name="name" value="<?php echo $items[0]['item']; ?>">
 			</select>
 	<div id="itemImages"></div>
 
@@ -56,9 +57,32 @@ $items = $apiClient->get('', $parameters);
 	$(document).ready(function () {
 		
 
-		getVibesValues();
+		getMaintenanceValues();
+function getItems() {
+		const previousItems = $("#items").attr('value');
 		
-
+			const itemSelector = $("#items");
+		
+			// Check if data is already cached in localStorage
+			const cachedData = localStorage.getItem('cachedItems');
+			if (cachedData) {
+				const data = JSON.parse(cachedData);
+				populateDropdown(data);
+			} else {
+				// If not cached, make the Ajax call
+				$.getJSON("/api/?action=list", function (data) {
+					// Cache the data in localStorage
+					localStorage.setItem('cachedItems', JSON.stringify(data));
+		
+					// Populate the dropdown
+					populateDropdown(data);
+				}).fail(function (error) {
+					console.error("Error:", error);
+				});
+			}
+			preFillSelector("items", previousItems);
+		
+		}
 	function populateDropdown(data) {
 		const itemSelector = $("#items");
 		itemSelector.empty();
@@ -78,7 +102,6 @@ $items = $apiClient->get('', $parameters);
 			}
 		});
 	}
-	
 		
 		function preFillSelector(selectorId, selectedIds) {
 
@@ -109,7 +132,7 @@ $items = $apiClient->get('', $parameters);
 			return $("#items").val();
 		}
 	
-
+getItems();
 		// Function to add selected item images to the "itemImages" div
 		function addSelectedImagesToDiv() {
 			const selectedItems = getSelectedItems();
@@ -124,13 +147,13 @@ $items = $apiClient->get('', $parameters);
 	});
 		}
 		
-		
 		// Event listener for the change event on the select2 dropdown
 		$("#items").on("change", function () {
 			// Call the function to add selected item images to the div
 			addSelectedImagesToDiv();
 		});
-		
+
+
 		$("#createOutfitForm").submit(function (event) {
 			event.preventDefault();
 			const form = $('#createOutfitForm')[0]; // Correct the selector
@@ -164,10 +187,9 @@ $items = $apiClient->get('', $parameters);
 		});
 
 </script>
-<?php 
-}
-else { 
-	?> <h2>Outfits</h2>
+<?php
+} else {
+    ?> <h2>Outfits</h2>
 	
 	<table id="itemTable">
 		<thead>
@@ -183,14 +205,14 @@ else {
 		<tbody>
 			
 <?php
-			
-			 foreach ($items as $item): 
 
-				 ?>
+             foreach ($items as $item):
+
+                 ?>
 				<tr>
 					<td class="center"><?php $date = strtotime($item['date']);
-					echo date('Y-m-d <br> D', $date);
-					 ?>
+                 echo date('Y-m-d <br> D', $date);
+                 ?>
 				 <br> <a href="/maintenance.php?action=edit&id=<?php echo $item['id']; ?>"><i class="fa-solid fa-pencil"></i></a></td>
 				
 
@@ -220,4 +242,4 @@ else {
 	
 <?php }
 include($_SERVER['DOCUMENT_ROOT'].'/footer.php');
- ?>
+?>

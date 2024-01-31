@@ -22,18 +22,20 @@ if ($action == 'add' || $action == 'edit') { ?>
 
 		<form id="addEditItemForm" method="post">
 			<div class="form-group">
-<div class="row">
+			<div class="row">
 			<div class="col">
 			<input type="text" hidden id="id" class="" name="id" value="<?php echo $items[0]['id'] ?? ''; ?>">
 
 			<label for="date">Date Acquired:</label>
-			<input type="date" name="date_acquired" value="<?php echo $items[0]['date_acquired'] ?? date('Y-m-d'); ?>" ><br>
+			<input type="date" name="date_acquired" value="<?php echo $items[0]['date_acquired'] ?? date('Y-m-d'); ?>" >
 			</div>
 </div>
 </div>
 			<div class="form-group">
 <div class="row">
 	<div class="col">
+		<label for="photoUpload">Photos:</label>
+
 			<input type="file" id ="photoUpload" class="form-control-file" name="photoUpload" multiple="multiple" accept="image/*">
 		
 <div class="row">
@@ -45,11 +47,15 @@ if ($action == 'add' || $action == 'edit') { ?>
 						echo '<div class="col">';
 						if ($image['type'] == 'photo') {
 					echo "<img src='/images/items/".$image['url']."' width=250>";
-					if ($image['thumbnail'] != '1') {
-						echo "<div class='thumbnail' data-url='".$image['url']."' data-item-id='".$image['item_id']."'>make thumbnail</div>";
+					if ($image['thumbnail'] == '1') {
+						echo "<div class='thumbnail' data-url='".$image['url']."' data-set='".$image['thumbnail']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-thumbtack text-primary'></i></div>";
+					}
+					elseif ($image['serial'] == '1') {
+						echo "<div class='serial' data-url='".$image['url']."' data-set='".$image['serial']."' data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-primary'></i></div>";
 					}
 					else {	
-						echo "<div class='thumbnail' data-url='".$image['url']."' data-item-id='".$image['item_id']."'>current thumbnail</div>";
+						echo "<div class='thumbnail' data-url='".$image['url']."' data-item-id='".$image['item_id']."' data-set=".$image['thumbnail']." ><i class='fa-solid fa-thumbtack text-secondary'></i></div>";
+						echo "<div class='serial' data-url='".$image['url']."' data-set='".$image['serial']."'  data-item-id='".$image['item_id']."'><i class='fa-solid fa-key text-secondary'></i></div>";
 					}
 					$imageURLs .= $image['url']. ',';
 					echo '</div>';
@@ -121,6 +127,8 @@ if ($action == 'add' || $action == 'edit') { ?>
 			<label for="replacement_value">Replacement Value</label>
 			<input type="text" id="replacement_value" class="replacement_value form-control"  value="<?php echo $items[0]['replacement_value'] ?? ''; ?>" name="replacement_value" ></input></div>
 			<div class="col-sm-3">
+				<label for="documentUpload">Documents:</label>
+
 				<input type="file" id ="documentUpload" class="form-control-file" name="documentUpload" multiple="multiple" accept="image/*,application/pdf">
 				
 				<?php 
@@ -212,13 +220,12 @@ if ($action == 'add' || $action == 'edit') { ?>
 $(".thumbnail").click(function (event) {
 		var id = $(this).attr('data-item-id');
 		var url = $(this).attr('data-url');
-	
+var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
+		var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
+		console.log('setValue', setValue);
 			$.ajax({
 				type: "GET",
-				url: "/api/index.php?action=setThumbnail&id="+id+"&url="+url,
-				// contentType: false,
-				// processData: false,
-				// data: JSON.stringify(jsonData),
+				url: "/api/index.php?action=setImageType&id="+id+"&url="+url+"&set="+setValue+"&type=thumbnail",
 				success: function (response) {
 					// Handle the response from the server
 					console.log (response.message);
@@ -226,10 +233,27 @@ $(".thumbnail").click(function (event) {
 				error: function () {
 					alert("Error processing the form.");
 				}
-			});
-			localStorage.removeItem('cachedItems');
-		
+			});		
 		});
+	$(".serial").click(function (event) {
+	var id = $(this).attr('data-item-id');
+	var url = $(this).attr('data-url');
+	var set = parseInt($(this).attr('data-set'), 10); // Convert to integer
+	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
+	console.log('setValue', setValue);
+
+		$.ajax({
+			type: "GET",
+			url: "/api/index.php?action=setImageType&id="+id+"&url="+url+"&set="+setValue+"&type=serial",
+			success: function (response) {
+				// Handle the response from the server
+				console.log (response.message);
+			},
+			error: function () {
+				alert("Error processing the form.");
+			}
+		});		
+	});
 
 	$("#documentUpload").change(function (event) {
 		// Create a FormData object
