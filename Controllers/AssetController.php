@@ -31,7 +31,7 @@ class AssetController
     public function updateItemCheckinStatus($data)
     {
         $asset_tag = $_GET['asset_tag'];
-        $checked_in = $_GET['checked_in'];
+        $checked_in = $_GET['check_in'];
         $today = date("Y-m-d H:i:s");
 
         $apiCache = $_SERVER['DOCUMENT_ROOT'].'/cache';
