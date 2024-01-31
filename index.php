@@ -71,6 +71,9 @@ if ($status != '') {
 if ($filter != '' && $value != '') {
     $parameters['filter'] = $filter;
     $parameters['value'] = $value;
+	if ($filter == "checked_in"){
+		$cache = '';
+	}
 	$cache = "listAll".$filter."-".$value;
 }
 else {

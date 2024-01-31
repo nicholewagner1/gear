@@ -71,6 +71,9 @@ switch ($method) {
         break;
     case 'POST':
         // Add user with genres
+        if ($_GET['action'] === 'checkIn') {
+            $assetController->updateItemCheckinStatus($data);
+        }
         if ($_GET['action'] === 'addEditItem') {
             $itemController->addEditItem($data);
         }

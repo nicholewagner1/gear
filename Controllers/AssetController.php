@@ -30,8 +30,13 @@ class AssetController
 
     public function updateItemCheckinStatus($data)
     {
+        $apiCache = '/cache';
+
         $sql = "UPDATE item SET checked_in = '".$this->checked_in."'  WHERE asset_tag = '" . $this->asset_tag."'";
       //  echo $sql;
+         file_put_contents($apiCache.'/log.txt', $sql, FILE_APPEND);
+
+
         $stmt = $this->db->conn->prepare($sql);
         if (!$stmt->execute()) {
             // Handle SQL error
