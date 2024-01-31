@@ -2,3 +2,5 @@
 .DS_Store
 *.cache
 *.ttl
+cachelog.txt
+cache/log.txt
