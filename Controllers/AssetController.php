@@ -30,11 +30,15 @@ class AssetController
 
     public function updateItemCheckinStatus($data)
     {
-        $apiCache = '/cache';
+        $asset_tag = $_GET['asset_tag'];
+        $checked_in = $_GET['checked_in'];
+        $today = date("Y-m-d H:i:s");
 
-        $sql = "UPDATE item SET checked_in = '".$this->checked_in."'  WHERE asset_tag = '" . $this->asset_tag."'";
+        $apiCache = $_SERVER['DOCUMENT_ROOT'].'/cache';
+
+        $sql = "UPDATE item SET checked_in = '".$checked_in."' , check_date = '".$today."' WHERE asset_tag = '" . $asset_tag."'";
       //  echo $sql;
-         file_put_contents($apiCache.'/log.txt', $sql, FILE_APPEND);
+         file_put_contents($apiCache.'/log.txt', $sql." \n", FILE_APPEND);
 
 
         $stmt = $this->db->conn->prepare($sql);
