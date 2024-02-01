@@ -8,6 +8,10 @@ tr.even {
 	min-height:50px;
 	min-width: 30px;
 }
+.itemCard {width:25%; float:left;}
+.itemCardImage {height:300px;
+	background-size: cover; 
+}
 .missing {color:red;}
 .float-left {float:left;}
 .checkedOut {	background-color: rgba(221, 85, 59, .4); }
