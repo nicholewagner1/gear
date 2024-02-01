@@ -10,8 +10,8 @@ class ItemMaintenanceController {
 public function editMaintentance () {
 	$date = date('Y-m-d'); 
 
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance_add.php');
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance_list_header.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_add.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_header.php');
 
 	$db = new \Api\Database();
 	$maintenanceModel = new \Models\ItemMaintenanceModel($db);
@@ -24,9 +24,9 @@ public function editMaintentance () {
 		$item = $service['item'];
 		$notes = $service['notes'];
 		$cost = $service['cost'];
-		include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance_list_row.php');
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_row.php');
 	}
-		include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance_list_footer.php');
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_footer.php');
 
 }
 

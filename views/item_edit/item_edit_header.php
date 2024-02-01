@@ -11,6 +11,11 @@
 		</div>
 		</div>
 		</div>
+		<div class="form-group">
+		
+		<label for="name">Item Name:</label>
+		<input class="form-control" type="text" value="<?php echo $items[0]['name'] ?? ''; ?>" name="name" required>			
+		</div>
 					<div class="form-group">
 		<div class="row mt-3">
 			<div class="col">
@@ -43,7 +48,7 @@
 		}
 								}
 							} ?>
-						<input type="text" id="photo" hidden class="custom-file-input" name="photo" value="<?= $imageURLs ?>">
+						<input type="text" id="photo" hidden name="photo" value="<?= $imageURLs ?>">
 					</div>
 					
 			<label for="photoUpload">Photos:</label>
@@ -73,11 +78,7 @@
 		</div>
 		</div>
 					
-					<div class="form-group">
 		
-					<label for="name">Item Name:</label>
-					<input class="form-control" type="text" value="<?php echo $items[0]['name'] ?? ''; ?>" name="name" required>			
-					</div>
 					<div class="form-group">
 					<div class="row">
 						<div class="col">
@@ -151,11 +152,17 @@
 						
 					<div class="row">
 						<div class="col">
-							<button type="button" value="Add Item" id="addEditItemFormButton" class="btn btn-primary mt-3">Submit</button>
+							<button type="button"  id="addEditItemFormButton" class="btn btn-primary mt-3">Submit</button>
 						</div>
 					</div>
 				</div>
 							</form>
+					
+					<div class="row">
+						<div class="col">
+							<button id="deleteItem" type="button" data-value="<?= $id ?>" class=" float-right btn btn-danger mt-3">Delete Item</button>
+						</div>
+					</div>
 		
 						<?php 
 						if ($id != '' && $maintenance) { ?>

@@ -14,6 +14,8 @@ tr.even {
 }
 .missing {color:red;}
 .float-left {float:left;}
+.float-right {float:right;}
+
 .checkedOut {	background-color: rgba(221, 85, 59, .4); }
 .tiny {font-size:.7rem;}
 .outfitImage {

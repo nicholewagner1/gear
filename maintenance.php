@@ -1,8 +1,6 @@
 <?php
 $id = $_GET['id'] ?? '';
-$action = $_GET['action'] ?? 'view';
-$title = '- Outfit - '.$action ;
-
+$title = '- Maintenance'; 
 require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
 include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 

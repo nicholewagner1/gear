@@ -6,6 +6,8 @@ if ($_SERVER['HTTP_HOST'] !== 'gear.localhost' || $_SERVER['HTTP_HOST'] !== '127
     require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
 
 }
+header('Content-Type: application/json');
+
 use Api\Database;
 
 // Handle HTTP methods
@@ -20,50 +22,33 @@ if ($method == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 }
 $itemController = new Controllers\ItemController($db, $data);
+$itemInfoController = new Controllers\ItemInfoController();
+$itemEditController = new Controllers\ItemEditController();
+
 $maintenanceController = new Controllers\MaintenanceController($db, $data);
-$assetController = new Controllers\AssetController($db, $data);
+$assetController = new Controllers\AssetController();
+$packingController = new Controllers\PackingListController();
 
 switch ($method) {
     case 'GET':
         // Search users
-        if ($_GET['action'] === 'list') {
-            $itemController->returnItems($data);
-        }
-        if ($_GET['action'] === 'images') {
-            $itemController->returnItemImages($data);
-        }
-        if ($_GET['action'] === 'maintenanceLog') {
-            $maintenanceController->returnAllMaintenance();
-        }
+       
         if ($_GET['action'] === 'autocomplete') {
-            $itemController->autocomplete($data);
+            $itemInfoController->autocomplete($db, $data);
         }
-        if ($_GET['action'] === 'addMaintenanceLog') {
-            $maintenanceController->maintenanceLog($data);
-        }
+       
         if ($_GET['action'] === 'getMaintenanceValues') {
             $maintenanceController->getMaintenanceValues($data);
         }
-        if ($_GET['action'] === 'delete') {
-            $itemController->deleteItem($data);
-        }
-        if ($_GET['action'] === 'hardDelete') {
-            $itemController->hardDeleteItem($data);
+
+        if ($_GET['action'] === 'deleteItem') {
+            $itemEditController->deleteItem($db, $data);
         }
         if ($_GET['action'] === 'setImageType') {
-            $itemController->setImageType($data);
+            $itemEditController->setImageType($db, $data);
         }
         if ($_GET['action'] === 'checkIn') {
-            $assetController->updateItemCheckinStatus($data);
-        }
-        if ($_GET['action'] === 'returnPackingLists') {
-            $assetController->returnPackingLists($data);
-        }
-        if ($_GET['action'] === 'checkPackingLists') {
-            $assetController->checkPackingLists($data);
-        }
-        if ($_GET['action'] === 'getCheckedOutItems') {
-            $assetController->getCheckedOutItems($data);
+            $assetController->updateItemCheckinStatus($db,$data);
         }
         if ($_GET['action'] === 'renameImages') {
             $itemController->renameImages($data);
@@ -72,16 +57,16 @@ switch ($method) {
     case 'POST':
         // Add user with genres
         if ($_GET['action'] === 'checkIn') {
-            $assetController->updateItemCheckinStatus($data);
+            $assetController->updateItemCheckinStatus($db, $data);
         }
         if ($_GET['action'] === 'addEditItem') {
-            $itemController->addEditItem($data);
+            $itemEditController->addEditItem($db, $data);
         }
         if ($_GET['action'] === 'updateItem') {
-            $itemController->updateItem($data);
+            $itemEditController->updateItem($db, $data);
         }
         if ($_GET['action'] === 'packingList') {
-            $assetController->packingList($data);
+            $packingController->updatePackingList($db,$data);
         }
         if ($_GET['action'] === 'uploadPhoto') {
             $imageType = $_POST['imageType'] ?? '';
@@ -92,7 +77,7 @@ switch ($method) {
                     $images[$index][$key] = $fileData;
                 }
             }
-            $itemController->uploadPhoto($images, $imageType);
+            $itemEditController->uploadPhoto($db, $images, $imageType);
         }
         if ($_GET['action'] === 'addEditOutfit') {
             $maintenanceController->addEditOutfit($data);

@@ -27,6 +27,25 @@ $("#addEditItemFormButton").click(function (event) {
 
 });
 
+$("#deleteItem").click(function (event) {
+	var deleteId = $(this).attr('data-value');
+	
+	$.ajax({
+		type: "GET",
+		url: "/api/index.php?action=deleteItem&id="+deleteId,
+		contentType: false,
+		success: function (response) {
+			// Handle the response from the server
+		//	window.location = "/index.php";
+		alert("item delete success");
+		},
+		error: function () {
+			alert("Error processing the form.");
+		}
+	});
+
+});
+
 function setImageType(id, url, set, type) {
 	$.ajax({
 		type: "GET",
@@ -71,7 +90,7 @@ function handleFileUpload(inputSelector, fieldType) {
 		success: function (response) {
 			var paths = response.images;
 			console.log(response.imageType);
-			$(inputSelector).val(paths.join(', '));
+			$("#photo").val(paths.join(', '));
 			$(inputSelector).after('<i class="fa-solid fa-upload"></i>');
 		},
 		error: function () {

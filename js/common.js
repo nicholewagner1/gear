@@ -11,7 +11,7 @@ function getValues(inline = 0) {
 		$.ajax({
 			url: 'api/index.php?action=autocomplete', // Replace with your server endpoint
 			method: 'GET',
-			data: { name: inputName },
+			data: { filter: inputName },
 			success: function (data) {
 
 

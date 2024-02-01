@@ -64,5 +64,11 @@ else {
 //	include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_footer.php');
 }
 
+public function autocomplete($db, $data) {
+
+   $itemModel = new \Models\ItemInfoModel($db, $data);
+   $itemModel->returnAutocompleteData();
+
+   }
 
 }

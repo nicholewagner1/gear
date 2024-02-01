@@ -100,4 +100,21 @@ public function returnItemImages($id)
 
 	$stmt->close();
 }
+
+	public function returnAutocompleteData()
+{
+	$sql = "SELECT DISTINCT ".$this->filter." as value FROM item ORDER BY value ASC";
+	$stmt = $this->db->conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows > 0) {
+		$items = array();
+		while ($row = $result->fetch_assoc()) {
+			$items[] = $row;
+		}
+		echo json_encode($items);
+		$stmt->close();
+	}
+}
+
 }
