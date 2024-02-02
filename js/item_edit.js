@@ -36,8 +36,7 @@ $("#deleteItem").click(function (event) {
 		contentType: false,
 		success: function (response) {
 			// Handle the response from the server
-		//	window.location = "/index.php";
-		alert("item delete success");
+		window.location = "/index.php";
 		},
 		error: function () {
 			alert("Error processing the form.");
@@ -90,7 +89,7 @@ function handleFileUpload(inputSelector, fieldType) {
 		success: function (response) {
 			var paths = response.images;
 			console.log(response.imageType);
-			$("#photo").val(paths.join(', '));
+			$("#photo").append(paths.join(', '));
 			$(inputSelector).after('<i class="fa-solid fa-upload"></i>');
 		},
 		error: function () {

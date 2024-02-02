@@ -52,6 +52,30 @@ function getItems() {
 				}
 			}
 		
+	$(".deleteList").click(function (event) {
+		var deleteId = $(this).attr('data-value');
+		var targetURL = "packing_list.php";
+		$.ajax({
+			type: "GET",
+			url: "/api/index.php?action=deleteList&id="+deleteId,
+			contentType: false,
+			success: function (response) {
+				// Handle the response from the server
+			$('#list_'+deleteId).remove();
+			
+			  // Check if the current URL is different from the target
+			  if (window.location.href !== targetURL) {
+				// Redirect to the target URL
+				window.location.href = targetURL;
+			  }
+			},
+			error: function () {
+				alert("Error processing the form.");
+			}
+		});
+	
+	});	
+	
 	function populateDropdown(id, data) {
 		console.log('itemId',id);
 

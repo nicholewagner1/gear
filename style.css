@@ -8,9 +8,26 @@ tr.even {
 	min-height:50px;
 	min-width: 30px;
 }
-.itemCard {width:25%; float:left;}
+.itemCard {}
 .itemCardImage {height:300px;
 	background-size: cover; 
+}
+.cardImg {
+  position: relative;
+}
+
+.cardImg::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.cardImg img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 .missing {color:red;}
 .float-left {float:left;}

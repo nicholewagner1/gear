@@ -189,4 +189,22 @@ class PackingListModel {
 			}
 		}
 	
+	public function deletePackingList()
+	{
+		$this->resetListItems($this->id);
+		$sql = "DELETE FROM list WHERE id = ".$this->id;
+		$stmt = $this->db->conn->prepare($sql);
+		$stmt->execute();
+		if (!$stmt->execute()) {
+			// Handle SQL error
+			echo json_encode(array("message" => "List delete failed: " . $stmt->error));
+			$stmt->close();
+			return;
+		} else {
+			echo json_encode(array("message" => "List delete success"));
+	
+		}
+		$stmt->close();
+	
+	}
 }

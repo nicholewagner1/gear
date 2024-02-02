@@ -36,7 +36,9 @@ switch ($method) {
         if ($_GET['action'] === 'autocomplete') {
             $itemInfoController->autocomplete($db, $data);
         }
-       
+        if ($_GET['action'] === 'list') {
+            $itemInfoController->list($db);
+        }
         if ($_GET['action'] === 'getMaintenanceValues') {
             $maintenanceController->getMaintenanceValues($data);
         }
@@ -50,9 +52,13 @@ switch ($method) {
         if ($_GET['action'] === 'checkIn') {
             $assetController->updateItemCheckinStatus($db,$data);
         }
-        if ($_GET['action'] === 'renameImages') {
-            $itemController->renameImages($data);
+        if ($_GET['action'] === 'deleteList') {
+            $packingController->deleteList($db,$data);
         }
+        
+        // if ($_GET['action'] === 'renameImages') {
+        //     $itemController->renameImages($data);
+        // }
         break;
     case 'POST':
         // Add user with genres

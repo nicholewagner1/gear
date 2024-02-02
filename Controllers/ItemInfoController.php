@@ -51,11 +51,14 @@ public function editItem ($id = '') {
 		$images = $itemModel->returnItemImages($id);
 		$maintenance = $maintenanceModel->returnAllMaintenance();
 
-		include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_header.php');
-
-		//include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_row.php');
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_main.php');
+ 	   if ($maintenance && $id !='')
+ 	   {
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_maintenance_log.php');
+		}
 	}
 }
+
 else {	
 	$date_acquired = date('Y-m-d');
 	include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_header.php');
@@ -70,5 +73,11 @@ public function autocomplete($db, $data) {
    $itemModel->returnAutocompleteData();
 
    }
+   
+   public function list($db) {
+	  $itemModel = new \Models\ItemInfoModel($db);
+	 $items = $itemModel->returnItems();
+      echo json_encode($items);
+	  }
 
 }

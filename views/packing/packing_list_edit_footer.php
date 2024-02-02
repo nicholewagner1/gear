@@ -13,5 +13,7 @@
 	<div class="col">
 		<input class="btn btn-primary" type="submit" value="Update List">
 	</div>
+	<div class="col">
+		<button class="btn btn-danger deleteList" data-value="<?= $id; ?>">delete</button>
 </div>
 	</form>

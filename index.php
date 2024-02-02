@@ -8,6 +8,8 @@ $filter = $_GET['filter'] ?? '';
 $value = $_GET['value'] ?? '';
 $status = $_GET['status'] ?? '';
 $view = $_GET['view'] ?? 'table';
+$sort = $_GET['sort'] ?? '';
+
 use Controllers\ItemInfoController;
 
 $itemController = new ItemInfoController();
@@ -16,11 +18,12 @@ $itemController = new ItemInfoController();
 ?>
 
 <h2>Items: <?php echo $value; ?></h2>
-<?php include ($_SERVER)['DOCUMENT_ROOT'].'/views/item/filters.php';?>
+<?php include ($_SERVER)['DOCUMENT_ROOT'].'/views/item_list/filters.php';?>
 		<?php $itemController->displayItemsList($view, $missing, $status, $filter, $value, $sort); ?>
 <!-- Initialize DataTable -->
 <script>
 	$(document).ready(function () {
+	getValues();
 
 	
    $('#itemTable').DataTable({

@@ -52,4 +52,11 @@ public function updatePackingList($db, $data) {
    $packingModel->updatePackingListItems();
 
    }
+   public function deleteList($db, $data) {
+   
+   $packingModel = new \Models\PackingListModel($db, $data);
+   $packingModel->deletePackingList();
+   
+   }
+   
 }
