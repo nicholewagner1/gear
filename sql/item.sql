@@ -1,0 +1,21 @@
+CREATE TABLE `item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `subcategory` varchar(255) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `year` varchar(255) DEFAULT NULL,
+  `serial_number` varchar(255) DEFAULT NULL,
+  `date_acquired` date DEFAULT NULL,
+  `purchase_location` varchar(255) DEFAULT NULL,
+  `purchase_price` decimal(10,0) DEFAULT NULL,
+  `replacement_value` decimal(10,0) DEFAULT NULL,
+  `notes` varchar(500) DEFAULT NULL,
+  `asset_tag` varchar(255) DEFAULT NULL,
+  `checked_in` tinyint(1) DEFAULT '1',
+  `location` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `check_date` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4;
