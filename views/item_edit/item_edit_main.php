@@ -53,37 +53,37 @@
 			</div>
 		</div>
 		<div class="row mt-3">
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="status">Status:</label>
 				<select id="status" class="js-multiple-select autocomplete status form-control" multiple value="<?php echo $items[0]['status'] ?? ''; ?>" name="status"></select>
 			</div>
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="year">Year:</label>
 				<input type="text" id="year" class="form-control" name="year" value="<?php echo $items[0]['year'] ?? ''; ?>"></div>
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="serial_number">Serial Number:</label>
 				<input type="text" id="serial_number" class="form-control" name="serial_number" value="<?php echo $items[0]['serial_number'] ?? ''; ?>"></div>
-			<div class="col">
-				<label for="asset_tag">Asset Tag: <span><?php if ($items[0]['checked_in'] == 1) {?><i class="fa-solid fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid fa-house-circle-xmark"></i><?php } ?></span></label>
+			<div class="col-sm-3">
+				<label for="asset_tag">Asset Tag: <span class="checkInStatus" data-item-id="<?= $id;?>" data-item-status="<?= $items[0]['checked_in']; ?>"><?php if ($items[0]['checked_in'] == 1) {?><i class="fa-solid text-success fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid text-warning fa-house-circle-xmark"></i><?php } ?></span></label>
 				<input type="text" id="asset_tag" class="form-control" name="asset_tag" value="<?php echo $items[0]['asset_tag'] ?? ''; ?>">
 			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="row mt-3">
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="brand">Brand:</label>
 				<select id="brand" class="autocomplete size form-control" multiple value="<?php echo $items[0]['brand'] ?? ''; ?>" name="brand"></select>
 			</div>
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="model">Model:</label>
 				<input type="text" id="model" class=" model form-control" multiple value="<?php echo $items[0]['model'] ?? ''; ?>" name="model">
 			</div>
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="category">Category:</label>
 				<select id="category" class="js-multiple-select autocomplete size form-control" multiple value="<?php echo $items[0]['category'] ?? ''; ?>" name="category"></select><br>
 			</div>
-			<div class="col">
+			<div class="col-sm-3">
 				<label for="subcategory">Subcategory:</label>
 				<select id="subcategory" class="autocomplete size form-control" multiple value="<?php echo $items[0]['subcategory'] ?? ''; ?>" name="subcategory"></select><br>
 			</div>
@@ -149,15 +149,13 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="row mt-3">
+		<div class="row m-3">
 			<div class="col">
 				<button type="button" id="addEditItemFormButton" class="btn btn-primary mt-3">Submit</button>
+			</div>
+			<div class="col">
+				<button id="deleteItem" type="button" data-value="<?= $id ?>" class=" float-right btn btn-danger mt-3">Delete Item</button>
 			</div>
 		</div>
 	</div>
 </form>
-<div class="row mt-3">
-	<div class="col">
-		<button id="deleteItem" type="button" data-value="<?= $id ?>" class=" float-right btn btn-danger mt-3">Delete Item</button>
-	</div>
-</div>

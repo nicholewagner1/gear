@@ -10,10 +10,7 @@ $itemController = new ItemInfoController();
 
  $itemController->editItem($id); ?>
 
-		<link rel="stylesheet" href="/utils/drag-drop-upload/drag-drop.css">
-
 		<script src="/js/item_edit.js"></script>
-		<script src="/utils/drag-drop-upload/drag-drop.js"></script>
 
 <script>
 	$(document).ready(function () {

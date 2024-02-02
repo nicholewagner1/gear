@@ -23,15 +23,21 @@ class AssetModel {
 	}
 	public function changeCheckInStatus($data)
 		{
-			$asset_tag = $_GET['asset_tag'];
+			$asset_tag = $_GET['asset_tag'] ?? '';
+			$id = $_GET['id'] ?? '';
 			$checked_in = $_GET['check_in'];
 			$today = date("Y-m-d H:i:s");
 	
 			$apiCache = $_SERVER['DOCUMENT_ROOT'].'/cache';
 	
-			$sql = "UPDATE item SET checked_in = '".$checked_in."' , check_date = '".$today."' WHERE asset_tag = '" . $asset_tag."'";
-		  //  echo $sql;
-			 file_put_contents($apiCache.'/log.txt', $sql." \n", FILE_APPEND);
+			$sql = "UPDATE item SET checked_in = '".$checked_in."' , check_date = '".$today."'";
+			if ($asset_tag != '' && $id == ''){
+				$sql .=" WHERE asset_tag = '" . $asset_tag."'";
+				}
+			if ($id != '' && $asset_tag == ''){
+			$sql .=" WHERE id = '" . $id ."'";
+			}
+			file_put_contents($apiCache.'/log.txt', $sql." \n", FILE_APPEND);
 	
 	
 			$stmt = $this->db->conn->prepare($sql);
