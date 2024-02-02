@@ -8,8 +8,31 @@ tr.even {
 	min-height:50px;
 	min-width: 30px;
 }
+.itemCard {}
+.itemCardImage {height:300px;
+	background-size: cover; 
+}
+.cardImg {
+  position: relative;
+}
+
+.cardImg::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.cardImg img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
 .missing {color:red;}
 .float-left {float:left;}
+.float-right {float:right;}
+
 .checkedOut {	background-color: rgba(221, 85, 59, .4); }
 .tiny {font-size:.7rem;}
 .outfitImage {

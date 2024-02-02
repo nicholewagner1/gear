@@ -11,16 +11,14 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	<!-- Include jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/utils/DataTables/datatables.min.css">
-	<script type="text/javascript" charset="utf8" src="/utils/DataTables/datatables.min.js"></script>
 	<link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" >
 
 	<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/utils/DataTables/datatables.min.css">
+	<script type="text/javascript" charset="utf8" src="/utils/DataTables/datatables.min.js"></script>
+	<script src="/js/common.js"></script>
 
-	<script src="/common.js"></script>
 
-
-	<link rel="stylesheet" href="/utils/multiselect-11/css/select2.min.css">
 	<link rel="stylesheet" href="/utils/multiselect-11/css/select2.min.css">
 	<link href="/utils/fontawesome-free-6.5/css/fontawesome.css" rel="stylesheet">
 	  <link href="/utils/fontawesome-free-6.5/css/solid.css" rel="stylesheet">

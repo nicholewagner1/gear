@@ -2,7 +2,6 @@
 
 namespace Api;
 
-header('Content-Type: application/json');
 include_once('config.php');
 
 class Database
