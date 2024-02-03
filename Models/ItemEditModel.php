@@ -2,6 +2,8 @@
 
 namespace Models;
 
+require($_SERVER['DOCUMENT_ROOT'].'/config/environment.php');
+
 use Api\Database;
 
 error_reporting(E_ALL);
@@ -260,7 +262,7 @@ class ItemEditModel
                 continue; // Skip if no file uploaded
             }
             //var_dump($image);
-            $uploadPath = '/Applications/XAMPP/xamppfiles/htdocs/gearcheck/images/items/' . basename($image['name']);
+            $uploadPath = $_ENV['UPLOAD_PATH'] . basename($image['name']);
             $fileType = strtolower(pathinfo($uploadPath, PATHINFO_EXTENSION));
 
             // Allow only certain file types (adjust as needed)
@@ -281,9 +283,9 @@ class ItemEditModel
         echo json_encode(array("images" => $uploadedPhotos, "imageType" => $imageType));
     }
 
-    public function renameImages()
+    public function doRenameImages()
     {
-        $folderPath = "/Applications/XAMPP/xamppfiles/htdocs/gearcheck/images/items";
+        $folderPath = $_ENV['UPLOAD_PATH'];
 
         $query = "SELECT images.image_id, images.item_id, images.type, images.url, images.serial, images.thumbnail, item.name AS item_name  
 				  FROM images 
@@ -301,6 +303,7 @@ class ItemEditModel
             while ($row = $result->fetch_assoc()) {
                 $imageId = $row['image_id'];
                 $itemName = str_replace(' ', '', $row['item_name']);
+                $itemName = preg_replace('/[^A-Za-z0-9\-]/', '', $itemName);
                 $imageType = $row['type'];
                 $imageSerial = $row['serial'];
                 $isThumbnail = $row['thumbnail'];
@@ -334,7 +337,7 @@ class ItemEditModel
                     if ($stmt2->affected_rows > 0) {
                         echo "File '$row[url]' renamed to '$newFilename.$extension' and database updated.\n";
                     } else {
-                        echo "File '$row[url]' renamed, but failed to update database.\n";
+                        echo "File '$row[url]' not renamed - no update needed.\n";
                     }
                 } else {
                     echo "Failed to rename file '$row[url]'.\n";

@@ -1,6 +1,6 @@
 <?php
 $title = 'Home';
-require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
+require($_SERVER['DOCUMENT_ROOT'].'/config/environment.php');
 include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 
 $missing = $_GET['missing'] ?? '';
@@ -18,7 +18,7 @@ $itemController = new ItemInfoController();
 ?>
 
 <h2>Items: <?php echo $value; ?></h2>
-<?php include ($_SERVER)['DOCUMENT_ROOT'].'/views/item_list/filters.php';?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/views/item_list/filters.php');?>
 		<?php $itemController->displayItemsList($view, $missing, $status, $filter, $value, $sort); ?>
 <!-- Initialize DataTable -->
 <script>

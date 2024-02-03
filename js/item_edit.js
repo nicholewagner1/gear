@@ -15,8 +15,6 @@ $("#addEditItemFormButton").click(function (event) {
 		processData: false,
 		data: JSON.stringify(jsonData),
 		success: function (response) {
-			// Handle the response from the server
-		//	window.location = "/index.php";
 		alert("item update success");
 		},
 		error: function () {

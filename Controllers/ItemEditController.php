@@ -35,5 +35,11 @@ public function addEditItem($db, $data) {
 		$itemModel->hardDeleteItem();
 		
 		}
+		
+	public function renameImages($db, $data) {
+	$itemModel = new \Models\ItemEditModel($db, $data);
+	$itemModel->doRenameImages($data);
+	
+	}
 
 }
