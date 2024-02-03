@@ -112,7 +112,8 @@ function handleFileUpload(inputSelector, fieldType) {
 		success: function (response) {
 			var paths = response.images;
 			console.log(response.imageType);
-			$("#photo").append(paths.join(', '));
+			$("#"+response.imageType).append(paths.join(', '));
+			$("#"+response.imageType).val($("#"+response.imageType).text());
 			$(inputSelector).after('<i class="fa-solid fa-upload"></i>');
 		},
 		error: function () {

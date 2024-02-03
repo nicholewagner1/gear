@@ -23,7 +23,7 @@
 						if ($images) {
 							foreach ($images as $image){
 								if ($image['type'] == 'photo') {
-									echo '<div class="col-2">';
+									echo '<div class="col-lg-3 col-md-4 col-sm-12">';
 									echo "<div class='card'> <div class='card-body'>";
 		
 							echo "<div class='cardImg'><a href='/images/items/".$image['url']."' data-toggle='lightbox'> <img src='/images/items/".$image['url']."' class=''></a></div>";

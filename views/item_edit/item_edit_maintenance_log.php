@@ -8,7 +8,7 @@
 		</div>
 		<div id="maintenanceLogCard" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 			<div class="card-body">
-				<table id='maintenanceLog'>
+				<table id='maintenanceLog' width="100%">
 					<thead>
 						<tr>
 							<th>Date</th>
@@ -18,7 +18,7 @@
 						</tr>
 					</thead>
 					<?php foreach ($maintenance as $service) {
-							echo "<tr><td>".$service['date']."</td><td>".$service['service']."</td><td>".$service['notes']."</td><td>".$service['cost']."</td></tr>";
+							echo "<tr><td>".date( 'Y-m-d', strtotime($service['date']))."</td><td>".$service['service']."</td><td>".$service['notes']."</td><td>".$service['cost']."</td></tr>";
 					} ?>
 				</table>
 			</div>
