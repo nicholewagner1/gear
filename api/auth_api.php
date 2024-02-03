@@ -1,7 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
-(Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']))->load();
+require($_SERVER['DOCUMENT_ROOT'] . '/config/environment.php');
 
 define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
 define('ROUTE_URL_LOGIN', 'https://gear.nicholewagner.com/login.php');

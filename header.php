@@ -1,6 +1,5 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
