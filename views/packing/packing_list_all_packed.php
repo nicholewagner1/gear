@@ -21,8 +21,10 @@ foreach ($items[0]['missing'] as $missing) {
 <h3>All Packed Items</h3>
 	<table>
 		<?php 
+		if ($checkedOutItems){
 		foreach ($checkedOutItems as $item) {
 			echo '<tr><td>'.$item['name'].'</tr></td>';
+			}
 			}
 		?>
 	</table>
