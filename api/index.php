@@ -24,6 +24,7 @@ if ($method == 'POST') {
 $itemController = new Controllers\ItemController($db, $data);
 $itemInfoController = new Controllers\ItemInfoController();
 $itemEditController = new Controllers\ItemEditController();
+$itemReportController = new Controllers\ItemReportController();
 
 $maintenanceController = new Controllers\MaintenanceController($db, $data);
 $assetController = new Controllers\AssetController();
@@ -55,10 +56,16 @@ switch ($method) {
         if ($_GET['action'] === 'deleteList') {
             $packingController->deleteList($db,$data);
         }
-        
          if ($_GET['action'] === 'renameImages') {
              $itemEditController->renameImages($db, $data);
          }
+         if ($_GET['action'] === 'reportItemValue') {
+              $itemReportController->reportItemValue($db, $data);
+          }
+          if ($_GET['action'] === 'reportItemCount') {
+                $itemReportController->reportItemCount($db, $data);
+            }
+          
         break;
     case 'POST':
         // Add user with genres
