@@ -4,4 +4,3 @@
 *.ttl
 cachelog.txt
 cache/log.txt
-config/*

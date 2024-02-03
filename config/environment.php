@@ -12,5 +12,5 @@ else {
 	$proxy = "https://";
 }
 
-$dotenv = \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT'] . '/config/','.env.'.$env);
+$dotenv = Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT'] . '/config/','.env.'.$env);
 $dotenv->load();
