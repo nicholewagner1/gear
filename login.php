@@ -1,9 +1,7 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
+require($_SERVER['DOCUMENT_ROOT'].'/config/environment.php');
 require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
-
-(Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']))->load();
 
 
 define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
