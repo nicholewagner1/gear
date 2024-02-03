@@ -26,7 +26,8 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 
 </head>
 <body>
-	<?php if ($_SERVER['HTTP_HOST'] === 'gearcheck.localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
+	<?php 
+	if ($_SERVER['HTTP_HOST'] === 'gearcheck.localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
 	    $apiBaseUrl = 'http://127.0.0.1/gearcheck/api/index.php?';
 		$apiCache = '/Applications/XAMPP/xamppfiles/htdocs/gearcheck/cache';
 		$imagePath = '/Applications/XAMPP/xamppfiles/htdocs/gearcheck/images/items';
@@ -47,11 +48,11 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	    }
 
 	    if ($session === null) {
-	        // The user isn't logged in.
-	        echo '<p>Please <a href="/login.php">log in</a>.</p>';
+	        // The user isn't logged in
+			include($_SERVER['DOCUMENT_ROOT'].'/views/login.php');
 	        header("Location: https://gear.nicholewagner.com/login.php");
 	        die;
-	    }
+	   }
 
 	}
 
