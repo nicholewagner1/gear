@@ -56,9 +56,9 @@ switch ($method) {
             $packingController->deleteList($db,$data);
         }
         
-        // if ($_GET['action'] === 'renameImages') {
-        //     $itemController->renameImages($data);
-        // }
+         if ($_GET['action'] === 'renameImages') {
+             $itemEditController->renameImages($db, $data);
+         }
         break;
     case 'POST':
         // Add user with genres
