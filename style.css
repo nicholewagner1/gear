@@ -42,3 +42,8 @@ line-height: .8;
 text-align: center;
 margin:20px;
 }
+
+.income.odd {background: darkseagreen !important;}
+.expense.odd {background: indianred !important;}
+.income.even {background: darkseagreen !important;}
+.expense.even {background: indianred !important;}

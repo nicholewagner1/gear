@@ -10,7 +10,7 @@ use Bbsnly\ChartJs\Config\Options;
 use \Controllers\ItemReportController;
 $itemController = new ItemReportController();
 
-$itemList = $itemController->reportItemValue('','','Current', 'subcategory', 'purchase_price');
+$itemList = $itemController->reportItemValue('','','Current', 'subcategory', 'purchase_price', 'purchase_price');
 
 $values = array_column($itemList, 'value');
 $labels = array_column($itemList, 'filter');
@@ -60,7 +60,7 @@ $labelsList = "'".implode("','", $labels)."'";
   const ctx = document.getElementById('myChart');
 
   new Chart(ctx, {
-	type: 'doughnut',
+	type: 'bar',
 	data: {
 	  labels: [<?= ($labelsList); ?>],
 	  datasets: [{

@@ -61,7 +61,7 @@ public function editItem ($id = '') {
 
 else {	
 	$date_acquired = date('Y-m-d');
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_header.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_main.php');
 	}
 	
 //	include ($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_footer.php');
