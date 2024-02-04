@@ -29,6 +29,8 @@ $itemReportController = new Controllers\ItemReportController();
 $maintenanceController = new Controllers\MaintenanceController($db, $data);
 $assetController = new Controllers\AssetController();
 $packingController = new Controllers\PackingListController();
+$plController = new Controllers\ProfitLossEditController();
+$venueController = new Controllers\VenueController();
 
 switch ($method) {
     case 'GET':
@@ -65,6 +67,16 @@ switch ($method) {
           if ($_GET['action'] === 'reportItemCount') {
                 $itemReportController->reportItemCount($db, $data);
             }
+            if ($_GET['action'] === 'returnProfitLoss') {
+                $plController->returnProfitLoss($db, $data);
+            }
+            if ($_GET['action'] === 'returnVenues') {
+                $venueController->returnVenues($db, $data, 1);
+            }
+            if ($_GET['action'] === 'returnProfitLossAutocompleteData') {
+                $plController->returnProfitLossAutocompleteData($db, $data);
+            }
+            
           
         break;
     case 'POST':
@@ -92,9 +104,10 @@ switch ($method) {
             }
             $itemEditController->uploadPhoto($db, $images, $imageType);
         }
-        if ($_GET['action'] === 'addEditOutfit') {
-            $maintenanceController->addEditOutfit($data);
+        if ($_GET['action'] === 'upsertProfitLossData') {
+            $plController->upsertProfitLossData($db,$data);
         }
+        
         break;
 
     default:

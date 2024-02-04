@@ -1,4 +1,5 @@
-<div class="card m-4 itemCard <?= $checked_in ?>" id="item_<?= $id; ?>">
+<div class="col-md-4 m-.5 col-lg-3">
+  <div class="card itemCard <?= $checked_in ?>" id="item_<?= $id; ?>">
     <div class="card-header">
      <h5 class="card-title"> <?= $name ?>  </h5>
 
@@ -28,4 +29,5 @@
             </div>
                 
   </div>
+</div>
 </div>

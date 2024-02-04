@@ -64,7 +64,7 @@
 				<label for="serial_number">Serial Number:</label>
 				<input type="text" id="serial_number" class="form-control" name="serial_number" value="<?php echo $items[0]['serial_number'] ?? ''; ?>"></div>
 			<div class="col-sm-3">
-				<label for="asset_tag">Asset Tag: <span class="checkInStatus" data-item-id="<?= $id;?>" data-item-status="<?= $items[0]['checked_in']; ?>"><?php if ($items[0]['checked_in'] == 1) {?><i class="fa-solid text-success fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid text-warning fa-house-circle-xmark"></i><?php } ?></span></label>
+				<label for="asset_tag">Asset Tag: <span class="checkInStatus" data-item-id="<?= $id;?>" data-item-status="<?= $items[0]['checked_in'] ?? '' ; ?>"><?php if ($items[0]['checked_in'] == 1) {?><i class="fa-solid text-success fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid text-warning fa-house-circle-xmark"></i><?php } ?></span></label>
 				<input type="text" id="asset_tag" class="form-control" name="asset_tag" value="<?php echo $items[0]['asset_tag'] ?? ''; ?>">
 			</div>
 		</div>

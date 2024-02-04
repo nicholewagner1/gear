@@ -6,20 +6,12 @@ use \Models\ItemReportModel;
 
 class ItemReportController {
 	
-public function reportItemValue($db = '', $data='', $status ='' , $filter='', $value ='') {
+public function reportItemValue($db = '', $data='', $status ='' , $filter='', $value ='', $sort = 'count') {
 	$db = new \Api\Database();
-	if (!$data) {$data = array('filter'=> $filter, 'value'=> $value, 'status'=>$status); }
+	if (!$data) {$data = array('filter'=> $filter, 'value'=> $value, 'status'=>$status, 'sort'=> $sort); }
 	$itemModel = new ItemReportModel($db, $data);
 	$items = $itemModel->returnValues();
 	return $items;
-}
-
-public function reportItemCount($db='', $data='', $status ='' , $filter='', $value ='') {
-	$db = new \Api\Database();
-	if (!$data) {$data = array('filter'=> $filter, 'value'=> $value, 'status'=>$status); }
-	$itemModel = new ItemReportModel($db, $data);
-	$items = $itemModel->returnCounts();
-	echo json_encode($items);
 }
 
 public function autocomplete($db, $data) {

@@ -2,12 +2,8 @@ function getValues(inline = 0) {
 	
 	$(".autocomplete").each(function () {
 		var inputName = $(this).attr('name');
-		console.log (inputName);
 		var currentInput = $('#' + $(this).attr('id'));
 		var currentValues = $(this).attr('value');
-		console.log (currentInput);
-		console.log (currentValues);
-
 		$.ajax({
 			url: 'api/index.php?action=autocomplete', // Replace with your server endpoint
 			method: 'GET',
@@ -78,6 +74,7 @@ function getValues(inline = 0) {
 	});
 }
 
+	
 	$(document).ready(function () {
 
 $( '#pageBody' ).on( 'click', '.editable-text', function () {

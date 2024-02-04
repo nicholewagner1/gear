@@ -82,9 +82,9 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 		  <a class="dropdown-item" href="/item.php?action=add"><i class="fa-solid fa-circle-plus"></i> Add</a>
 
 		  <div class="dropdown-divider"></div>
-		  <a class="dropdown-item" href="/?filter=checked_in&value=0">Currently Out</a>
+		  <a class="dropdown-item" href="/?filter=checked_in&value=0&view=grid">Currently Out</a>
 
-  <a class="dropdown-item" href="/?filter=category&value=Instrument">Instruments</a>
+  <a class="dropdown-item" href="/?filter=category&value=Instrument&view=grid"">Instruments</a>
 		  <a class="dropdown-item" href="/?filter=category&value=Live%Sound"><i class="fa-solid fa-volume-high"></i> Live Sound</a>
 		  <a class="dropdown-item" href="/?filter=category&value=Microphone"><i class="fa-regular fa-microphone-lines"></i> Microphones</a>
 
@@ -116,6 +116,18 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
   <a class="dropdown-item" href="/packing_list.php?action=view&id=4"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig - Need PA</a>
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="/packing_list.php?action=add"><i class="fa-solid fa-circle-plus"></i> Add</a>
+
+</div>
+<li class="nav-item">
+	<a class="nav-link" href="/profit_loss.php"><i class="fa-solid fa-piggy-bank"></i></a>
+</li>
+ <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="itemnNav" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		</a>
+<div class="dropdown-menu" aria-labelledby="itemnNav">
+
+  <div class="dropdown-divider"></div>
+
+  <a class="dropdown-item" href="/profit_loss.php?action=add"><i class="fa-solid fa-plus"></i> New</a>
 
 </div>
 	</ul> 

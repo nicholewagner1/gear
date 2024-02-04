@@ -41,7 +41,8 @@ class ItemReportModel
 	}
   
 	$sql .= " GROUP BY  i.".$this->filter;
-	//echo $sql;
+	$sql .= " ORDER BY ".$this->sort." DESC";
+	echo $sql;
 	$stmt = $this->db->conn->prepare($sql);
 	$stmt->execute();
 	$result = $stmt->get_result();
