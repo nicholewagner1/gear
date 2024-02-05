@@ -11,7 +11,7 @@ $maintenanceController = new ItemMaintenanceController();
 ?>
 		<?php $maintenanceController->editMaintentance(); ?>
 
-		<script src="/js/item_edit.js"></script>
+		<script src="/js/maintenance.js"></script>
 	<script>
 		$(document).ready(function () {
    	 	$('#itemTable').DataTable({

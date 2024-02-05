@@ -12,7 +12,7 @@ $id = $_GET['id'] ?? '';
 use Controllers\PackingListController;
 $packingList = new PackingListController();
 
-if ($action == 'add' || $action == 'edit') { 
+if ($action == 'add' || $action == 'edit' || $action == 'clone') { 
 	$packingList->showPackingList($id); 
 }
 elseif ($action == 'view') {

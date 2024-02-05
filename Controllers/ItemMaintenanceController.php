@@ -29,6 +29,11 @@ public function editMaintentance () {
 		include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_footer.php');
 
 }
+ public function upsertMaintenance($db, $data) {
 
+  $maintenanceModel = new \Models\ItemMaintenanceModel($db, $data);
+  $maintenanceModel->doUpsertMaintenance($db, $data);
+
+  }
 
 }

@@ -17,11 +17,12 @@ public function returnProfitLoss($db = '', $data = '', $filter='', $value = '', 
 	foreach ($profitLoss as $row){
 		$id = $row['id'];
 		$date = $row['date'];
+		$is_future = ($date > date('Y-m-d') ? "future" : "");
 		$name = $row['name'];
 		$type = $row['type'] ?? '';
 		$amount = $row['amount'] ?? '';
 		$paid = $row['paid'] ?? '';
-		$paidCheck = ($paid == 1) ? "-check" : "";
+		$paidCheck = ($paid == 1) ? "-check text-success" : "-xmark text-warning";
 		$income = ($amount >= 0) ? "income" : "expense";
 		$notes = $row['notes'] ?? '';
 		$account = $row['account'] ?? '';

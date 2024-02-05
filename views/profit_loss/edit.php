@@ -15,12 +15,12 @@
 	<div class="form-group row">
 		<div class="col">
 		<label for="type">Type:</label>
-		<select class="autocompletePL autocomplete type form-control" multiple id="type" name="type" value="<?= $type ?? ''; ?>" /></select>
+		<select data-table="profit_loss" class="autocomplete type form-control" multiple id="type" name="type" value="<?= $type ?? ''; ?>" /></select>
 	</div>
 	<div class="col">
 
 		<label for="amount">Amount:</label>
-		<input type="number" class="form-control" name="amount" value="<?= $amount ?? ''; ?>" required />
+		<input type="number" id="amount" class="form-control" name="amount" value="<?= $amount ?? ''; ?>" required />
 	</div>
 	<div class="col">
 
@@ -43,15 +43,16 @@
 	
 	<div class="form-group">
 		<label for="account">Account:</label>
-		<input type="text" class="form-control" name="account" value="<?= $account ?? ''; ?>" />
+		<input type="text" id="amount" class="form-control" name="account" value="<?= $account ?? ''; ?>" />
 	</div>
 	
-	<!-- Additional fields for insertGigInfo function -->
+	<div id="gigInfo" class="hidden">
+	<!-- Additional fields for insertGigInfo function here-->
 	<div class="form-group">
 		<input type="hidden" name="gig_id" value="<?= $gig_id ?? ''; ?>" />
 
 		<label for="venue_id">Venue ID:</label>
-		<select id="venue_id" class="autocomplete venue_id form-control" multiple  name="venue_id" value="<?= $venue_id ?? ''; ?>" /></select>
+		<select id="venue_id" data-table="venue" data-return="id" class="autocomplete venue_id form-control" multiple  name="venue_id" value="<?= $venue_id ?? ''; ?>" /></select>
 	</div>
 	
 	<div class="form-group row">
@@ -60,7 +61,7 @@
 		<div class="input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text" id="inputGroupPrepend">$</span>
-		</div><input type="number" class="form-control" name="venue_payout" value="<?= $venue_payout ?? ''; ?>" />
+		</div><input type="number" class="gig_math form-control" id="venue_payout" name="venue_payout" value="<?= $venue_payout ?? ''; ?>" />
 		</div>
 	</div>
 	<div class="col">
@@ -70,7 +71,7 @@
 		<div class="input-group-prepend">
 		  <span class="input-group-text" id="inputGroupPrepend">$</span>
 		</div>
-		<input type="number" class="form-control" name="merch" value="<?= $merch ?? ''; ?>" /></div>
+		<input type="number" class="gig_math form-control" id="merch" name="merch" value="<?= $merch ?? ''; ?>" /></div>
 	</div>
 	
 		<div class="col">
@@ -79,7 +80,7 @@
 		<div class="input-group-prepend">
 		  <span class="input-group-text" id="inputGroupPrepend">$</span>
 		</div>
-		<input type="number" class="form-control" name="tips" value="<?= $tips ?? ''; ?>" /></div>
+		<input type="number" class="gig_math form-control" id="tips" name="tips" value="<?= $tips ?? ''; ?>" /></div>
 	</div>
 	
 		<div class="col">
@@ -107,6 +108,7 @@
 	<div class="form-group">
 		<label for="gig_notes">Gig Notes:</label>
 		<textarea class="form-control" name="gig_notes"><?= $gig_notes ?? ''; ?></textarea>
+	</div>
 	</div>
 	
 	<button id="profitLossSubmit" class="btn btn-primary">Submit</button>

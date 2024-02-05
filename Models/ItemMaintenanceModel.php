@@ -20,7 +20,7 @@ class ItemMaintenanceModel
 	public function __construct($db, $data = '')
 	{
 		$this->db = $db;
-		$this->dateToday = date("Y-m-d H:i:s");
+		$this->dateToday = date("Y-m-d");
 		if ($data) {
 			$this->id = $data['id'] ?? '';
 			$this->date = $data['date'] ?? $this->dateToday;
@@ -65,6 +65,38 @@ class ItemMaintenanceModel
 		}
 	
 		$stmt->close();
+	}
+
+public function doUpsertMaintenance()
+	{
+		if ($this->id == '') {
+			$insertMaintenanceSQL = "INSERT INTO maintenance (date, service, item_id, notes, cost) VALUES (?, ?, ?, ?, ?)";
+		}
+		if ($this->id != '') {
+			$insertMaintenanceSQL = "UPDATE maintenance SET date = ?, service = ?, item_id = ?, notes = ?, cost = ? WHERE id =". $this->id;
+		}
+		$stmtMaintenance = $this->db->conn->prepare($insertMaintenanceSQL);
+		$stmtMaintenance->bind_param("ssisi", $this->date, $this->service, $this->itemId, $this->notes, $this->cost);
+		//echo $insertMaintenanceSQL;
+		if (!$stmtMaintenance->execute()) {
+			// Handle SQL error
+			echo json_encode(array("message" => "Outfit insertion failed: " . $stmtMaintenance->error));
+			$stmtMaintenance->close();
+			return;
+		} else {
+			//echo $stmtOutfit->insert_id ;
+			//echo $this->id;
+			if ($stmtMaintenance->insert_id > '0') {
+				$maintenanceId = $stmtMaintenance->insert_id;
+			} else {
+				$maintenanceId = $this->id;
+			}
+			//	echo $outfitId;
+			echo json_encode(array("message" => "Maintenance items added successful"));
+	
+			$stmtMaintenance->close();
+	
+		}
 	}
 
 }

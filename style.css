@@ -8,6 +8,7 @@ tr.even {
 	min-height:50px;
 	min-width: 30px;
 }
+.hidden {display:none;}
 .itemCard {}
 .itemCardImage {height:300px;
 	background-size: cover; 
@@ -43,7 +44,11 @@ text-align: center;
 margin:20px;
 }
 
+
 .income.odd {background: darkseagreen !important;}
 .expense.odd {background: indianred !important;}
 .income.even {background: darkseagreen !important;}
 .expense.even {background: indianred !important;}
+.future.income {background: lightgreen !important;}
+.future.expense {background: rgb(232, 173, 173) !important;}
+
