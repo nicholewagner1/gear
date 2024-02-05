@@ -1,11 +1,11 @@
 <?php
 
 require($_SERVER['DOCUMENT_ROOT'].'/config/environment.php');
-// 
-// define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
-// define('ROUTE_URL_LOGIN', 'https://gear.nicholewagner.com/login.php');
-// define('ROUTE_URL_CALLBACK', 'https://gear.nicholewagner.com/callback.php');
-// define('ROUTE_URL_LOGOUT', 'https://gear.nicholewagner.com/logout');
+
+define('ROUTE_URL_INDEX', rtrim($_ENV['AUTH0_BASE_URL'], '/'));
+define('ROUTE_URL_LOGIN', 'https://gear.nicholewagner.com/login.php');
+define('ROUTE_URL_CALLBACK', 'https://gear.nicholewagner.com/callback.php');
+define('ROUTE_URL_LOGOUT', 'https://gear.nicholewagner.com/logout');
 
 $auth0 = new \Auth0\SDK\Auth0([
     'domain' => $_ENV['AUTH0_DOMAIN'],
