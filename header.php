@@ -15,12 +15,13 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	<script src="/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/utils/DataTables/datatables.min.css">
 	<script type="text/javascript" charset="utf8" src="/utils/DataTables/datatables.min.js"></script>
-	<script src="/js/common.js"></script>
 
 
 	<link rel="stylesheet" href="/utils/multiselect-11/css/select2.min.css">
 	<link href="/utils/fontawesome-free-6.5/css/fontawesome.css" rel="stylesheet">
 	  <link href="/utils/fontawesome-free-6.5/css/solid.css" rel="stylesheet">
+	<script src="/js/common.js"></script>
+
 	<link rel="stylesheet" href="style.css">
 
 </head>
@@ -112,7 +113,7 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
   <a class="dropdown-item" href="/packing_list.php?action=view&id=2"><i class="fa-solid fa-volume-high"></i> Solo Acoustic</a>
   <a class="dropdown-item" href="/packing_list.php?action=view&id=1"><i class="fa-regular fa-microphone-lines"></i> Solo Acoustic - Need PA</a>
 
-  <a class="dropdown-item" href="/packing_list.php?action=view&id=3"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig</a>
+  <a class="dropdown-item" href="/packing_list.php?action=view&id=15"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig</a>
   <a class="dropdown-item" href="/packing_list.php?action=view&id=4"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Band Gig - Need PA</a>
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="/packing_list.php?action=add"><i class="fa-solid fa-circle-plus"></i> Add</a>
@@ -128,8 +129,13 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
   <div class="dropdown-divider"></div>
 
   <a class="dropdown-item" href="/profit_loss.php?action=add"><i class="fa-solid fa-plus"></i> New</a>
+  <a class="dropdown-item" href="/venue.php"><i class="fa-solid fa-building-columns"></i> Venues</a>
 
 </div>
+<li class="nav-item">
+	<a class="nav-link" href="/reports.php"><i class="fa-solid fa-chart-pie"></i></a>
+</li>
+
 	</ul> 
   </div>
 </nav>

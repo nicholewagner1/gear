@@ -5,37 +5,37 @@
                
     </td>
     <td id="<?= 'cell_name_' . $id ?>">
-        <span class="editable-text" data-field="name" data-itemid="<?= $id ?>">
+        <span class="editable-text" data-table="item" data-id-field="id" data-field="name" data-itemid="<?= $id ?>">
             <?= $name ?>
         </span>
     </td>
     <td id="<?= 'cell_category_' . $id ?>">
-        <span class="editable-select" data-field="category" data-itemid="<?= $id ?>">
+        <span class="editable-select" data-table="item" data-id-field="id" data-field="category" data-itemid="<?= $id ?>">
             <?= $category ?>
         </span>
     </td>
     <td id="<?= 'cell_subcategory_' . $id ?>">
-        <span class="editable-select" data-field="subcategory" data-itemid="<?= $id ?>">
+        <span class="editable-select" data-table="item" data-id-field="id" data-field="subcategory" data-itemid="<?= $id ?>">
             <?= $subcategory ?>
         </span>
     </td>
     <td id="<?= 'cell_brand_' . $id ?>">
-        <span class="editable-select" data-field="brand" data-itemid="<?= $id ?>">
+        <span class="editable-select" data-table="item" data-id-field="id" data-field="brand" data-itemid="<?= $id ?>">
             <?= $brand ?>
         </span>
     </td>
     <td id="<?= 'cell_model_' . $id ?>">
-        <span class="editable-text" data-field="model" data-itemid="<?= $id ?>">
+        <span class="editable-text" data-table="item" data-id-field="id" data-field="model" data-itemid="<?= $id ?>">
             <?= $model ?>
         </span>
     </td>
     <td id="<?= 'cell_cost_' . $id ?>">
-        <span class="editable-select" data-field="cost" data-itemid="<?= $id ?>">
+        <span class="editable-select" data-table="item" data-id-field="id" data-field="cost" data-itemid="<?= $id ?>">
             <?= $cost ?>
         </span>
     </td>
     <td id="<?= 'cell_checked_in_' . $id ?>">
-        <span class="" data-field="checked_in" data-itemid="<?= $id ?>">
+        <span class="" data-table="item" data-id-field="id" data-field="checked_in" data-itemid="<?= $id ?>">
             <?= $checked_in ?>
         </span>
     </td>

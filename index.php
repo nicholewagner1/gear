@@ -18,12 +18,11 @@ $itemController = new ItemInfoController();
 ?>
 
 <h2>Items: <?php echo $value; ?></h2>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/views/item_list/filters.php');?>
 		<?php $itemController->displayItemsList($view, $missing, $status, $filter, $value, $sort); ?>
 <!-- Initialize DataTable -->
 <script>
 	$(document).ready(function () {
-	getValues();
+	getValues('item');
 
 	
    $('#itemTable').DataTable({

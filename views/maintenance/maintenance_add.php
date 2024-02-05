@@ -7,13 +7,13 @@
 
 	<label for="date">Date:</label>
 	<input type="date" name="date" required value="<?= $date ?>"><br>
-	<label for="date">Service:</label>
-	<select id="service" class="js-multiple-select service autocompleteMaintenance form-control" type="text" name="service" value=""></select><br>
+	<label for="service">Service:</label>
+	<select id="service" class="js-multiple-select service autocomplete form-control" data-table="maintenance" multiple name="service" value=""></select><br>
 
 	<div class="row">
 		 <div class="col">
 			 <label for="item">Item</label>
-			<select id="items" class="js-multiple-select autocomplete item form-control" multiple="multiple" name="name" value="">
+			<select id="item" class="js-multiple-select autocompleteItem form-control" multiple="multiple" name="item" value="">
 			</select>
 	<div id="itemImages"></div>
 

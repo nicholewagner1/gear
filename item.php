@@ -14,7 +14,7 @@ $itemController = new ItemInfoController();
 
 <script>
 	$(document).ready(function () {
-	getValues();
+	getValues('item');
 		$('#maintenanceLog').DataTable({
 			"pageLength": 10,  		
 			"searching": false,

@@ -6,81 +6,72 @@ use \Models\VenueModel;
 
 class VenueController {
 	
-public function returnVenues($db = '', $data = '', $autocomplete = '', $id='', $filter='', $value = '') {
+public function returnVenues($db = '', $data = '', $autocomplete = '0', $id='', $filter='', $value = '') {
 	$db = new \Api\Database();
 	if ($data == '') {
 	$data = array('id'=> $id);
-}
-	//include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_header.php');
-
+	}
 	$venueModel = new VenueModel($db, $data);
  	$venue = $venueModel->doReturnVenues();
 	if ($autocomplete == 1){
 		echo json_encode($venue);
 	}
 	else {
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_header.php');
 		foreach ($venue as $row){
-		$id = $row['id'];
-		$date = $row['date'];
+		$id = $row['venue_id'];
 		$name = $row['name'];
-		$type = $row['type'] ?? '';
-		$amount = $row['amount'] ?? '';
-		$paid = $row['paid'] ?? '';
-		$paidCheck = ($paid == 1) ? "-check" : "";
-		$income = ($amount >= 0) ? "income" : "expense";
-		$notes = $row['notes'] ?? '';
-		$account = $row['account'] ?? '';
+		$type = $row['venue_type'] ?? 'edit';
+		$booking_contact = $row['booking_contact'] ?? 'edit';
+		$city = $row['city'] ?? 'edit';
+		$state = $row['state'] ?? 'edit';
+		$status= $row['status'] ?? 'edit';
+		$roundtrip_mileage = $row['roundtrip_mileage'] ?? '0';
 	
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_row.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_row.php');
 	}
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_footer.php');
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_footer.php');
  }
 }
 
-public function editProfitLoss ($id = '') {
+public function editVenue ($id = '') {
 	if ($id != ''){
 	$db = new \Api\Database();
 	$data = array('id'=>$id);
 
-		$profitLossModel = new ProfitLossEditModel($db, $data);
-		 $profitLoss = $profitLossModel->doReturnProfitLoss();
+$venueModel = new VenueModel($db, $data);
+	 $venue = $venueModel->doReturnVenues();
 
-		foreach ($profitLoss as $row){
-			var_dump($row);
-			$id = $row['id'];
-			$date = $row['date'];
+
+		foreach ($venue as $row){
+			$id = $row['venue_id'];
 			$name = $row['name'];
-			$type = $row['type'] ?? '';
-			$amount = $row['amount'] ?? '';
-			$paid = $row['paid'] ?? '';
-			$paidCheck = ($paid == 1) ? "-check" : "";
-			$income = ($amount >= 0) ? "income" : "expense";
-			$notes = $row['notes'] ?? '';
-			$tax_forms = $row['tax_forms'] ?? '';
-			$tax_formsCheck = ($amount == 0) ? "" : "-check";
-			$account = $row['account'] ?? '';
-			$venue_id = $row['venue_id'] ?? '';
-			$gig_notes = $row['note'] ?? '';
-			$venue_payout = $row['venue_payout'] ?? '';
-			$merch = $row['merch'] ?? '';
-			$tips = $row['tips'] ?? '';
-			$cost_to_play = $row['cost_to_play'] ?? '';
-			$show_length = $row['show_length'] ?? '';
+			$venue_type = $row['venue_type'] ?? '';
+		$type = $row['type'] ?? '';
+		$booking_contact = $row['booking_contact'] ?? '';
+		$city = $row['city'] ?? '';
+		$state = $row['state'] ?? '';
+		$country = $row['country'] ?? '';
+
+		$roundtrip_mileage = $row['roundtrip_mileage'] ?? '';
 
 
 			
-		include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/edit.php');
+		include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/edit.php');
 		}
 	}
+	else 
+	include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/edit.php');
+
 }
 	
+public function upsertVenueData($db, $data) {
 
-public function autocomplete($db, $data) {
-
-   $itemModel = new \Models\ItemInfoModel($db, $data);
-   $itemModel->returnAutocompleteData();
+   $venueModel = new \Models\VenueModel($db, $data);
+   $venueModel->doUpsertVenueData();
 
    }
+   
    
    public function list($db) {
 	  $itemModel = new \Models\ItemInfoModel($db);

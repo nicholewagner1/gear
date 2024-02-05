@@ -21,12 +21,14 @@ if ($method == 'POST') {
     $data = json_encode($_POST);
     $data = json_decode(file_get_contents('php://input'), true);
 }
-$itemController = new Controllers\ItemController($db, $data);
+$helperController = new Controllers\HelpersController();
+
+//$itemController = new Controllers\ItemController($db, $data);
 $itemInfoController = new Controllers\ItemInfoController();
 $itemEditController = new Controllers\ItemEditController();
 $itemReportController = new Controllers\ItemReportController();
-
-$maintenanceController = new Controllers\MaintenanceController($db, $data);
+$itemMaintenanceController = new Controllers\ItemMaintenanceController();
+//$maintenanceController = new Controllers\MaintenanceController($db, $data);
 $assetController = new Controllers\AssetController();
 $packingController = new Controllers\PackingListController();
 $plController = new Controllers\ProfitLossEditController();
@@ -37,13 +39,13 @@ switch ($method) {
         // Search users
        
         if ($_GET['action'] === 'autocomplete') {
-            $itemInfoController->autocomplete($db, $data);
+            $helperController->autocomplete($db, $data);
+        }
+        if ($_GET['action'] === 'delete') {
+            $helperController->delete($db, $data);
         }
         if ($_GET['action'] === 'list') {
             $itemInfoController->list($db);
-        }
-        if ($_GET['action'] === 'getMaintenanceValues') {
-            $maintenanceController->getMaintenanceValues($data);
         }
 
         if ($_GET['action'] === 'deleteItem') {
@@ -67,8 +69,14 @@ switch ($method) {
           if ($_GET['action'] === 'reportItemCount') {
                 $itemReportController->reportItemCount($db, $data);
             }
-            if ($_GET['action'] === 'returnProfitLoss') {
-                $plController->returnProfitLoss($db, $data);
+            if ($_GET['action'] === 'reportProfitLoss') {
+                  $itemReportController->profitLoss($db, $data);
+              }
+              if ($_GET['action'] === 'reportProfitLossCategory') {
+                    $itemReportController->profitLossCategory($db, $data);
+                }
+            if ($_GET['action'] === 'profitLoss') {
+                $plController->profitLoss($db, $data);
             }
             if ($_GET['action'] === 'returnVenues') {
                 $venueController->returnVenues($db, $data, 1);
@@ -76,7 +84,9 @@ switch ($method) {
             if ($_GET['action'] === 'returnProfitLossAutocompleteData') {
                 $plController->returnProfitLossAutocompleteData($db, $data);
             }
-            
+            if ($_GET['action'] === 'updateField') {
+                $helperController->updateField($db, $data);
+            }
           
         break;
     case 'POST':
@@ -89,6 +99,9 @@ switch ($method) {
         }
         if ($_GET['action'] === 'updateItem') {
             $itemEditController->updateItem($db, $data);
+        }
+        if ($_GET['action'] === 'addMaintenanceLog') {
+            $itemMaintenanceController->upsertMaintenance($db, $data);
         }
         if ($_GET['action'] === 'packingList') {
             $packingController->updatePackingList($db,$data);
@@ -107,6 +120,12 @@ switch ($method) {
         if ($_GET['action'] === 'upsertProfitLossData') {
             $plController->upsertProfitLossData($db,$data);
         }
+        if ($_GET['action'] === 'upsertVenueData') {
+            $venueController->upsertVenueData($db,$data);
+        }
+      if ($_GET['action'] === 'updateField') {
+          $helperController->updateField($db, $data);
+      }
         
         break;
 

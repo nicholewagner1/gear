@@ -21,11 +21,12 @@ public function showPackingList($id = '') {
     $data = array('id'=>$id);
    $packingModel = new \Models\PackingListModel($db, $data);
    $lists = json_decode($packingModel->returnPackingLists(), true);
-   include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_edit_header.php');  
+   include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_edit_header.php');
 
    if ($id != ''){
    include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_edit_row.php');  
-}
+   }
+   
    include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_edit_footer.php');  
 
 }
@@ -41,7 +42,6 @@ public function returnCheckedOutItems($id = '') {
    $packingModel = new \Models\PackingListModel($db, $data);
    $items = $packingModel->checkPackingLists();
    $packedItems = json_decode($items, true);
-   //print_r($packedItems[0]['packed']);
    
    include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_packed.php');
 
@@ -52,6 +52,7 @@ public function updatePackingList($db, $data) {
    $packingModel->updatePackingListItems();
 
    }
+ 
    public function deleteList($db, $data) {
    
    $packingModel = new \Models\PackingListModel($db, $data);

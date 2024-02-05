@@ -55,7 +55,7 @@
 		<div class="row mt-3">
 			<div class="col-sm-3">
 				<label for="status">Status:</label>
-				<select id="status" class="js-multiple-select autocomplete status form-control" multiple value="<?php echo $items[0]['status'] ?? ''; ?>" name="status"></select>
+				<select id="status" class="js-multiple-select autocomplete status form-control"  data-table="item" multiple value="<?php echo $items[0]['status'] ?? ''; ?>" name="status"></select>
 			</div>
 			<div class="col-sm-3">
 				<label for="year">Year:</label>
@@ -73,7 +73,7 @@
 		<div class="row mt-3">
 			<div class="col-sm-3">
 				<label for="brand">Brand:</label>
-				<select id="brand" class="autocomplete size form-control" multiple value="<?php echo $items[0]['brand'] ?? ''; ?>" name="brand"></select>
+				<select id="brand" class="autocomplete size form-control" multiple data-table="item" value="<?php echo $items[0]['brand'] ?? ''; ?>" name="brand"></select>
 			</div>
 			<div class="col-sm-3">
 				<label for="model">Model:</label>
@@ -81,11 +81,11 @@
 			</div>
 			<div class="col-sm-3">
 				<label for="category">Category:</label>
-				<select id="category" class="js-multiple-select autocomplete size form-control" multiple value="<?php echo $items[0]['category'] ?? ''; ?>" name="category"></select><br>
+				<select id="category" class="js-multiple-select autocomplete size form-control" data-table="item" multiple value="<?php echo $items[0]['category'] ?? ''; ?>" name="category"></select><br>
 			</div>
 			<div class="col-sm-3">
 				<label for="subcategory">Subcategory:</label>
-				<select id="subcategory" class="autocomplete size form-control" multiple value="<?php echo $items[0]['subcategory'] ?? ''; ?>" name="subcategory"></select><br>
+				<select id="subcategory" data-table="item" class="autocomplete size form-control" multiple value="<?php echo $items[0]['subcategory'] ?? ''; ?>" name="subcategory"></select><br>
 			</div>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 		<div class="row mt-3">
 			<div class="col-sm-3">
 				<label for="purchase_location">Purchase Location</label>
-				<select id="purchase_location" class="autocomplete size form-control" multiple value="<?php echo $items[0]['purchase_location'] ?? ''; ?>" name="purchase_location"></select>
+				<select id="purchase_location" data-table="item" class="autocomplete size form-control" multiple value="<?php echo $items[0]['purchase_location'] ?? ''; ?>" name="purchase_location"></select>
 			</div>
 			<div class="col-sm-3">
 				<label for="purchase_price">Purchase Price:</label>

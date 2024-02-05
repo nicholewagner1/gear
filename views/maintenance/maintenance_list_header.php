@@ -2,7 +2,7 @@
 	<div class="col">
  <h2>Maintenance Log</h2>
 	
-	<table id="itemTable" width=100%>
+	<table id="itemTable" class="table" width=100%>
 		<thead>
 			<tr>
 				<th>Date</th>

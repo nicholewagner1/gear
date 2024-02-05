@@ -5,24 +5,20 @@ require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
 include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 
 $id = $_GET['id'] ?? '';
-use Controllers\ProfitLossEditController;
-$profitLossController = new ProfitLossEditController();
+use Controllers\VenueController;
+$venueController = new VenueController();
  if ($id != '' || $action == 'new'){
      //echo "id".$id;
-     $profitLossController->editProfitLoss($id);
-
+     $venueController->editVenue($id);
  } 
 if ($id == '' && $action == 'list') {
- $profitLossController->returnProfitLoss();
+ $venueController->returnVenues('','',0,'','','');
  }
 ?>
-        <script src="/js/profit_loss.js"></script>
-
+<script src="/js/venue.js"></script>
 
 <script>
-    $(document).ready(function () {
 
-});
 </script>
 
 	<?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php');

@@ -1,44 +1,15 @@
-var table = $('#profitLossTable').DataTable({
+$('#venue').DataTable({
 	"pageLength": 30,
+	"searching": true,
 	"order": [[0, "DESC"]],
 	fixedHeader: true,
 	responsive: true
 });
 
-// Add individual column filters for 'type' and 'paid'
-$('#profitLossTable thead th').each(function () {
-	var title = $(this).text();
-	if (title === 'Type' || title === 'Paid' || title === 'Date') {
-		$(this).prepend('<br><input type="text" class="form-control" placeholder="Search ' + title + '" />');
-	}
-	console.log('filter');
-});
-
-// Apply column filters
-table.columns().every(function () {
-	var that = this;
-
-	$('input', this.header()).on('keyup change', function () {
-		if (that.search() !== this.value) {
-			that
-				.search(this.value)
-				.draw();
-		}
-	});
-});
-
-$("#type").change(function (event) {
-	var type = $('#type').val();
-	if (type == 'Show'){
-	$('#gigInfo').toggleClass('hidden');
-	}
-});
-
-
-$("#profitLossSubmit").click(function (event) {
+$("#venueSubmit").click(function (event) {
 	event.preventDefault();
 
-	const formId = '#profitLossForm';
+	const formId = '#venueForm';
 	const form = $(formId)[0];
 	const formData = new FormData(form);			
 	const jsonData = {};
@@ -47,7 +18,7 @@ $("#profitLossSubmit").click(function (event) {
 	});
 	$.ajax({
 		type: "POST",
-		url: "/api/index.php?action=upsertProfitLossData",
+		url: "/api/index.php?action=upsertVenueData",
 		contentType: false,
 		processData: false,
 		data: JSON.stringify(jsonData),
@@ -61,18 +32,6 @@ $("#profitLossSubmit").click(function (event) {
 
 });
 
-function gigMath()
-{
-var venuePayout = parseInt($("#venue_payout").val()) || 0;
-var merchValue = parseInt($("#merch").val()) || 0;
-var tipsValue = parseInt($("#tips").val()) || 0;
-var totalAmount = venuePayout + merchValue + tipsValue;
-$("#amount").val(totalAmount);
-console.log(totalAmount);
-}
-$(".gig_math").change(function (event) {
-gigMath();
-});
 $("#deleteItem").click(function (event) {
 	var deleteId = $(this).attr('data-value');
 	
