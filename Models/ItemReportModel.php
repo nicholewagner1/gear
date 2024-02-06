@@ -61,13 +61,34 @@ class ItemReportModel
 
 	$stmt->close();
 }
-public function returnGigDetails(){
+	public function doInsuranceReport()
+{
+	$sql = "SELECT id, name, brand, model, serial_number, replacement_value from item where insured = 1";
+	
+	//echo $sql;
+	$stmt = $this->db->conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	if ($result->num_rows > 0) {
+		$items = array();
+		while ($row = $result->fetch_assoc()) {
+			$items[] = $row;
+		}
+		return ($items);
+	} else {
+		echo json_encode(array("message" => "No items found."));
+	}
+
+	$stmt->close();
+}
+public function doReturnGigDetails(){
 
 	$sql ="select v.name, avg(g.venue_payout) as venue_average, avg(g.tips) as tips_average, COUNT(g.gig_id) as played from gig g 	LEFT JOIN venue v on v.venue_id = g.venue_id group by v.name";
 	$stmt = $this->db->conn->prepare($sql);
 	$stmt->execute();
 	$result = $stmt->get_result();
-	
+	//echo $sql;
 	if ($result->num_rows > 0) {
 		$items = array();
 		while ($row = $result->fetch_assoc()) {

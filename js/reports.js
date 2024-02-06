@@ -1,3 +1,17 @@
+$(document).ready(function () {
+$('#gigsTable').DataTable({
+	"order": [[3, "desc"]],  
+	fixedHeader: true,
+	responsive: true,// Set the default sorting to the first column in ascending order
+});	
+
+	$('#insuranceTable').DataTable({
+	"order": [[0, "desc"]], 
+	fixedHeader: true,
+	responsive: true, // Set the default sorting to the first column in ascending order
+});		
+});
+
 function doreportProfitLossCategory(date_start, date_end) {
 	fetch('/api/?action=reportProfitLossCategory&date_start=' + date_start + '&date_end=' + date_end)
 		.then(response => response.json())

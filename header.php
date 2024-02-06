@@ -96,6 +96,8 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 	
 		  <div class="dropdown-divider"></div>
 		  <a class="dropdown-item" href="/?missing=asset_tag"><i class="fa-solid fa-barcode"></i></i> Missing Asset Tag</a>
+		  <a class="dropdown-item" href="/?filter=insured&value=1"><i class="fa-solid fa-vault"></i></i> Insured</a>
+		  
 		  <div class="dropdown-divider"></div>
 		</div>
 	  </li>

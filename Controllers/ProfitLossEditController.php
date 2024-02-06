@@ -10,8 +10,10 @@ public function returnProfitLoss($db = '', $data = '', $filter='', $value = '', 
 	$db = new \Api\Database();
 	$data = array('filter'=> $filter, 'value'=> $value, 'date_start'=> $date_start, 'date_end'=>$date_end);
 	
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_header.php');
-
+	 $helper = new \Controllers\HelpersController();
+	$columnNames = ['Date', 'Name', 'Type', 'Amount', 'Paid', 'Action'];
+	$helper->generateTableHeaders('profitLossTable',$columnNames);
+	
 	$profitLossModel = new ProfitLossEditModel($db, $data);
  	$profitLoss = $profitLossModel->doReturnProfitLoss();
 	foreach ($profitLoss as $row){
@@ -29,7 +31,7 @@ public function returnProfitLoss($db = '', $data = '', $filter='', $value = '', 
 	
 	include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_row.php');
 	}
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_footer.php');
+	$helper->generateTableFooters();
 
 }
 

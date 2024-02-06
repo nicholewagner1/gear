@@ -16,12 +16,14 @@ public function displayItemsList($view, $missing = '', $status ='' , $filter='',
 	foreach ($items as $item) {
 		$id = $item['id'] ?? 'edit';
 		$name = $item['name'] !== '' ? $item['name'] : '';
-		$brand = $item['brand'] !== '' ? $item['brand'] : '';
-		$category = $item['category'] !== '' ? $item['category'] : '';
+		$brand = $item['brand'] !== '' ? $item['brand'] : '-';
+		$category = $item['category'] !== '' ? $item['category'] : '-';
 		$subcategory = $item['subcategory']  !== '' ? $item['subcategory'] : '';
-		$model = $item['model']  !== '' ? $item['model'] : 'edit';
-		$cost = $item['purchase_price'] !== '' ? $item['purchase_price'] : '';
-		$checked_in = $item['checked_in']  == '1' ? 'checkedIn': 'checkedOut';
+		$model = $item['model']  !== '' ? $item['model'] : '-';
+		$cost = $item['purchase_price'] !== '' ? $item['purchase_price'] : '-';
+		$checked_in = $item['checked_in']  !== '' ? $item['checked_in']: '';
+		$insured = $item['insured']  !== '' ? $item['insured'] : '' ;
+		$insuredCheck = $item['insured']  == '1' ? "-check text-success" : "-xmark text-warning";
 		$imageURL = $item['url'] !='' ? '/images/items/'.$item['url'] : 'https://placehold.co/800?text=No+Image&font=roboto'; 
 		
 		include ($_SERVER['DOCUMENT_ROOT'].'/views/item_list/item_'.$view.'_row.php');

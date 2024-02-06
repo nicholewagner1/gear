@@ -30,6 +30,7 @@ class ItemEditModel
     public $asset_tag;
     public $checked_in;
     public $location;
+    public $insured;
     public $photoURLs;
     public $documentURLs;
     public $missing;
@@ -57,6 +58,7 @@ class ItemEditModel
             $this->status = $data['status'] ?? '';
             $this->purchase_price = $data['purchase_price'] ?? '';
             $this->replacement_value = $data['replacement_value'] ?? '';
+            $this->insured = $data['insured'] ?? '';
             $this->purchase_location = $data['purchase_location'] ?? '';
             $this->notes = $data['notes'] ?? '';
             $this->asset_tag = $data['asset_tag'] ?? '';
@@ -89,12 +91,12 @@ class ItemEditModel
     {
     
         if ($this->id == '') {
-            $sql = "INSERT INTO item (brand, name, category, subcategory, location, model, year, serial_number, status, purchase_price, replacement_value, purchase_location, notes, asset_tag, date_acquired) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO item (brand, name, category, subcategory, location, model, year, serial_number, status, purchase_price, replacement_value, purchase_location, notes, asset_tag, date_acquired, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         } else {
-            $sql = "UPDATE item SET brand = ?, name = ?, category = ?, subcategory = ?, location = ?, model = ?, year = ?, serial_number = ?, status = ?, purchase_price = ?, replacement_value = ?, purchase_location = ?, notes = ?, asset_tag = ?, date_acquired = ? WHERE id = " . $this->id;
+            $sql = "UPDATE item SET brand = ?, name = ?, category = ?, subcategory = ?, location = ?, model = ?, year = ?, serial_number = ?, status = ?, purchase_price = ?, replacement_value = ?, purchase_location = ?, notes = ?, asset_tag = ?, date_acquired = ?, insured = ? WHERE id = " . $this->id;
         }
         $stmt = $this->db->conn->prepare($sql);
-        $stmt->bind_param("sssssssssssssss", $this->brand, $this->name, $this->category, $this->subcategory, $this->location, $this->model, $this->year, $this->serial_number, $this->status, $this->purchase_price, $this->replacement_value, $this->purchase_location, $this->notes, $this->asset_tag, $this->date_acquired);
+        $stmt->bind_param("sssssssssssssssi", $this->brand, $this->name, $this->category, $this->subcategory, $this->location, $this->model, $this->year, $this->serial_number, $this->status, $this->purchase_price, $this->replacement_value, $this->purchase_location, $this->notes, $this->asset_tag, $this->date_acquired, $this->insured);
         if (!$stmt->execute()) {
             // Handle SQL error
             echo json_encode(array("message" => "Item insertion failed: " . $stmt->error));

@@ -112,6 +112,7 @@
 			</div>
 			<input type="text" id="replacement_value" class="replacement_value form-control" value="<?php echo $items[0]['replacement_value'] ?? ''; ?>" name="replacement_value"></input>
 			</div>
+			<input type="text" hidden id="insured" class="insured form-control" value="<?php echo $items[0]['insured'] ?? ''; ?>" name="insured"></input>
 	</div>
 		</div>
 		<div class="row mt-3">

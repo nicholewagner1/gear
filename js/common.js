@@ -34,7 +34,7 @@ function getValues(inline = 0) {
 				});
 
 				// Pre-select the value that matches the original value of the select
-				if (currentValues !== '' && currentValues !== 'edit' && inline == 0) { currentInput.val(currentValues).trigger('change'); }
+				if (currentValues !== '' && currentValues !== 'edit' && currentValues != '' && inline == 0) { currentInput.val(currentValues).trigger('change'); }
 			},
 			error: function (error) {
 				console.error("Error:", error);
@@ -308,63 +308,40 @@ $( '#pageBody' ).on( 'click', '.editable-image', function () {
 	});
 });
 
-$(".inline-text-edit").change(function (event) {
-	var clickedElement = $(this);
-
-var table = clickedElement.attr('data-table');
-var filter = clickedElement.attr('data-filter');
-var iDfield = clickedElement.attr('data-id-field');
-var updateId = clickedElement.attr('data-id');
-var set = parseInt($(this).attr('data-toggle-value'), 10);
-var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
-
-$.ajax({
-	type: "GET",
-	url: "/api/index.php?action=updateField&value="+setValue+"&id_field=" +iDfield + "&id=" + updateId + "&filter=" + filter + "&table=" + table,
-	contentType: false,
-	success: function (response) {
-		console.log(response.message);
-		if (setValue === 1) {
-			clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
-		}
-		if (setValue === 0) {
-			clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
-		}
-		},
-	error: function () {
-		alert("Error processing the form.");
-	}
-	});
-});
 
 $(".toggleUpdate").click(function (event) {
 	var clickedElement = $(this);
 
-var table = clickedElement.attr('data-table');
-var filter = clickedElement.attr('data-filter');
-var iDfield = clickedElement.attr('data-id-field');
-var updateId = clickedElement.attr('data-id');
-var set = parseInt($(this).attr('data-toggle-value'), 10);
-var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
+	var table = clickedElement.data('table');
+	var filter = clickedElement.data('filter');
+	var iDfield = clickedElement.data('id-field');
+	var updateId = clickedElement.data('id');
+	var set = parseInt(clickedElement.data('toggle-value'), 10);
 
-$.ajax({
-	type: "GET",
-	url: "/api/index.php?action=updateField&value="+setValue+"&id_field=" +iDfield + "&id=" + updateId + "&filter=" + filter + "&table=" + table,
-	contentType: false,
-	success: function (response) {
-		console.log(response.message);
-		if (setValue === 1) {
-			clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
-		}
-		if (setValue === 0) {
-			clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
-		}
+	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
+
+	$.ajax({
+		type: "GET",
+		url: "/api/index.php?action=updateField&value=" + setValue + "&id_field=" + iDfield + "&id=" + updateId + "&filter=" + filter + "&table=" + table,
+		contentType: false,
+		success: function (response) {
+			console.log(response.message);
+
+			// Toggle the icon and update the data attribute
+			if (setValue === 1) {
+				clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
+				clickedElement.data('toggle-value', '1');
+			} else {
+				clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
+				clickedElement.data('toggle-value', '0');
+			}
 		},
-	error: function () {
-		alert("Error processing the form.");
-	}
+		error: function () {
+			alert("Error processing the form.");
+		}
 	});
 });
+
 $(".delete").click(function (event) {
 	// Store the reference to the clicked element
 	var clickedElement = $(this);

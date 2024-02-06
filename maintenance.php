@@ -12,13 +12,7 @@ $maintenanceController = new ItemMaintenanceController();
 		<?php $maintenanceController->editMaintentance(); ?>
 
 		<script src="/js/maintenance.js"></script>
-	<script>
-		$(document).ready(function () {
-   	 	$('#itemTable').DataTable({
-			"order": [[0, "desc"]],  // Set the default sorting to the first column in ascending order
-		});		
-	});
-	</script>
+
 
 	
 <?php

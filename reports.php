@@ -7,6 +7,10 @@ $date_start = $_GET['date_start'] ?? date('Y-m-d', strtotime('-90 days'));
 $date_end = $_GET['date_end'] ?? date('Y-m-d');
 $report = $_GET['report'] ?? '';
 
+use Controllers\ItemReportController;
+
+$reportController = new ItemReportController();
+
 echo '<h1>Report - '.$report.'</h1>';
 echo '<h3>'.$date_start.' - '.$date_end.'</h3>';
 ?>
@@ -24,22 +28,16 @@ echo '<h3>'.$date_start.' - '.$date_end.'</h3>';
 		<select class="form-control" name="report">
 			<option value="reportProfitLossCategory">Expenses by Category</option>
 			<option value="reportProfitLoss">Income/Expenses by Month</option>
+			<option value="insuranceReport">Insured Item Report</option>
+			<option value="gigVenueDetails">Income by Venue</option>
+
 		</select>
 		</div>
 	</div>
 	<input type="submit"></form>
 </form>
 <script src="/js/reports.js"></script>
-<div class="row">
-	<div class="col">
- <div>
-   <canvas id="profitLossChart"></canvas>
 
- </div>
-	</div><div class="col">
- <div id="dataList"></div>
-	</div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <?php if ($report == 'reportProfitLossCategory' ){?>
@@ -48,9 +46,24 @@ echo '<h3>'.$date_start.' - '.$date_end.'</h3>';
 if ($report == 'reportProfitLoss'){?>
 	<script> doReportProfitLoss('<?= $date_start ?>','<?= $date_end ?>'); </script>
 <?php
+}
+if ($report == 'gigVenueDetails'){ 
+
+	 $reportController->gigVenueDetails();
+	 } if ($report == 'insuranceReport'){ 
+	 
+	  $reportController->insuranceReport();
+	  } ?>
+	<div class="row">
+		<div class="col">
+	 <div>
+	   <canvas id="profitLossChart"></canvas>
 	
-} ?>
-		
+	 </div>
+		</div><div class="col">
+	 <div id="dataList"></div>
+		</div>
+	</div>	
 <script>
 	$(document).ready(function () {
 

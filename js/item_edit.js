@@ -44,7 +44,7 @@ $("#deleteItem").click(function (event) {
 
 $(document).on('click', '.checkInStatus', function (event) {
 	var id = $(this).attr('data-item-id');
-	var set = parseInt($(this).attr('data-item-status'), 10);
+	var set = parseInt($(this).attr('data-toggle-value'), 10);
 	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
 	setCheckInStatus(id, setValue);
 });
@@ -57,9 +57,13 @@ function setCheckInStatus(id, setValue) {
 			console.log(response.message);
 			if (setValue === 1) {
 				$(".checkInStatus").html('<i class="fa-solid text-success fa-house-circle-check"></i>');
+				clickedElement.data('toggle-value', '0');
+
 			}
 			if (setValue === 0) {
 				$(".checkInStatus").html('<i class="fa-solid text-warning fa-house-circle-xmark"></i>');
+				clickedElement.data('toggle-value', '1');
+
 			}
 		},
 		error: function () {

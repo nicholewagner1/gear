@@ -1,5 +1,9 @@
 $(document).ready(function () {
 	getItems();
+		
+		$('#maintenanceTable').DataTable({
+			"order": [[0, "desc"]],  // Set the default sorting to the first column in ascending order
+		});		
 
 	$("#logMaintenaceForm").submit(function (event) {
 		event.preventDefault();

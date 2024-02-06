@@ -9,6 +9,7 @@
             <th data-priority="">Model</th>
             <th>Cost</th>
             <th data-priority="3">Checked In</th>
+            <th data-priority="5">Insured</th>
 
         <th>Action</th>
 
@@ -16,3 +17,5 @@
         </tr>
     </thead>
     <tbody>
+        
+     

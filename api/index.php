@@ -45,7 +45,7 @@ switch ($method) {
             $helperController->delete($db, $data);
         }
         if ($_GET['action'] === 'list') {
-            $itemInfoController->list($db);
+            $itemInfoController->list($db, $data);
         }
 
         if ($_GET['action'] === 'deleteItem') {
@@ -86,6 +86,9 @@ switch ($method) {
             }
             if ($_GET['action'] === 'updateField') {
                 $helperController->updateField($db, $data);
+            }
+            if ($_GET['action'] === 'gigVenueDetails') {
+                $itemReportController->gigVenueDetails($db, $data);
             }
           
         break;

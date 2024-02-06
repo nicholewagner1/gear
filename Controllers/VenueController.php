@@ -17,7 +17,9 @@ public function returnVenues($db = '', $data = '', $autocomplete = '0', $id='', 
 		echo json_encode($venue);
 	}
 	else {
-		include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_header.php');
+		$helper = new \Controllers\HelpersController();
+		$columnNames = ['Name', 'City', 'State', 'Venue Type', 'Status', 'Action'];
+		$helper->generateTableHeaders('venue',$columnNames);
 		foreach ($venue as $row){
 		$id = $row['venue_id'];
 		$name = $row['name'];
@@ -30,7 +32,7 @@ public function returnVenues($db = '', $data = '', $autocomplete = '0', $id='', 
 	
 	include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_row.php');
 	}
-	include ($_SERVER['DOCUMENT_ROOT'].'/views/venue/table_footer.php');
+		$helper->generateTableFooters();
  }
 }
 
