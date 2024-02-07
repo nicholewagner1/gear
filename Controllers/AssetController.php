@@ -2,28 +2,20 @@
 
 namespace Controllers;
 
-use \Models\AssetModel;
+use Models\AssetModel;
 
-class AssetController {
+class AssetController
+{
+    public function updateItemCheckinStatus($data)
+    {
+        $assetModel = new \Models\AssetModel();
+        $assetModel->changeCheckInStatus($data);
+    }
 
-public function updateItemCheckinStatus($db, $data) {
-
-    //  include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_add.php');
-   // include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_header.php');
-   $assetModel = new \Models\AssetModel($db);
-   $assetModel->changeCheckInStatus($data);
-    
-}
-
-public function returnCheckedOutItems() {
-    $db = new \Api\Database();
-
-    //  include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_add.php');
-   // include ($_SERVER['DOCUMENT_ROOT'].'/views/maintenance/maintenance_list_header.php');
-   $assetModel = new \Models\AssetModel($db);
-   $packedItems = $assetModel->getCheckedOutItems();
-   include ($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_packed.php');
-
-}
-
+    public function returnCheckedOutItems()
+    {
+        $assetModel = new \Models\AssetModel();
+        $packedItems = $assetModel->getCheckedOutItems();
+        include($_SERVER['DOCUMENT_ROOT'].'/views/packing/packing_list_packed.php');
+    }
 }

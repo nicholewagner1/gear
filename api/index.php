@@ -4,15 +4,10 @@ if ($_SERVER['HTTP_HOST'] !== 'gear.localhost' || $_SERVER['HTTP_HOST'] !== '127
     require('../vendor/autoload.php');
 } else {
     require($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
-
 }
 header('Content-Type: application/json');
 
-use Api\Database;
-
-// Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
-$db = new Api\Database();
 if ($method == 'GET') {
     $data = json_encode($_GET);
     $data = json_decode($data, true);
@@ -22,13 +17,10 @@ if ($method == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 }
 $helperController = new Controllers\HelpersController();
-
-//$itemController = new Controllers\ItemController($db, $data);
 $itemInfoController = new Controllers\ItemInfoController();
 $itemEditController = new Controllers\ItemEditController();
 $itemReportController = new Controllers\ItemReportController();
 $itemMaintenanceController = new Controllers\ItemMaintenanceController();
-//$maintenanceController = new Controllers\MaintenanceController($db, $data);
 $assetController = new Controllers\AssetController();
 $packingController = new Controllers\PackingListController();
 $plController = new Controllers\ProfitLossEditController();
@@ -37,77 +29,77 @@ $venueController = new Controllers\VenueController();
 switch ($method) {
     case 'GET':
         // Search users
-       
+
         if ($_GET['action'] === 'autocomplete') {
-            $helperController->autocomplete($db, $data);
+            $helperController->autocomplete($data);
         }
         if ($_GET['action'] === 'delete') {
-            $helperController->delete($db, $data);
+            $helperController->delete($data);
         }
         if ($_GET['action'] === 'list') {
-            $itemInfoController->list($db, $data);
+            $itemInfoController->list($data);
         }
 
         if ($_GET['action'] === 'deleteItem') {
-            $itemEditController->deleteItem($db, $data);
+            $itemEditController->deleteItem($data);
         }
         if ($_GET['action'] === 'setImageType') {
-            $itemEditController->setImageType($db, $data);
+            $itemEditController->setImageType($data);
         }
         if ($_GET['action'] === 'checkIn') {
-            $assetController->updateItemCheckinStatus($db,$data);
+            $assetController->updateItemCheckinStatus($data);
         }
         if ($_GET['action'] === 'deleteList') {
-            $packingController->deleteList($db,$data);
+            $packingController->deleteList($data);
         }
          if ($_GET['action'] === 'renameImages') {
-             $itemEditController->renameImages($db, $data);
+             $itemEditController->renameImages($data);
          }
          if ($_GET['action'] === 'reportItemValue') {
-              $itemReportController->reportItemValue($db, $data);
-          }
+             $itemReportController->reportItemValue($data);
+         }
           if ($_GET['action'] === 'reportItemCount') {
-                $itemReportController->reportItemCount($db, $data);
-            }
+              $itemReportController->reportItemCount($data);
+          }
             if ($_GET['action'] === 'reportProfitLoss') {
-                  $itemReportController->profitLoss($db, $data);
-              }
+                $itemReportController->profitLoss($data);
+            }
               if ($_GET['action'] === 'reportProfitLossCategory') {
-                    $itemReportController->profitLossCategory($db, $data);
-                }
+                  $itemReportController->profitLossCategory($data);
+              }
             if ($_GET['action'] === 'profitLoss') {
-                $plController->profitLoss($db, $data);
+                $plController->profitLoss($data);
             }
             if ($_GET['action'] === 'returnVenues') {
-                $venueController->returnVenues($db, $data, 1);
+                $venueController->returnVenues($data, 1);
             }
             if ($_GET['action'] === 'returnProfitLossAutocompleteData') {
-                $plController->returnProfitLossAutocompleteData($db, $data);
+                $plController->returnProfitLossAutocompleteData($data);
             }
             if ($_GET['action'] === 'updateField') {
-                $helperController->updateField($db, $data);
+                $helperController->updateField($data);
             }
             if ($_GET['action'] === 'gigVenueDetails') {
-                $itemReportController->gigVenueDetails($db, $data);
+                $itemReportController->gigVenueDetails($data);
             }
-          
+
         break;
     case 'POST':
         // Add user with genres
         if ($_GET['action'] === 'checkIn') {
-            $assetController->updateItemCheckinStatus($db, $data);
+            $assetController->updateItemCheckinStatus($data);
         }
         if ($_GET['action'] === 'addEditItem') {
-            $itemEditController->addEditItem($db, $data);
+            $itemEditController->addEditItem($data);
         }
         if ($_GET['action'] === 'updateItem') {
-            $itemEditController->updateItem($db, $data);
+            $itemEditController->updateItem($data);
         }
         if ($_GET['action'] === 'addMaintenanceLog') {
-            $itemMaintenanceController->upsertMaintenance($db, $data);
+            $itemMaintenanceController->upsertMaintenance($data);
         }
         if ($_GET['action'] === 'packingList') {
-            $packingController->updatePackingList($db,$data);
+            $packingController->updatePackingList($data);
         }
         if ($_GET['action'] === 'uploadPhoto') {
             $imageType = $_POST['imageType'] ?? '';
@@ -118,18 +110,18 @@ switch ($method) {
                     $images[$index][$key] = $fileData;
                 }
             }
-            $itemEditController->uploadPhoto($db, $images, $imageType);
+            $itemEditController->uploadPhoto($images, $imageType);
         }
         if ($_GET['action'] === 'upsertProfitLossData') {
-            $plController->upsertProfitLossData($db,$data);
+            $plController->upsertProfitLossData($data);
         }
         if ($_GET['action'] === 'upsertVenueData') {
-            $venueController->upsertVenueData($db,$data);
+            $venueController->upsertVenueData($data);
         }
       if ($_GET['action'] === 'updateField') {
-          $helperController->updateField($db, $data);
+          $helperController->updateField($data);
       }
-        
+
         break;
 
     default:
@@ -137,5 +129,3 @@ switch ($method) {
         echo json_encode(array("message" => "Method not allowed."));
         break;
 }
-
-$db->closeConnection();

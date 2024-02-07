@@ -118,6 +118,72 @@ $(".autocompleteItem").each(function () {
 		$selector.trigger('change');
 	}
 	
+	function toggleUpdate(clickedElement) {
+		
+		var table = clickedElement.data('table');
+		var filter = clickedElement.data('filter');
+		var iDfield = clickedElement.data('id-field');
+		var updateId = clickedElement.data('id');
+		var set = parseInt(clickedElement.data('toggle-value'), 10);
+		
+		var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
+		
+		$.ajax({
+			type: "GET",
+			url: "/api/index.php?action=updateField&value=" + setValue + "&id_field=" + iDfield + "&id=" + updateId + "&filter=" + filter + "&table=" + table,
+			contentType: false,
+			success: function (response) {
+				console.log(response.message);
+		
+				// Toggle the icon and update the data attribute
+				if (setValue === 1) {
+					clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
+					clickedElement.data('toggle-value', '1');
+				} else {
+					clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
+					clickedElement.data('toggle-value', '0');
+				}
+			},
+			error: function () {
+				alert("Error processing the form.");
+			}
+		});
+	}
+	function deleteThis(clickedElement) {
+		console.log('delete');
+			// Trigger a confirmation popup
+			var confirmed = window.confirm("Are you sure you want to delete?");
+		
+			// Check if the user confirmed
+			if (!confirmed) {
+				return;
+			}
+			var deleteTable = clickedElement.attr('data-table');
+			var deleteIDField = clickedElement.attr('data-field');
+			var deleteId = clickedElement.attr('data-value');
+			var target = clickedElement.attr('data-remove');
+		
+			$.ajax({
+				type: "GET",
+				url: "/api/index.php?action=delete&" + deleteIDField + "=" + deleteId + "&filter=" + deleteIDField + "&table=" + deleteTable,
+				contentType: false,
+				success: function (response) {
+					console.log('deleted');
+					if (window.location.search.includes("action=edit")) {
+							// Reload the window without the "action=edit" query string
+							var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+							window.location.replace(newUrl);
+						} else {
+							$(target).remove(); // 
+						}
+					},
+				error: function () {
+					alert("Error processing the form.");
+				}
+			});
+	
+	}
+	
 	$(document).ready(function () {
 
 $( '#pageBody' ).on( 'click', '.editable-text', function () {
@@ -310,75 +376,17 @@ $( '#pageBody' ).on( 'click', '.editable-image', function () {
 
 
 $(".toggleUpdate").click(function (event) {
-	var clickedElement = $(this);
-
-	var table = clickedElement.data('table');
-	var filter = clickedElement.data('filter');
-	var iDfield = clickedElement.data('id-field');
-	var updateId = clickedElement.data('id');
-	var set = parseInt(clickedElement.data('toggle-value'), 10);
-
-	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
-
-	$.ajax({
-		type: "GET",
-		url: "/api/index.php?action=updateField&value=" + setValue + "&id_field=" + iDfield + "&id=" + updateId + "&filter=" + filter + "&table=" + table,
-		contentType: false,
-		success: function (response) {
-			console.log(response.message);
-
-			// Toggle the icon and update the data attribute
-			if (setValue === 1) {
-				clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
-				clickedElement.data('toggle-value', '1');
-			} else {
-				clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
-				clickedElement.data('toggle-value', '0');
-			}
-		},
-		error: function () {
-			alert("Error processing the form.");
-		}
-	});
+	toggleUpdate($(this));
 });
 
-$(".delete").click(function (event) {
+$( '#pageBody' ).on( 'click', '.delete', function () {
 	// Store the reference to the clicked element
-	var clickedElement = $(this);
-
-	// Trigger a confirmation popup
-	var confirmed = window.confirm("Are you sure you want to delete?");
-
-	// Check if the user confirmed
-	if (!confirmed) {
-		return;
-	}
-	var deleteTable = clickedElement.attr('data-table');
-	var deleteIDField = clickedElement.attr('data-field');
-	var deleteId = clickedElement.attr('data-value');
-	var target = clickedElement.attr('data-remove');
-
-	$.ajax({
-		type: "GET",
-		url: "/api/index.php?action=delete&" + deleteIDField + "=" + deleteId + "&filter=" + deleteIDField + "&table=" + deleteTable,
-		contentType: false,
-		success: function (response) {
-			console.log('deleted');
-			if (window.location.search.includes("action=edit")) {
-					// Reload the window without the "action=edit" query string
-					var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-					window.location.replace(newUrl);
-				} else {
-					$(target).remove(); // 
-				}
-			},
-		error: function () {
-			alert("Error processing the form.");
-		}
-	});
-
+	deleteThis($(this));
 
 });
+
+
 
 getValues();
+
 });

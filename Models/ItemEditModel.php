@@ -37,9 +37,9 @@ class ItemEditModel
     public $filter;
     public $value;
     public $sort;
-    public function __construct($db, $data = '')
+    public function __construct($data = '')
     {
-        $this->db = $db;
+        $this->db = new \Api\Database();
         $this->dateToday = date("Y-m-d H:i:s");
         if ($data) {
             $this->id = $data['id'] ?? '';
@@ -72,7 +72,6 @@ class ItemEditModel
 
     public function doUpdateItem()
     {
-
         $sql = "UPDATE item SET ".$this->filter." = '".$this->value."'  WHERE id = " . $this->id;
         //echo $sql;
         $stmt = $this->db->conn->prepare($sql);
@@ -85,11 +84,9 @@ class ItemEditModel
             $itemId = $stmt->insert_id;
             echo json_encode(array("message" => "Item update success"));
         }
-
     }
     public function doAddEditItem()
     {
-    
         if ($this->id == '') {
             $sql = "INSERT INTO item (brand, name, category, subcategory, location, model, year, serial_number, status, purchase_price, replacement_value, purchase_location, notes, asset_tag, date_acquired, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         } else {
@@ -123,10 +120,7 @@ class ItemEditModel
                 }
             }
             echo json_encode(array("message" => "Item insertion success - $itemId"));
-    
         }
-    
-    
     }
 
     private function insertImages($id, $image_url, $imageType)
@@ -141,9 +135,7 @@ class ItemEditModel
             return;
         } else {
             $itemId = $stmt->insert_id;
-
         }
-
     }
     public function doSetImageType($data)
     {
@@ -151,7 +143,7 @@ class ItemEditModel
         $image_type = $data['type'];
         $set = $data['set'];
         $sql = "UPDATE images SET ".$image_type." = ".$set." WHERE item_id = ".$this->id." and url ='" .$image_url."'";
-       // echo $sql;
+        // echo $sql;
         $stmt = $this->db->conn->prepare($sql);
         if (!$stmt->execute()) {
             // Handle SQL error
@@ -161,15 +153,12 @@ class ItemEditModel
         } else {
             echo json_encode(array("message" => "Item photo set as thumb"));
             $stmt->close();
-
         }
-
     }
-   
+
 
     public function deleteItem($data)
     {
-
         $sql = "UPDATE item SET status = '".$this->status ."' WHERE id = ".$this->id;
         $stmt = $this->db->conn->prepare($sql);
 
@@ -181,13 +170,11 @@ class ItemEditModel
             return;
         } else {
             echo json_encode(array("message" => "Item delete success"));
-
         }
     }
 
     public function hardDeleteItem()
     {
-
         $checkPhoto = "SELECT url from images where item_id=".$this->id;
         $checkPhotostmt = $this->db->conn->prepare($checkPhoto);
         $checkPhotostmt->execute();
@@ -216,10 +203,8 @@ class ItemEditModel
             return;
         } else {
             echo json_encode(array("message" => "Item delete success"));
-
         }
         $stmt->close();
-
     }
     private function deleteImage($imageName, $internal = 0)
     {
@@ -250,7 +235,7 @@ class ItemEditModel
         }
     }
 
-   
+
     public function doUploadPhoto($images, $imageType)
     {
         $uploadedPhotos = [];
@@ -350,6 +335,4 @@ class ItemEditModel
         $stmt->close();
         echo json_encode($result);
     }
-
-
 }
