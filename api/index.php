@@ -25,6 +25,7 @@ $assetController = new Controllers\AssetController();
 $packingController = new Controllers\PackingListController();
 $plController = new Controllers\ProfitLossEditController();
 $venueController = new Controllers\VenueController();
+$csvController = new Controllers\CSVImportController();
 
 switch ($method) {
     case 'GET':
@@ -111,6 +112,9 @@ switch ($method) {
                 }
             }
             $itemEditController->uploadPhoto($images, $imageType);
+        }
+        if ($_GET['action'] === 'importCSV') {
+            $csvController->importCSVProfitLoss($data);
         }
         if ($_GET['action'] === 'upsertProfitLossData') {
             $plController->upsertProfitLossData($data);

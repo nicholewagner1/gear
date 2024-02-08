@@ -249,7 +249,7 @@ class ItemEditModel
                 continue; // Skip if no file uploaded
             }
             //var_dump($image);
-            $uploadPath = $_ENV['UPLOAD_PATH'] . basename($image['name']);
+            $uploadPath = $_ENV['IMAGE_UPLOAD_PATH'] . basename($image['name']);
             $fileType = strtolower(pathinfo($uploadPath, PATHINFO_EXTENSION));
 
             // Allow only certain file types (adjust as needed)
@@ -272,7 +272,7 @@ class ItemEditModel
 
     public function doRenameImages()
     {
-        $folderPath = $_ENV['UPLOAD_PATH'];
+        $folderPath = $_ENV['IMAGE_UPLOAD_PATH'];
 
         $query = "SELECT images.image_id, images.item_id, images.type, images.url, images.serial, images.thumbnail, item.name AS item_name  
 				  FROM images 
