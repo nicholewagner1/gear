@@ -39,7 +39,7 @@ class CSVImportModel
     public function doUploadCSVProfitLoss()
     {
         if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] == 0) {
-            $uploadFile = $_ENV['IMAGE_UPLOAD_PATH'] . basename($_FILES['csv_file']['name']);
+            $uploadFile = $_ENV['UPLOAD_PATH'] . basename($_FILES['csv_file']['name']);
 
             move_uploaded_file($_FILES['csv_file']['tmp_name'], $uploadFile);
 
