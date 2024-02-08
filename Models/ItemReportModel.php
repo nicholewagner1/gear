@@ -156,4 +156,29 @@ class ItemReportModel
 
         $stmt->close();
     }
+    public function doReturnOutstandingPayments()
+    {
+        $sql ="SELECT MONTH(date) AS month, category, SUM(pl.amount) AS total";
+        $sql .= " FROM profit_loss pl ";
+        $sql .= "WHERE paid = 0 ";
+        if ($this->date_start && $this->date_end) {
+            $sql .= " AND date >= '". $this->date_start."' AND date <= '". $this->date_end."'";
+        }
+        $sql .=  " GROUP BY month, category ";
+        //	echo $sql;
+        $stmt = $this->db->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $items = array();
+            while ($row = $result->fetch_assoc()) {
+                $items[] = $row;
+            }
+            return ($items);
+        } else {
+            echo json_encode(array("message" => "No items found."));
+        }
+
+        $stmt->close();
+    }
 }

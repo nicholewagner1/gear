@@ -71,6 +71,10 @@ switch ($method) {
             if ($_GET['action'] === 'profitLoss') {
                 $plController->profitLoss($data);
             }
+            if ($_GET['action'] === 'outstandingPayments') {
+                $itemReportController->outstandingPayments($data);
+            }
+
             if ($_GET['action'] === 'returnVenues') {
                 $venueController->returnVenues($data, 1);
             }

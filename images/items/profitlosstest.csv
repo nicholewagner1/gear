@@ -1,0 +1,5 @@
+date,name,category,Subcategory,Amount,paid,Tax forms,Notes,Account,Venue Name,Venue Payout,Merch Sales,Tips,Cost to Play (Expenses),show_length
+2025/1/4,Some Income,Show,,100,1,0,,,Goodnight Charlie's,100,30,0,20,90
+2004/2/10,Other Show,Show,,200,1,1,This is a note about the income,StarCatcher,New Venue,150,1,40,0,45
+2023/4/10,Other Show,Show,,500,1,1,,StarCatcher,Another Different Venue,150,1,40,0,45
+2023/4/1,Not A Show,Gear,,-100,1,0,,,,,,,,

@@ -65,4 +65,10 @@ class ItemReportController
         $items = $reportModel->doReturnProfitLoss();
         echo json_encode($items);
     }
+    public function outstandingPayments($data)
+    {
+        $reportModel = new ItemReportModel($data);
+        $items = $reportModel->doReturnOutstandingPayments();
+        echo json_encode($items);
+    }
 }

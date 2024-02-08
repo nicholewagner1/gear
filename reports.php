@@ -22,6 +22,7 @@ $reportController = new ItemReportController();
                 <select class="form-control js-multiple-select" id="reportChoice" name="report" value="<?= $report; ?>">
                     <option value="reportProfitLossCategory">Expenses by Category</option>
                     <option value="reportProfitLoss">Income/Expenses by Month</option>
+                    <option value="outstandingPayments">Outstanding Payments</option>
                     <option value="insuranceReport">Insured Item Report</option>
                     <option value="gigVenueDetails">Income by Venue</option>
                 </select>
@@ -69,6 +70,13 @@ doReportProfitLoss('<?= $date_start ?>', '<?= $date_end ?>');
 </script>
 <?php
 }
+if ($report == 'outstandingPayments') {?>
+<script>
+doReportOutstandingPayments('<?= $date_start ?>', '<?= $date_end ?>');
+</script>
+<?php
+}
+
 if ($report == 'gigVenueDetails') {
     $data = array('date_start' => $date_start, 'date_end'=> $date_end);
     $reportController->gigVenueDetails($data);
