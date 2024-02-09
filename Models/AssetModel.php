@@ -59,11 +59,15 @@ class AssetModel
         $stmt = $this->db->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-        $items[] = "";
-        while ($row = $result->fetch_assoc()) {
-            $items[] = $row;
+        if ($result->num_rows > 0) {
+            $items[] = "";
+            while ($row = $result->fetch_assoc()) {
+                $items[] = $row;
+            }
+            return ($items);
+            $stmt->close();
+        } else {
+            //  return json_encode(array("message" => "no items checked out"));
         }
-        return ($items);
-        $stmt->close();
     }
 }
