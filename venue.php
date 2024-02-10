@@ -12,6 +12,9 @@ $venueController = new VenueController();
      //echo "id".$id;
      $venueController->editVenue($id);
  }
+ if ($id !='' && $action !='list' && $action != 'new') {
+     $venueController->gigsAtVenue($id);
+ }
 if ($id == '' && $action == 'list') {
     $venueController->returnVenues('', 0, '', '', '');
 }

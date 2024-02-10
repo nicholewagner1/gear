@@ -74,4 +74,11 @@ $(".gig_math").change(function (event) {
 gigMath();
 });
 
+	$(document).ready(function () {
+		
+		var paid = $('#paid').data('start-value');
+		var taxForms = $('#tax_forms').data('start-value');
+		$('#tax_forms').val(taxForms);
+		$('#paid').val(paid);
 
+		});

@@ -118,9 +118,6 @@ class ProfitLossEditModel
         $stmt->close();
     }
 
-
-
-
     public function doUpsertProfitLossData()
     {
         if ($this->profit_loss_id == '') {
@@ -155,9 +152,9 @@ class ProfitLossEditModel
     private function insertGigInfo($pl_id, $gig_id, $venue_payout, $merch, $tips, $cost_to_play, $show_length, $venue_id, $gig_notes)
     {
         if ($gig_id == '') {
-            $sql = "INSERT INTO gig (profit_loss_id, venue_payout, merch, tips, cost_to_play, show_length, venue_id, notes) VALUES ($pl_id, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO gig (profit_loss_id, venue_payout, merch, tips, cost_to_play, show_length, venue_id, gig_notes) VALUES ($pl_id, ?, ?, ?, ?, ?, ?, ?)";
         } else {
-            $sql = "UPDATE gig SET venue_payout =?, merch =?, tips=?, cost_to_play=?, show_length=?, venue_id =?, notes=? WHERE gig_id = ".$gig_id;
+            $sql = "UPDATE gig SET venue_payout =?, merch =?, tips=?, cost_to_play=?, show_length=?, venue_id =?, gig_notes=? WHERE gig_id = ".$gig_id;
         }
         $stmt = $this->db->conn->prepare($sql);
         $stmt->bind_param("iiiiiis", $venue_payout, $merch, $tips, $cost_to_play, $show_length, $venue_id, $gig_notes);

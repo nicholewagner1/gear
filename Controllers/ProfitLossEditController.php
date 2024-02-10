@@ -11,7 +11,7 @@ class ProfitLossEditController
         $data = array('filter'=> $filter, 'value'=> $value, 'date_start'=> $date_start, 'date_end'=>$date_end);
 
         $helper = new \Controllers\HelpersController();
-        $columnNames = ['Date', 'Name', 'Category', 'Subcategory', 'Amount', 'Paid', 'Action'];
+        $columnNames = ['Date', 'Name', 'Category', 'Subcategory', 'Amount', 'Paid', 'Tax Forms', 'Action'];
         $helper->generateTableHeaders('profitLossTable', $columnNames);
 
         $profitLossModel = new ProfitLossEditModel($data);
@@ -26,8 +26,12 @@ class ProfitLossEditController
             $amount = $row['amount'] ?? '';
             $paid = $row['paid'] ?? '';
             $paidCheck = ($paid == 1) ? "-check text-success" : "-xmark text-warning";
+            $tax_forms = $row['tax_forms'] ?? '';
+            $tax_forms_check = ($tax_forms == 1) ? "-check text-success" : "-xmark text-warning";
             $income = ($amount >= 0) ? "income" : "expense";
             $notes = $row['notes'] ?? '';
+            $gig_notes = $row['gig_notes'] ?? '';
+
             $account = $row['account'] ?? '';
 
             include($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_row.php');
@@ -48,16 +52,16 @@ class ProfitLossEditController
                 $category = $row['category'] ?? '';
                 $subcategory = $row['subcategory'] ?? '';
                 $amount = $row['amount'] ?? '';
-                $paid = $row['paid'] ?? '0';
-                $paidCheck = ($paid == 1) ? "-check" : "";
+                $paid = $row['paid'] ?? '';
+                $paidCheck = ($paid == 1) ? "-check text-success" : "-xmark text-warning";
+                $tax_forms = $row['tax_forms'] ?? '';
+                $tax_forms_check = ($tax_forms == 1) ? "-check text-success" : "-xmark text-warning";
                 $income = ($amount >= 0) ? "income" : "expense";
                 $notes = $row['notes'] ?? '';
-                $tax_forms = $row['tax_forms'] ?? '0';
-                $tax_formsCheck = ($amount == 0) ? "" : "-check";
                 $account = $row['account'] ?? '';
                 $venue_id = $row['venue_id'] ?? '';
                 $gig_id = $row['gig_id'] ?? '';
-                $gig_notes = $row['note'] ?? '';
+                $gig_notes = $row['gig_notes'] ?? '';
                 $venue_payout = $row['venue_payout'] ?? '';
                 $merch = $row['merch'] ?? '';
                 $tips = $row['tips'] ?? '';

@@ -80,6 +80,33 @@ class ItemReportModel
 
         $stmt->close();
     }
+    public function doTaxFormsReport()
+    {
+        $sql = "SELECT date, name, COALESCE(SUM(g.venue_payout),SUM(amount)) as amount, tax_forms FROM profit_loss pl";
+        $sql .= " LEFT JOIN gig g on g.profit_loss_id = pl.id";
+        $sql .= " WHERE tax_forms = '1'";
+        if ($this->date_start && $this->date_end) {
+            $sql .= " AND date >= '". $this->date_start."' AND date <= '". $this->date_end."'";
+        }
+        $sql .= "GROUP BY name";
+        //  echo $sql;
+        $stmt = $this->db->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $items = array();
+            while ($row = $result->fetch_assoc()) {
+                $items[] = $row;
+            }
+            return ($items);
+        } else {
+            echo json_encode(array("message" => "No items found."));
+        }
+
+        $stmt->close();
+    }
+
     public function doReturnGigDetails()
     {
         $sql ="select v.name, round(avg(g.venue_payout),2) as venue_average, round(avg(g.tips),2) as tips_average, COUNT(g.gig_id) as played from gig g LEFT JOIN venue v on v.venue_id = g.venue_id ";

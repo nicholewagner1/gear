@@ -25,6 +25,7 @@ $reportController = new ItemReportController();
                     <option value="outstandingPayments">Outstanding Payments</option>
                     <option value="insuranceReport">Insured Item Report</option>
                     <option value="gigVenueDetails">Income by Venue</option>
+                    <option value="taxFormsReport">Tax Forms by Year</option>
                 </select>
             </div>
             <div class="col">
@@ -76,7 +77,10 @@ doReportOutstandingPayments('<?= $date_start ?>', '<?= $date_end ?>');
 </script>
 <?php
 }
-
+if ($report == 'taxFormsReport') {
+    $data = array('date_start' => $date_start, 'date_end'=> $date_end);
+    $reportController->taxFormsReport($data);
+}
 if ($report == 'gigVenueDetails') {
     $data = array('date_start' => $date_start, 'date_end'=> $date_end);
     $reportController->gigVenueDetails($data);

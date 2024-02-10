@@ -8,7 +8,7 @@
         </div>
         <div class="col">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" name="name" value="<?= $name ?? ''; ?>" required />
+            <select data-table="profit_loss" class="autocomplete name form-control" multiple id="name" name="name" value="<?= $name ?? ''; ?>" /></select>
         </div>
     </div>
 
@@ -16,7 +16,11 @@
         <div class="col">
             <label for="category">Category:</label>
             <select data-table="profit_loss" class="autocomplete category form-control" multiple id="category" name="category" value="<?= $category ?? ''; ?>" /></select>
-            <input type="text" id="subcategory" class="form-control" name="subcategory" value="<?= $subcategory ?? ''; ?>" />
+        </div>
+        <div class="col">
+            <label for="category">Subcategory:</label>
+
+            <select data-table="profit_loss" class="autocomplete subcategory form-control" multiple id="subcategory" name="subcategory" value="<?= $subcategory ?? ''; ?>" /></select>
 
         </div>
         <div class="col">
@@ -26,13 +30,16 @@
         <div class="col">
 
             <label for="paid">Paid:</label>
-            <span class="" data-field="paid" data-itemid="<?= $id ?? ''; ?>">
+            <span class="toggleUpdate text-white" data-id="<?= $id ?>" data-id-field="id" data-table="profit_loss" data-field="paid" data-filter="paid" data-toggle-value="<?= $paid ; ?>">
                 <i class="fa-solid fa-circle<?= $paidCheck ?? '';?>"></i> </span>
+            <input type="number" id="paid" data-start-value="<?= $paid;?>" class="form-control" name="paid" value="" />
         </div>
         <div class="col">
             <label for="tax_forms">Tax Forms:</label>
-            <span class="" data-field="tax_forms" data-itemid="<?= $id ?? ''; ?>">
-                <i class="fa-solid fa-circle<?= $tax_formsCheck ?? '';?>"></i> </span>
+            <span class="toggleUpdate text-white" data-id="<?= $id ?>" data-id-field="id" data-table="profit_loss" data-field="tax_forms" data-filter="tax_forms" data-toggle-value="<?= $tax_forms; ?>">
+                <i class="fa-solid fa-circle<?= $tax_forms_check ?? '';?>"></i> </span>
+            <input type="number" id="tax_forms" data-start-value="<?= $tax_forms;?>" class="form-control" name="tax_forms" value="" />
+
         </div>
     </div>
     <div class="form-group">
@@ -44,10 +51,10 @@
 
     <div class="form-group">
         <label for="account">Account:</label>
-        <input type="text" id="amount" class="form-control" name="account" value="<?= $account ?? ''; ?>" />
+        <select data-table="profit_loss" class="autocomplete account form-control" multiple id="account" name="account" value="<?= $account ?? ''; ?>" /></select>
     </div>
 
-    <div id="gigInfo" class="hidden">
+    <div id="gigInfo" class="hidden mt-3">
         <!-- Additional fields for insertGigInfo function here-->
         <div class="form-group">
             <input type="hidden" name="gig_id" value="<?= $gig_id ?? ''; ?>" />
@@ -116,5 +123,5 @@
         </div>
     </div>
 
-    <button id="profitLossSubmit" class="btn btn-primary">Submit</button>
+    <button id="profitLossSubmit" class="mt-3 btn btn-primary">Submit</button>
 </form>

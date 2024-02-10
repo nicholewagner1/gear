@@ -60,6 +60,26 @@ class VenueController
             include($_SERVER['DOCUMENT_ROOT'].'/views/venue/edit.php');
         }
     }
+    public function gigsAtVenue($id = '')
+    {
+        $data = array('id'=>$id);
+        $helper = new \Controllers\HelpersController();
+        $columnNames = ['Date', 'Name', 'Notes','Edit'];
+        $helper->generateTableHeaders('gigsVenue', $columnNames);
+        $venueModel = new VenueModel($data);
+        $venue = $venueModel->doReturnGigsAtVenue();
+
+        foreach ($venue as $row) {
+            $id = $row['id'];
+            $name = $row['name'];
+            $date = $row['date'];
+            $gig_notes = $row['gig_notes'] ?? '--';
+
+            include($_SERVER['DOCUMENT_ROOT'].'/views/venue/gigs_at_venue.php');
+        }
+        $helper->generateTableFooters();
+    }
+
 
     public function upsertVenueData($data)
     {
