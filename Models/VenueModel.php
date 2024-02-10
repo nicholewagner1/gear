@@ -84,6 +84,33 @@ class VenueModel
         $stmt->close();
     }
 
+    public function doReturnGigsAtVenue()
+    {
+        $sql = "SELECT pl.id, pl.date, pl.name, g.gig_notes";
+
+        $sql .= " FROM profit_loss pl";
+        $sql .= " LEFT JOIN gig g on g.profit_loss_id = pl.id ";
+
+        $sql .= " WHERE g.venue_id = ( " .$this->venue_id ." ) ";
+
+        $sql .= " ORDER BY date DESC";
+        //echo $sql;
+        $stmt = $this->db->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $items = array();
+            while ($row = $result->fetch_assoc()) {
+                $items[] = $row;
+            }
+            return $items;
+        } else {
+            echo json_encode(array("message" => "No gigs at this Venue found."));
+        }
+        $stmt->close();
+    }
+
     public function doUpsertVenueData()
     {
         if ($this->venue_id == '') {

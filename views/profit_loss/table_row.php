@@ -32,6 +32,12 @@
         </span>
 
     </td>
+    <td id="<?= 'cell_tax_forms_' . $id ?>" class="text-center">
+        <span class="toggleUpdate text-white" data-id="<?= $id ?>" data-id-field="id" data-table="profit_loss" data-field="tax_forms" data-filter="tax_forms" data-toggle-value="<?= $tax_forms; ?>">
+            <i class="fa-solid fa-circle<?= $tax_forms_check;?>"></i><?= $paid; ?>
+        </span>
+
+    </td>
 
     <td id="<?= 'cell_action_' . $id ?>">
         <a href='profit_loss.php?action=edit&id=<?= $id ?>' class="" id="<?= $id ?>">

@@ -52,6 +52,27 @@ class ItemReportController
         }
         $helper->generateTableFooters();
     }
+
+    public function taxFormsReport($data = '')
+    {
+        $reportModel = new ItemReportModel($data);
+        $report = $reportModel->doTaxFormsReport();
+        $helper = new \Controllers\HelpersController();
+        $columnNames = ['Date', 'Name', 'Amount'];
+        $helper->generateTableHeaders('taxForms', $columnNames);
+
+        foreach ($report as $info) {
+            $date = $info['date'];
+            $name = $info['name'];
+            $amount = $info['amount'];
+            // $venueAmount = $info['venue_payout'];
+
+            include($_SERVER['DOCUMENT_ROOT'].'/views/reports/taxFormsReport.php');
+        }
+        $helper->generateTableFooters();
+    }
+
+
     public function profitLossCategory($data)
     {
         $reportModel = new ItemReportModel($data);
@@ -63,6 +84,12 @@ class ItemReportController
     {
         $reportModel = new ItemReportModel($data);
         $items = $reportModel->doReturnProfitLoss();
+        echo json_encode($items);
+    }
+    public function outstandingPayments($data)
+    {
+        $reportModel = new ItemReportModel($data);
+        $items = $reportModel->doReturnOutstandingPayments();
         echo json_encode($items);
     }
 }

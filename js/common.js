@@ -139,9 +139,14 @@ $(".autocompleteItem").each(function () {
 				if (setValue === 1) {
 					clickedElement.html('<i class="fa-solid text-success fa-circle-check"></i>');
 					clickedElement.data('toggle-value', '1');
+					$('#'.filter).val('1').change();
+					$('#'.filter).attr('value','1').trigger('change');
 				} else {
 					clickedElement.html('<i class="fa-solid text-warning fa-circle-xmark"></i>');
 					clickedElement.data('toggle-value', '0');
+					$('#'.filter).val('0').change();
+					$('#'.filter).attr('value','0').trigger('change');
+
 				}
 			},
 			error: function () {

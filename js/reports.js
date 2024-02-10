@@ -71,6 +71,37 @@ function doreportProfitLossCategory(date_start, date_end) {
 		})
 		.catch(error => console.error('Error fetching data:', error));
 }
+function doReportOutstandingPayments(date_start, date_end) {
+	fetch('/api/?action=outstandingPayments&date_start=' + date_start + '&date_end=' + date_end)
+		.then(response => response.json())
+		.then(data => {
+			// Extract data for Chart.js
+			const labels = data.map(entry => entry.month);
+
+			const category = data.map(entry => entry.category);
+			const totals = data.map(entry => entry.total);
+			const datasets = [
+			{
+				label: 'Category',
+				data: category,
+				borderWidth: 1,
+				stack: 'stackGroup', 
+				backgroundColor: 'rgba(53, 65, 33, 0.8)' // Assign a common stack group for income
+			  },	
+			  {
+				label: 'Total',
+				data: totals,
+				borderWidth: 1,
+				stack: 'stackGroup', 
+				backgroundColor: 'rgba(53, 130, 33, 0.8)' // Assign a common stack group for income
+			  },
+			];
+			// Create a pie chart
+			createBarChart(labels, datasets);
+			updateDataList (labels, totals)
+		})
+		.catch(error => console.error('Error fetching data:', error));
+}
 
 function doReportProfitLoss(date_start, date_end) {
 	fetch('/api/?action=reportProfitLoss&date_start=' + date_start + '&date_end=' + date_end)
