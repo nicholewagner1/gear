@@ -35,7 +35,6 @@ class PackingListController
         $assetModel = new \Models\AssetModel();
         $checkedOutItems = $assetModel->getCheckedOutItems();
 
-
         $packingModel = new \Models\PackingListModel($data);
         $items = $packingModel->checkPackingLists();
         $packedItems = json_decode($items, true);

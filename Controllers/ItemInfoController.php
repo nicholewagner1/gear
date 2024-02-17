@@ -12,7 +12,8 @@ class ItemInfoController
         $data = array('filter'=> $filter, 'value'=> $value, 'missing'=> $missing, 'status'=>$status, 'sort'=>$sort);
         $itemModel = new ItemInfoModel($data);
         $items = $itemModel->returnItems();
-        if ($items) {//var_dump($items);
+        if ($items) {
+
             foreach ($items as $item) {
                 $id = $item['id'] ?? 'edit';
                 $name = $item['name'] !== '' ? $item['name'] : '';
@@ -30,9 +31,10 @@ class ItemInfoController
             }
         }
 
-        include($_SERVER['DOCUMENT_ROOT'].'/views/item_list/item_'.$view.'_footer.php');
-    }
 
+            include($_SERVER['DOCUMENT_ROOT'].'/views/item_list/item_'.$view.'_footer.php');
+        }
+    }
     public function editItem($id = '')
     {
         if ($id != '') {
