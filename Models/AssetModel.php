@@ -59,7 +59,7 @@ class AssetModel
         $stmt = $this->db->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-        $items[] = "";
+
         while ($row = $result->fetch_assoc()) {
             $items[] = $row;
         }

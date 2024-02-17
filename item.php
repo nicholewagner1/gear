@@ -6,27 +6,30 @@ include($_SERVER['DOCUMENT_ROOT'].'/header.php');
 
 $id = $_GET['id'] ?? '';
 use Controllers\ItemInfoController;
+
 $itemController = new ItemInfoController();
 
- $itemController->editItem($id); ?>
+$itemController->editItem($id); ?>
 
-		<script src="/js/item_edit.js"></script>
+<script src="/js/item_edit.js"></script>
 
 <script>
-	$(document).ready(function () {
-	getValues('item');
-		$('#maintenanceLog').DataTable({
-			"pageLength": 10,  		
-			"searching": false,
-			"order": [[1, "desc"]],  
-			fixedHeader: true,
-			responsive: true,
-		});
-	
+$(document).ready(function() {
+    getValues('item');
+    $('#maintenanceLog').DataTable({
+        "pageLength": 10,
+        "searching": false,
+        "order": [
+            [1, "desc"]
+        ],
+        fixedHeader: true,
+        responsive: true,
+    });
+
 });
 </script>
 
-	<?php
+<?php
 
 
 include($_SERVER['DOCUMENT_ROOT'].'/footer.php');

@@ -18,6 +18,8 @@ $itemController = new ItemInfoController();
 <h2>Items: <?php echo $value; ?></h2>
 <?php $itemController->displayItemsList($view, $missing, $status, $filter, $value, $sort); ?>
 <!-- Initialize DataTable -->
+<script src="/js/item_edit.js"></script>
+
 <script>
 $(document).ready(function() {
     getValues('item');

@@ -21,8 +21,8 @@
         </span>
     </td>
     <td id="<?= 'cell_amount_' . $id ?>">
-        <span class="editable-text" data-table="profit_loss" data-id-field="id" data-field="amount" data-itemid="<?= $id ?>">
-            $<?= $amount ?>
+        $<span class="editable-text" data-table="profit_loss" data-id-field="id" data-field="amount" data-itemid="<?= $id ?>">
+            <?= $amount ?>
         </span>
     </td>
 

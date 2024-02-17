@@ -44,25 +44,27 @@ $("#deleteItem").click(function (event) {
 
 $(document).on('click', '.checkInStatus', function (event) {
 	var id = $(this).attr('data-item-id');
+	var clickedElement = $(this).attr('id');
 	var set = parseInt($(this).attr('data-toggle-value'), 10);
 	var setValue = (set === 0) ? 1 : (set === 1) ? 0 : '';
-	setCheckInStatus(id, setValue);
+	setCheckInStatus(clickedElement, id, setValue);
+	console.log(clickedElement);
 });
 
-function setCheckInStatus(id, setValue) {
+function setCheckInStatus(clickedElement, id, setValue) {
 	$.ajax({
 		type: "GET",
 		url: "/api/index.php?action=checkIn&id=" + id + "&check_in=" + setValue,
 		success: function (response) {
 			console.log(response.message);
 			if (setValue === 1) {
-				$(".checkInStatus").html('<i class="fa-solid text-success fa-house-circle-check"></i>');
-				clickedElement.data('toggle-value', '0');
+				$('#'+clickedElement).html('<i class="fa-solid text-success fa-house-circle-check"></i>');
+				$('#'+clickedElement).data('toggle-value', '0');
 
 			}
 			if (setValue === 0) {
-				$(".checkInStatus").html('<i class="fa-solid text-warning fa-house-circle-xmark"></i>');
-				clickedElement.data('toggle-value', '1');
+				$('#'+clickedElement).html('<i class="fa-solid text-warning fa-house-circle-xmark"></i>');
+				$('#'+clickedElement).data('toggle-value', '1');
 
 			}
 		},
