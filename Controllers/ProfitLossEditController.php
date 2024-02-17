@@ -36,6 +36,7 @@ class ProfitLossEditController
 
             include($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/table_row.php');
         }
+    }
         $helper->generateTableFooters();
     }
 

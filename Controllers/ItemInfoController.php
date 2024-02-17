@@ -13,7 +13,6 @@ class ItemInfoController
         $itemModel = new ItemInfoModel($data);
         $items = $itemModel->returnItems();
         if ($items) {
-
             foreach ($items as $item) {
                 $id = $item['id'] ?? 'edit';
                 $name = $item['name'] !== '' ? $item['name'] : '';
@@ -32,8 +31,7 @@ class ItemInfoController
         }
 
 
-            include($_SERVER['DOCUMENT_ROOT'].'/views/item_list/item_'.$view.'_footer.php');
-        }
+        include($_SERVER['DOCUMENT_ROOT'].'/views/item_list/item_'.$view.'_footer.php');
     }
     public function editItem($id = '')
     {
