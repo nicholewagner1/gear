@@ -28,10 +28,10 @@
         <h4>All Packed Items</h4>
         <table>
             <?php
-            //    var_dump($checkedOutItems);
                 if ($checkedOutItems) {
                     foreach ($checkedOutItems as $item) {
-                        echo '<tr><td>'.$item['name'].'</tr></td>';
+                        echo '<tr><td><a href="/item.php?action=edit&id='.$item['id'].'">'.$item['name'].'</a></tr></td>';
+
                     }
                 }
                 ?>

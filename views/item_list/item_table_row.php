@@ -1,8 +1,8 @@
 <tr id="item_<?= $id; ?>" class="<?= $checked_in ?>">
     <td id="<?= 'cell_photo_' . $id ?>">
-   
-                        <img src="<?= $imageURL ?>" width="100" height="100">
-               
+
+        <img src="<?= $imageURL ?>" width="100" height="100">
+
     </td>
     <td id="<?= 'cell_name_' . $id ?>">
         <span class="editable-text" data-table="item" data-id-field="id" data-field="name" data-itemid="<?= $id ?>">
@@ -34,13 +34,15 @@
             $<?= $cost ?>
         </span>
     </td>
-    <td id="<?= 'cell_checked_in_' . $id ?>"  class="text-center">
-       <span class="checkInStatus" data-item-id="<?= $id;?>" data-toggle-value="<?= $checked_in; ?>"><?php if ($checked_in == 1) {?><i class="fa-solid text-success fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid text-warning fa-house-circle-xmark"></i><?php } ?></span>
+    <td id="<?= 'cell_checked_in_' . $id ?>" class="text-center">
+        <span class="checkInStatus" id="checkInStatus_<?= $id;?>" data-item-id="<?= $id;?>" data-toggle-value="<?= $checked_in; ?>"><?php if ($checked_in == 1) {?>
+            <i class="fa-solid text-success fa-house-circle-check"></i><?php } else { ?> <i class="fa-solid text-warning fa-house-circle-xmark"></i>
+            <?php } ?></span>
     </td>
     <td id="<?='cell_insured_'. $id ?>" class="text-center">
-    <span class="toggleUpdate text-white" data-id="<?= $id ?>" data-id-field="id" data-table="item" data-field="insured" data-filter="insured" data-toggle-value="<?= $insured; ?>">
-    <i class="fa-solid fa-circle<?= $insuredCheck;?>"></i><?= $insured; ?>
-     </span>
+        <span class="toggleUpdate text-white" data-id="<?= $id ?>" data-id-field="id" data-table="item" data-field="insured" data-filter="insured" data-toggle-value="<?= $insured; ?>">
+            <i class="fa-solid fa-circle<?= $insuredCheck;?>"></i><?= $insured; ?>
+        </span>
     </td>
     <td id="<?= 'cell_action_' . $id ?>" class="text-center">
         <a href='item.php?action=edit&id=<?= $id ?>' class="" id="<?= $id ?>">
