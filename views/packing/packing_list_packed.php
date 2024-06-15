@@ -29,9 +29,9 @@
         <table>
             <?php
                 if ($checkedOutItems) {
+                    // var_dump($checkedOutItems);
                     foreach ($checkedOutItems as $item) {
                         echo '<tr><td><a href="/item.php?action=edit&id='.$item['id'].'">'.$item['name'].'</a></tr></td>';
-
                     }
                 }
                 ?>
