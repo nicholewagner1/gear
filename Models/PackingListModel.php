@@ -144,6 +144,9 @@ class PackingListModel
                 if ($item['count_needed'] != 0) {
                     $this->packingListItems($listId, $item);
                 }
+                if ($item['count_needed'] == 0) {
+                    $this->removePackingListItems($listId, $item);
+                }
             }
             echo json_encode(array("message" => "List update success"));
         }
@@ -169,7 +172,25 @@ class PackingListModel
             //	echo json_encode(array("message" => "List update success"));
         }
     }
+    private function removePackingListItems($id, $item)
+    {
+        $count_needed = $item['count_needed'];
+        $itemId = $item['item'][0] ?? 'NULL';
+        $subcategory = $item['subcategory'][0] ?? 'NULL';
 
+        $sql = "DELETE FROM list_items WHERE list_id=? and item = ? or subcategory = ?";
+        $stmt = $this->db->conn->prepare($sql);
+        $stmt->bind_param("iss", $id, $itemId, $subcategory);
+        if (!$stmt->execute()) {
+            // Handle SQL error
+            echo json_encode(array("message" => "List item removal failed: " . $stmt->error));
+            $stmt->close();
+            return;
+        } else {
+            return;
+            //	echo json_encode(array("message" => "List update success"));
+        }
+    }
     private function resetListItems($id)
     {
         $sql = "DELETE FROM list_items WHERE list_id = ?";

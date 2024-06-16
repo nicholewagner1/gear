@@ -27,6 +27,12 @@ class AssetModel
         $id = $_GET['id'] ?? '';
         $checked_in = $_GET['check_in'];
         $today = date("Y-m-d H:i:s");
+        if ($checked_in == 'in' || $checked_in == 'In') {
+            $checked_in = 1;
+        }
+        if ($checked_in == 'out' || $checked_in == 'Out') {
+            $checked_in = 0;
+        }
 
         $apiCache = $_SERVER['DOCUMENT_ROOT'].'/cache';
 
