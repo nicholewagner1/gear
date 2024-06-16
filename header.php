@@ -73,11 +73,11 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
                                 <a class="dropdown-item" href="/?filter=checked_in&value=0&view=grid">Currently Out</a>
 
                                 <a class="dropdown-item" href="/?filter=category&value=Instrument&view=grid"">Instruments</a>
-		  <a class=" dropdown-item" href="/?filter=category&value=Live%Sound"><i class="fa-solid fa-volume-high"></i> Live Sound</a>
+		                        <a class=" dropdown-item" href="/?filter=category&value=Live%20Sound"><i class="fa-solid fa-volume-high"></i> Live Sound</a>
                                 <a class="dropdown-item" href="/?filter=category&value=Microphone"><i class="fa-regular fa-microphone-lines"></i> Microphones</a>
 
                                 <a class="dropdown-item" href="/?filter=category&value=Case"><i class="fa-solid fa-cart-flatbed-suitcase"></i> Cases</a>
-
+                                <a class=" dropdown-item" href="/?filter=category&value=Cable"><i class="fa-solid fa-code-merge"></i> Cables</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/?missing=asset_tag"><i class="fa-solid fa-barcode"></i></i> Missing Asset Tag</a>
                                 <a class="dropdown-item" href="/?filter=insured&value=1"><i class="fa-solid fa-vault"></i></i> Insured</a>
