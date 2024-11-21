@@ -51,7 +51,7 @@ class ItemInfoController
                 $model = $item['model']  !== '' ? $item['model'] : '';
                 $cost = $item['purchase_price'] !== '' ? $item['purchase_price'] : '';
                 $checked_in = $item['checked_in']  == '1' ? 'checkedIn' : 'checkedOut';
-                $images = $itemModel->returnItemImages($id);
+                $images = $itemModel->returnItemImages($id) !== '' ? $itemModel->returnItemImages($id) : '';
                 $maintenance = $maintenanceModel->returnAllMaintenance();
 
                 include($_SERVER['DOCUMENT_ROOT'].'/views/item_edit/item_edit_main.php');

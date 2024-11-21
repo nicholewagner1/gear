@@ -119,7 +119,7 @@ class ItemEditModel
                     $this->insertImages($itemId, $image, 'document');
                 }
             }
-            echo json_encode(array("message" => "Item insertion success - $itemId"));
+            echo json_encode(array("message" => "Item insertion success - $itemId", "item_id"=>$itemId));
         }
     }
 

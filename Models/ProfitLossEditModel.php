@@ -134,8 +134,10 @@ class ProfitLossEditModel
             return;
         } else {
             $pl_id = $stmt->insert_id;
+            //echo $pl_id;
+
             if ($pl_id == 0) { //update
-                $pl_id = $this->id;
+                $pl_id = $this->profit_loss_id;
                 if ($this->category == 'Show') {
                     $this->insertGigInfo($pl_id, $this->gig_id, $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->show_length, $this->venue_id, $this->gig_notes);
                 }
@@ -144,7 +146,7 @@ class ProfitLossEditModel
                     $this->insertGigInfo($pl_id, '', $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->show_length, $this->venue_id, $this->gig_notes);
                 }
             }
-            echo json_encode(array("message" => "P&L insertion success - $pl_id"));
+            echo json_encode(array("message" => "P&L insertion success - $pl_id", "item_id"=>$pl_id));
         }
     }
 
