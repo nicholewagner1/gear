@@ -15,7 +15,8 @@ $("#addEditItemFormButton").click(function (event) {
 		processData: false,
 		data: JSON.stringify(jsonData),
 		success: function (response) {
-		alert("item update success");
+		window.location = "/item.php?action=edit&id="+response.item_id;
+
 		},
 		error: function () {
 			alert("Error processing the form.");
