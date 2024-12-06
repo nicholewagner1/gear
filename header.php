@@ -125,8 +125,11 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
                         <li class="nav-item">
                             <a class="nav-link" href="/reports.php"><i class="fa-solid fa-chart-pie"></i></a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="history.back()"><i class="fa-solid fa-backward"></i></a>
+                        </li>
                     </ul>
+
                 </div>
             </nav>
             <div class="row mt-3">
