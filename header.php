@@ -120,17 +120,26 @@ require($_SERVER['DOCUMENT_ROOT'].'/api/auth.php');
 
                                 <a class="dropdown-item" href="/profit_loss.php?action=new"><i class="fa-solid fa-plus"></i> New</a>
                                 <a class="dropdown-item" href="/venue.php"><i class="fa-solid fa-building-columns"></i> Venues</a>
+                                <a class="dropdown-item" href="/venue.php?action=new"><i class="fa-solid fa-circle-plus"></i>Add Venues</a>
 
                             </div>
                         <li class="nav-item">
                             <a class="nav-link" href="/reports.php"><i class="fa-solid fa-chart-pie"></i></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onclick="history.back()"> <i class="fa-solid fa-backward"></i></a>
-                        </li>
+
                     </ul>
 
                 </div>
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="history.back()"><i class="fa-solid fa-backward"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="location.reload()"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    </li>
+                </ul>
             </nav>
+
             <div class="row mt-3">
                 <div class="col">
