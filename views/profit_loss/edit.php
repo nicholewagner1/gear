@@ -102,7 +102,26 @@
                     <input type="number" class="form-control" name="cost_to_play" value="<?= $cost_to_play ?? ''; ?>" />
                 </div>
             </div>
-
+            <div class="col">
+               <label for="booking_fee_percent">Booking Fee %:</label>
+               <div class="input-group">
+               
+                   <input type="number" class="gig_math form-control" id="booking_fee_percent" name="booking_fee_percent" value="<?= $booking_fee_percent ?? ''; ?>" />
+                   <div class="input-group-append">
+                       <span class="input-group-text" id="inputGroupPrepend">%</span>
+                   </div>
+               </div>
+            
+            </div>
+  <div class="col">
+                <label for="cost_to_play">Booking Fee:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">$</span>
+                    </div>
+                    <input type="number" class="form-control" id="booking_fee" name="booking_fee" value="<?= $booking_fee ?? ''; ?>" />
+                </div>
+            </div>
             <div class="col">
                 <label for="show_length">Show Length:</label>
                 <div class="input-group">

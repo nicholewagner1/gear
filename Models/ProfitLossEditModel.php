@@ -19,6 +19,8 @@ class ProfitLossEditModel
     public $show_length;
     public $venue_id;
     public $gig_notes;
+    public $booking_fee;
+    public $booking_fee_percent;
 
     public $date;
     public $name;
@@ -55,6 +57,9 @@ class ProfitLossEditModel
             $this->merch = $data['merch'] ?? '';
             $this->tips = $data['tips'] ?? '';
             $this->cost_to_play = $data['cost_to_play'] ?? '';
+            $this->booking_fee = $data['booking_fee'] ?? '';
+            $this->booking_fee_percent = $data['booking_fee_percent'] ?? '';
+
             $this->show_length = $data['show_length'] ?? '';
             $this->venue_id = $data['venue_id'] ?? '';
             $this->gig_notes = $data['gig_notes'] ?? '';
@@ -139,11 +144,11 @@ class ProfitLossEditModel
             if ($pl_id == 0) { //update
                 $pl_id = $this->profit_loss_id;
                 if ($this->category == 'Show') {
-                    $this->insertGigInfo($pl_id, $this->gig_id, $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->show_length, $this->venue_id, $this->gig_notes);
+                    $this->insertGigInfo($pl_id, $this->gig_id, $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->booking_fee, $this->booking_fee_percent, $this->show_length, $this->venue_id, $this->gig_notes);
                 }
             } else {
                 if ($this->category == 'Show') { //insert
-                    $this->insertGigInfo($pl_id, '', $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->show_length, $this->venue_id, $this->gig_notes);
+                    $this->insertGigInfo($pl_id, '', $this->venue_payout, $this->merch, $this->tips, $this->cost_to_play, $this->booking_fee, $this->booking_fee_percent, $this->show_length, $this->venue_id, $this->gig_notes);
                 }
             }
             echo json_encode(array("message" => "P&L insertion success - $pl_id", "item_id"=>$pl_id));
@@ -151,15 +156,15 @@ class ProfitLossEditModel
     }
 
 
-    private function insertGigInfo($pl_id, $gig_id, $venue_payout, $merch, $tips, $cost_to_play, $show_length, $venue_id, $gig_notes)
+    private function insertGigInfo($pl_id, $gig_id, $venue_payout, $merch, $tips, $cost_to_play, $booking_fee, $booking_fee_percent, $show_length, $venue_id, $gig_notes)
     {
         if ($gig_id == '') {
-            $sql = "INSERT INTO gig (profit_loss_id, venue_payout, merch, tips, cost_to_play, show_length, venue_id, gig_notes) VALUES ($pl_id, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO gig (profit_loss_id, venue_payout, merch, tips, cost_to_play, booking_fee, booking_fee_percent, show_length, venue_id, gig_notes) VALUES ($pl_id, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         } else {
-            $sql = "UPDATE gig SET venue_payout =?, merch =?, tips=?, cost_to_play=?, show_length=?, venue_id =?, gig_notes=? WHERE gig_id = ".$gig_id;
+            $sql = "UPDATE gig SET venue_payout =?, merch =?, tips=?, cost_to_play=?, booking_fee=?, booking_fee_percent=?, show_length=?, venue_id =?, gig_notes=? WHERE gig_id = ".$gig_id;
         }
         $stmt = $this->db->conn->prepare($sql);
-        $stmt->bind_param("iiiiiis", $venue_payout, $merch, $tips, $cost_to_play, $show_length, $venue_id, $gig_notes);
+        $stmt->bind_param("iiiiiiiis", $venue_payout, $merch, $tips, $cost_to_play, $booking_fee, $booking_fee_percent, $show_length, $venue_id, $gig_notes);
 
         if (!$stmt->execute()) {
             // Handle SQL error

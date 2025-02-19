@@ -67,6 +67,8 @@ class ProfitLossEditController
                 $merch = $row['merch'] ?? '';
                 $tips = $row['tips'] ?? '';
                 $cost_to_play = $row['cost_to_play'] ?? '';
+                $booking_fee = $row['booking_fee'] ?? '';
+                $booking_fee_percent = $row['booking_fee_percent'] ?? '';
                 $show_length = $row['show_length'] ?? '';
 
                 include($_SERVER['DOCUMENT_ROOT'].'/views/profit_loss/edit.php');
