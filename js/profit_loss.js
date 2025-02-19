@@ -67,9 +67,13 @@ function gigMath()
 var venuePayout = parseInt($("#venue_payout").val()) || 0;
 var merchValue = parseInt($("#merch").val()) || 0;
 var tipsValue = parseInt($("#tips").val()) || 0;
+var bookingPercent = parseInt($("#booking_fee_percent").val()) || 0;
+var bookingFee =  (venuePayout + tipsValue) * (bookingPercent/100);
 var totalAmount = venuePayout + merchValue + tipsValue;
 $("#amount").val(totalAmount);
+$("#booking_fee").val(bookingFee);
 console.log(totalAmount);
+console.log(bookingFee);
 }
 $(".gig_math").change(function (event) {
 gigMath();
